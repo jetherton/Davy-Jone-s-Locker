@@ -1,0 +1,68 @@
+/************Page **********/
+div#page{
+	width:900px;
+	margin-left:auto;
+	margin-right:auto;
+	border: solid black 1px;
+}
+
+/************ Header **********/
+div#header{
+	border: solid 2px black;
+	padding:10px;
+	background: grey;
+}
+
+div#header div#mainMenu{
+	border: solid 2px black;
+	padding:10px;
+	color:white;
+	background: #aaa;
+	height:35px;
+}
+
+div#header div#mainMenu ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+div#header div#mainMenu ul li
+{
+	float: left;
+	margin: 0 0.15em;
+}
+
+div#header div#mainMenu ul li a
+{
+	background: #fff;
+	height: 2em;
+	line-height: 2em;
+	float: left;
+	padding:0 10px;
+	display: block;
+	border: 0.1em solid #dcdce9;
+	color: #0d2474;
+	text-decoration: none;
+	text-align: center;
+}
+div#header div#mainMenu ul li a:hover
+{
+	background: #aaf;
+	color: #6d84c4;
+}
+
+/************ Content **********/
+div#content{
+	min-height: 400px;
+	background: white;
+	padding: 15px;
+}
+
+
+/************ Footer **********/
+div#footer{
+	border: solid 2px black;
+	padding:10px;
+	background: grey;
+}
