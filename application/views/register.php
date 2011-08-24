@@ -1,24 +1,28 @@
 <h2><?php echo __("register"); ?></h2>
 <p><?php echo __("register explanation");?></p>
 
-<?php echo Form::open(); ?>
+<?php if(count($errors) > 0 )
+{
+?>
+	<div class="errors">
+	<?php echo __("error"); ?>
+		<ul>
+<?php 
+	foreach($errors as $error)
+	{
+?>
+		<li> <?php echo $error; ?></li>
+<?php
+	} 
+	?>
+		</ul>
+	</div>
+<?php 
+}
+?>
+
+<?php echo Kohana_Form::open(); ?>
 	<table>
-		<tr>
-			<td>
-				<?php echo __("first name");  ?>
-			</td>
-			<td>
-				<?php echo Form::input('first_name');?>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<?php echo __("last name");  ?>
-			</td>
-			<td>
-				<?php echo Form::input('last_name');?>
-			</td>
-		</tr>
 		<tr>
 			<td>
 				<?php echo __("email address");  ?>
@@ -48,7 +52,7 @@
 				<?php echo __("password again");  ?>
 			</td>
 			<td>
-				<?php echo Form::password('password_again');?>
+				<?php echo Form::password('password_confirm');?>
 			</td>
 		</tr>
 	</table>
@@ -58,4 +62,4 @@
 	<br/>
 	<?php echo Form::submit("registration_form",  __("register")); ?>
 			
-<?php echo Form::close(); ?>
+<?php echo Kohana_Form::close(); ?>

@@ -54,6 +54,7 @@ ini_set('unserialize_callback_func', 'spl_autoload_call');
  * Set the default language
  */
 I18n::lang('en');
+Cookie::$salt = 'hoj@sfy!';
 
 /**
  * Set Kohana::$environment if a 'KOHANA_ENV' environment variable has been supplied.
@@ -111,8 +112,24 @@ Kohana::modules(array(
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
  */
+
+Route::set('home', 'home')
+ ->defaults(array(
+		'controller' => 'home',
+		'action'     => 'index',
+));
+Route::set('home_sub', 'home/<controller>(/<action>(/<id>))')
+  ->defaults(array(
+  		'directory' => 'home',
+		'action'     => 'index',
+  ));
+	
 Route::set('default', '(<controller>(/<action>(/<id>)))')
 	->defaults(array(
 		'controller' => 'main',
 		'action'     => 'index',
 	));
+
+
+
+	

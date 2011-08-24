@@ -52,8 +52,4 @@ ALTER TABLE `roles_users`
 ALTER TABLE `user_tokens`
   ADD CONSTRAINT `user_tokens_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
   
-/*************************************************/
-/** Add first name and last name to users*/
-/*************************************************/
-ALTER TABLE  `users` ADD  `first_name` VARCHAR( 100 ) NULL DEFAULT NULL AFTER  `username` ,
-ADD  `last_name` VARCHAR( 100 ) NULL DEFAULT NULL AFTER  `first_name`
+

@@ -1,3 +1,5 @@
+
+
 /************Page **********/
 div#page{
 	width:900px;
@@ -12,6 +14,11 @@ div#header{
 	padding:10px;
 	background: grey;
 }
+
+div#header h1 a, div#header p a{
+	color:black;
+	text-decoration:none;
+	}
 
 div#header div#mainMenu{
 	border: solid 2px black;
@@ -46,11 +53,63 @@ div#header div#mainMenu ul li a
 	text-decoration: none;
 	text-align: center;
 }
+
+div#header div#mainMenu ul li.selected a
+{
+	background: #bbf;
+	height: 2em;
+	line-height: 2em;
+	float: left;
+	padding:0 10px;
+	display: block;
+	border: 0.1em solid #dcdce9;
+	color: #0d2474;
+	text-decoration: none;
+	text-align: center;
+}
+
 div#header div#mainMenu ul li a:hover
 {
 	background: #aaf;
 	color: #6d84c4;
 }
+
+div#header div#login_logout
+{
+	font-size:14px;
+	background-color: #AAAAAA;
+	border: black 1px solid;
+	width:225px;
+	float:right;
+	padding:2px;
+}
+div#header div#login_logout span.user_action
+{
+	float:right;
+}
+
+/************ Errors **********/
+div.errors{
+	border: 1px solid red;
+	background-color:#ffcccc;
+	padding: 5px;
+	margin: 20px;	
+	text-transform:uppercase;
+	font-size:20px;
+	}
+div.errors ul{
+	list-style: none;
+	text-transform:none;
+	font-size:16px;
+	}
+
+div.errors ul li{
+	margin:10px 40px 10px 10px;
+	background-color:#ffaaaa;
+	padding: 3px 3px 3px 10px;
+	border: 1px solid red;
+	width: auto;
+	}	
 
 /************ Content **********/
 div#content{
