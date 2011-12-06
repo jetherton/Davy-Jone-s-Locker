@@ -25,8 +25,11 @@ class Controller_Home extends Controller_Main {
 		else
 		{
 			//record where the user was trying to go
+			echo 'here';
 			$url = (!empty($_SERVER['HTTPS'])) ? "https://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] : "http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
-			Session::$instances()->set('returnUrl',$url);
+			echo ' again';
+			Session::instance()->set('returnUrl',$url);			
+			echo ' set the sesion stuff';
 			$this->request->redirect('login');
 		}
 		

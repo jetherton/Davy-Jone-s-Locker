@@ -6,16 +6,20 @@ class Helper_Mainmenu
 	{
 		echo '<ul>';
 		
-		//register page
-		if($page == "register")
+		//Don't show the register link if the user is logged in
+		if($user == null)
 		{
-			echo '<li class="selected">';
+			//register page
+			if($page == "register")
+			{
+				echo '<li class="selected">';
+			}
+			else
+			{
+				echo '<li>';
+			}
+			echo '<a href="'.url::base().'register">'.__("register").'</a></li>';
 		}
-		else
-		{
-			echo '<li>';
-		}
-		echo '<a href="'.url::base().'register">'.__("register").'</a></li>';
 		
 		//if the user is logged in
 		if($user != null)

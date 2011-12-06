@@ -17,6 +17,10 @@ return array
 	'register'=>"Register",
 	'register explanation'=>"Fill out the fields below and click submit to register",	
 	'user name'=>'User Name:',
+	
+	//profiel page
+	'profile header'=>'Update Your Profile',
+	'profile explanation'=>'Use the fields below to update your profile information',
 
 	//Login Page
 	'login'=>"Login",

@@ -1,5 +1,5 @@
-<h2><?php echo __("register"); ?></h2>
-<p><?php echo __("register explanation");?></p>
+<h2><?php echo __("profile header"); ?></h2>
+<p><?php echo __("profile explanation");?></p>
 
 <?php if(count($errors) > 0 )
 {
@@ -56,8 +56,6 @@
 			</td>
 		</tr>
 	</table>
-	<br/>
-	<?php  echo Form::checkbox('terms'); echo __("read terms of use");  ?>
 	<br/>
 	<br/>
 	<?php echo Form::submit("registration_form",  __("register")); ?>
