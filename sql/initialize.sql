@@ -57,5 +57,25 @@ ALTER TABLE `user_tokens`
 
 ALTER TABLE  `users` ADD  `first_name` VARCHAR( 255 ) NULL DEFAULT NULL ,
 ADD  `last_name` VARCHAR( 255 ) NULL DEFAULT NULL
-  
+
+/***Add date_passed to users so we know if they are living or not and if so, when they passed***/
+ALTER TABLE  `users` ADD  `date_passed` DATETIME NULL DEFAULT NULL
+
+
+/***Create the table that stores the wishes***/
+CREATE TABLE IF NOT EXISTS `wishes` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `html` LONGTEXT NOT NULL,
+  `date_created` datetime NOT NULL,
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+ALTER TABLE `wishes`
+ADD CONSTRAINT `users_wishes_fk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+
+
 
