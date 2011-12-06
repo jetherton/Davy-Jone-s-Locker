@@ -41,6 +41,22 @@
 		</tr>
 		<tr>
 			<td>
+				<?php echo __("first name");  ?>
+			</td>
+			<td>
+				<?php echo Form::input('first_name');?>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<?php echo __("last name");  ?>
+			</td>
+			<td>
+				<?php echo Form::input('last_name');?>
+			</td>
+		</tr>
+		<tr>
+			<td>
 				<?php echo __("password");  ?>
 			</td>
 			<td>

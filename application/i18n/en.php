@@ -3,7 +3,7 @@
 return array
 (
 	//Header
-	'site name'=>'Davy Jones\' Locker',
+	'site name'=>'Ekphora',
 	'tagline'=>'Where you store your last wishes',
 
 
@@ -16,11 +16,16 @@ return array
 	'read terms of use'=>'I have read and agree to the terms of use.',
 	'register'=>"Register",
 	'register explanation'=>"Fill out the fields below and click submit to register",	
-	'user name'=>'User Name:',
+	'user name'=>'User Name:',	
 	
 	//profiel page
 	'profile header'=>'Update Your Profile',
-	'profile explanation'=>'Use the fields below to update your profile information',
+	'profile explanation'=>'Use the fields below to update your profile information. <br/> You must re-type your password to confirm the changes you want to make.<br/>Leave the "New Password" field blank if you do not wish to change your current password',
+	'current password'=>'Current Password*:',
+	'new password'=>'New Password:',
+	'new password again'=>'New Password Again:',
+	'update profile'=>'Update',
+	'profile update successful'=>'Profile Updated Successfully',
 
 	//Login Page
 	'login'=>"Login",
@@ -46,5 +51,8 @@ return array
 	//home page
 	'home'=>'Home',
 	'updates'=>'Updates:',
-	'welcome home :user'=>'Welcome Home :user',	
+	'welcome home :user'=>'Welcome :first_name :last_name',	
+	
+	//universal
+	'whats required'=>'Fields with a * are required',
 );

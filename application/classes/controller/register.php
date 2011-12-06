@@ -36,7 +36,7 @@ class Controller_Register extends Controller_Main {
 					return;
 				}
 				$user = ORM::factory("user");
-				$user->create_user($_POST, array('username','password','email'));
+				$user->create_user($_POST, array('username','password','email', 'first_name', 'last_name'));
 				// Add the login role to the user (add a row to the db)
 				$login_role = new Model_Role(array('name' =>'login'));
             	$user->add('roles', $login_role);

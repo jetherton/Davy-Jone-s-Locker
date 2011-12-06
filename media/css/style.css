@@ -109,7 +109,30 @@ div.errors ul li{
 	padding: 3px 3px 3px 10px;
 	border: 1px solid red;
 	width: auto;
-	}	
+	}
+	
+/************ Messages **********/
+div.messages{
+	border: 1px solid green;
+	background-color:#ccffcc;
+	padding: 5px;
+	margin: 20px;	
+	text-transform:uppercase;
+	font-size:20px;
+	}
+div.messages ul{
+	list-style: none;
+	text-transform:none;
+	font-size:16px;
+	}
+
+div.messages ul li{
+	margin:10px 40px 10px 10px;
+	background-color:#aaffaa;
+	padding: 3px 3px 3px 10px;
+	border: 1px solid green;
+	width: auto;
+	}			
 
 /************ Content **********/
 div#content{
