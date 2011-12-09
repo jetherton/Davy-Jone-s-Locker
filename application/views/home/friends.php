@@ -1,47 +1,42 @@
 <div id="right_menu">
-	<ul>
-		<li>
-			<a href="<?php echo url::base().'home/wish/add' ?>"><?php echo __('add wish');?></a>
-		</li>
-	</ul>
+	<?php echo Kohana_Form::open(); ?>
+		<?php echo Form::label('search_for_people_on_ekphora', __('search on ekphora'));  ?>
+		<?php echo Form::input('search_term', null, array('id'=>'search_term'));?>
+		<?php echo Form::input("search",  __("search"), array('type'=>'BUTTON')); ?>
+	<?php echo Kohana_Form::close(); ?>
+	<div id="search_results"></div>
 </div>
 		
-<h2><?php echo __("wishes"); ?></h2>
-<p><?php echo __("wishes explanation");?></p>
+<h2><?php echo __("friends"); ?></h2>
+<p><?php echo __("friends explanation");?></p>
 
 <table class="list_table">
 	<tr>
 		<th>
-			<?php echo __('wish');?>
+			<?php echo __('friend');?>
 		</th>
 		<th>
-			<?php echo __('tags');?>
-		</th>
-		<th>
-			<?php echo __('last edited');?>
-		</th>
+			<?php echo __('groups');?>
+		</th>		
 	</tr>
 	
 	<?php
-		if(count($wishes) == 0)
+		if(count($friends) == 0)
 		{
-			echo '<tr><td colspan="3">'.__('you have no wishes').'</td></tr>';
+			echo '<tr><td colspan="3">'.__('you have no friends').'</td></tr>';
 		}
 		$i = 0;
-		foreach($wishes as $wish){
+		foreach($friends as $friend){
 			$i++;
 			$odd_row = ($i % 2) == 0 ? 'class="odd_row"' : '';
 		?>
 
 	<tr <?php echo $odd_row; ?>>
 		<td>
-			<a href="<?php echo url::base(). 'home/wish/edit?id='.$wish->id?>"> <?php echo $wish->title;?></a>
+			<a href="<?php echo url::base(). 'home/profile/view?id='.$friend->id?>"> <?php echo $friend->first_name . ' ' . $friend->last_name;?></a>
 		</td>
 		<td>
-			blank for now
-		</td>
-		<td>
-			<?php echo $wish->date_modified; ?>
+			Group info
 		</td>
 	</tr>
 	<?php }?>

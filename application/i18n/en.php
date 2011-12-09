@@ -78,9 +78,16 @@ return array
 	'Are you sure you want to delete wish'=>'Are you sure you want to delete this wish?',
 
 	//friends
+	'friend'=>'Friend',
 	'friends'=>'Friends',
+	'friends explanation'=>'These are the people you have set as friends or family.',
+	'you have no friends'=>'You have no friends. Try adding some.',
+	'add friend'=>'Add Friend',
+	'search on ekphora'=>'Search for people on Ekphora',
+	'search'=>'Search',
 
-
+	//groups
+	'groups'=>'Groups',
 	
 );
 

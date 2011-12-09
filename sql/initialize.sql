@@ -79,6 +79,13 @@ ADD CONSTRAINT `users_wishes_fk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`
 /** use CHAR instead of VARCHAR because it's faster. Even though it takes up more space**/
 ALTER TABLE  `wishes` CHANGE  `title`  `title` CHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
 
+/*** so we can have friendships ***/
+CREATE TABLE IF NOT EXISTS `friends` (
+  `user_id` int(11) unsigned NOT NULL,
+  `friend_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`user_id`,`friend_id` )
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
-
+ALTER TABLE `friends` ADD CONSTRAINT `friends_user_id_FK_1` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE;
+ALTER TABLE `friends` ADD CONSTRAINT `friends_user_id_FK_2` FOREIGN KEY (`friend_id`) REFERENCES `users`(`id`);
 
