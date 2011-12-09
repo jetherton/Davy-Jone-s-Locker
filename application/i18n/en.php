@@ -50,9 +50,36 @@ return array
 
 	//home page
 	'home'=>'Home',
-	'updates'=>'Updates:',
+	'updates'=>'Updates',
 	'welcome home :user'=>'Welcome :first_name :last_name',	
 	
 	//universal
 	'whats required'=>'Fields with a * are required',
+	
+	//Wish
+	'wish' => 'Wish',
+	'wishes' => 'Wishes',
+	'wishes explanation' => 'These are the wishes you have created',
+	'add wish' => 'Add Wish',
+	'add wish explanation' => 'Enter the details of your new wish',
+	'edit wish' => 'Edit Wish',
+	'edit wish explanation' => 'Change the details of your wish',
+	'title'=>'Title',
+	'wish added successfully'=>'Wish Added Successfully',
+	'wish edited successfully'=>'Wish Edited Successfully',
+	'tags'=>'tags',
+	'last edited'=>'last edited',
+	'you have no wishes'=>'you have no wishes',
+	'location'=>'Location',
+	'pictures'=>'Pictures',
+	'files'=>'files',
+	'who can view',
+
+	//friends
+	'friends'=>'Friends',
+
+
+	
 );
+
+

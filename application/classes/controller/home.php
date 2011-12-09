@@ -44,10 +44,16 @@ class Controller_Home extends Controller_Main {
 	{
 		
 		$this->template->html_head->title = __("home");
-		$this->template->content = View::factory('home');
+		$this->template->content = View::factory('home');		
 		$this->template->header->menu_page = "home";
 		$this->template->content->user = $this->user;
 		
+		//get top 5 last edited wishes
+		$wishes = ORM::factory('wish')
+			->where('user_id', '=', $this->user->id)
+			->order_by('date_modified')
+			->find_all();
+		$this->template->content->wishes = $wishes;
 	}
 	
 	

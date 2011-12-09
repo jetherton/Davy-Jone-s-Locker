@@ -45,7 +45,7 @@
 	<table>
 		<tr>
 			<td>
-				<?php echo __("email address");  ?>
+				<?php echo Form::label('email_address', __("email address"));  ?>
 			</td>
 			<td>
 				<?php echo Form::input('email', $user->email);?>
@@ -53,7 +53,7 @@
 		</tr>
 		<tr>
 			<td>
-				<?php echo __("user name");  ?>
+				<?php echo Form::label('user_name', __("user name"));  ?>
 			</td>
 			<td>
 				<?php echo Form::input('username', $user->username);?>
@@ -61,7 +61,7 @@
 		</tr>
 		<tr>
 			<td>
-				<?php echo __("first name");  ?>
+				<?php echo Form::label('first_name', __("first name"));  ?>
 			</td>
 			<td>
 				<?php echo Form::input('first_name', $user->first_name);?>
@@ -69,7 +69,7 @@
 		</tr>
 		<tr>
 			<td>
-				<?php echo __("last name");  ?>
+				<?php echo Form::label('last_name', __("last name"));  ?>
 			</td>
 			<td>
 				<?php echo Form::input('last_name', $user->last_name);?>
@@ -77,7 +77,7 @@
 		</tr>
 		<tr>
 			<td>
-				<?php echo __("current password");  ?>
+				<?php echo Form::label('current_password', __("current password"));  ?>
 			</td>
 			<td>
 				<?php echo Form::password('current_password');?>
@@ -85,7 +85,7 @@
 		</tr>		
 		<tr>
 			<td>
-				<?php echo __("new password");  ?>
+				<?php echo Form::label('new_password', __("new password"));  ?>
 			</td>
 			<td>
 				<?php echo Form::password('password');?>
@@ -93,7 +93,7 @@
 		</tr>
 		<tr>
 			<td>
-				<?php echo __("new password again");  ?>
+				<?php echo Form::label('new_password_again', __("new password again"));  ?>
 			</td>
 			<td>
 				<?php echo Form::password('password_confirm');?>

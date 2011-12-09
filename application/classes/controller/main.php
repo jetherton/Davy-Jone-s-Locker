@@ -10,6 +10,8 @@ class Controller_Main extends Controller_Template {
 	public function before()
 	{
 		parent::before();
+		
+		
 
 		$this->user = null; //not logged in
 		$this->session = Session::instance();
@@ -20,13 +22,18 @@ class Controller_Main extends Controller_Template {
 			$this->template->html_head = View::factory('html_head' );
 			$this->template->html_head->title = "";
 			$this->template->html_head->styles = array();
-			$this->template->html_head->scripts = array();
+			$this->template->html_head->script_files = array();
+			$this->template->html_head->script_views = array();
 			
 			$this->template->header = View::factory('header');
 			$this->template->header->menu = "menu";
 			$this->template->header->menu_page = "";
 			$this->template->content = '';
 			$this->template->footer = View::factory('footer');
+			
+			//add basic css and JS
+			$this->template->html_head->styles['media/css/style.css'] = 'screen';				
+			$this->template->html_head->script_files[] = 'media/js/jquery.min.js';
 
 		}
 	}
@@ -43,10 +50,7 @@ class Controller_Main extends Controller_Template {
 	public function after()
 	{
 		if ($this->auto_render)
-		{
-			$this->template->html_head->styles['media/css/style.css'] = 'screen';
-			
-			$this->template->html_head->scripts[] = 'media/js/jquery.min.js';
+		{			
 			
 			$this->template->header->user = $this->user;
 		}

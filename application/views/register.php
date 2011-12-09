@@ -25,7 +25,7 @@
 	<table>
 		<tr>
 			<td>
-				<?php echo __("email address");  ?>
+				<?php echo Form::label('email_address', __("email address"));  ?>
 			</td>
 			<td>
 				<?php echo Form::input('email');?>
@@ -33,7 +33,7 @@
 		</tr>
 		<tr>
 			<td>
-				<?php echo __("user name");  ?>
+				<?php echo Form::label('user_name', __("user name"));  ?>
 			</td>
 			<td>
 				<?php echo Form::input('username');?>
@@ -41,7 +41,7 @@
 		</tr>
 		<tr>
 			<td>
-				<?php echo __("first name");  ?>
+				<?php echo Form::label('first_name', __("first name"));  ?>
 			</td>
 			<td>
 				<?php echo Form::input('first_name');?>
@@ -49,7 +49,7 @@
 		</tr>
 		<tr>
 			<td>
-				<?php echo __("last name");  ?>
+				<?php echo Form::label('last_name', __("last name"));  ?>
 			</td>
 			<td>
 				<?php echo Form::input('last_name');?>
@@ -57,7 +57,7 @@
 		</tr>
 		<tr>
 			<td>
-				<?php echo __("password");  ?>
+				<?php echo Form::label('password', __("password"));  ?>
 			</td>
 			<td>
 				<?php echo Form::password('password');?>
@@ -65,7 +65,7 @@
 		</tr>
 		<tr>
 			<td>
-				<?php echo __("password again");  ?>
+				<?php echo Form::label('password_again', __("password again"));  ?>
 			</td>
 			<td>
 				<?php echo Form::password('password_confirm');?>
@@ -73,7 +73,7 @@
 		</tr>
 	</table>
 	<br/>
-	<?php  echo Form::checkbox('terms'); echo __("read terms of use");  ?>
+	<?php  echo Form::checkbox('terms'); echo Form::label('read_terms_of_use', __("read terms of use"));  ?>
 	<br/>
 	<br/>
 	<?php echo Form::submit("registration_form",  __("register")); ?>

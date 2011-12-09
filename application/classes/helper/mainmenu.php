@@ -40,8 +40,10 @@ class Helper_Mainmenu
 				}
 				echo '<a href="'.url::base().'home">'.__("home").'</a></li>';
 				
-				//register page
-				if($page == "profile")
+			
+				
+				//wish page
+				if($page == "wish")
 				{
 					echo '<li class="selected">';
 				}
@@ -49,7 +51,7 @@ class Helper_Mainmenu
 				{
 					echo '<li>';
 				}
-				echo '<a href="'.url::base().'home/profile">'.__("profile").'</a></li>';
+				echo '<a href="'.url::base().'home/wish">'.__("wishes").'</a></li>';
 				
 			}
 			

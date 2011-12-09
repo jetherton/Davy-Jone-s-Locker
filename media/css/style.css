@@ -2,7 +2,7 @@
 
 /************Page **********/
 div#page{
-	width:900px;
+	width:1000px;
 	margin-left:auto;
 	margin-right:auto;
 	border: solid black 1px;
@@ -79,13 +79,17 @@ div#header div#login_logout
 	font-size:14px;
 	background-color: #AAAAAA;
 	border: black 1px solid;
-	width:225px;
+	width:235px;
 	float:right;
 	padding:2px;
 }
 div#header div#login_logout span.user_action
 {
 	float:right;
+}
+span.user_info
+{
+	margin-left:10px;
 }
 
 /************ Errors **********/
@@ -147,4 +151,89 @@ div#footer{
 	border: solid 2px black;
 	padding:10px;
 	background: grey;
+}
+
+/************ Right Menu **********/
+div#right_menu{
+	float:right;
+	border: 2px solid grey;
+	width: 100px;
+	padding: 10px;
+}
+
+div#right_menu ul{
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+div#right_menu li{
+	border: 1px solid black;
+	text-align: center;  
+}
+
+div#right_menu li a{
+	text-decoration:none;
+}
+
+table.list_table{
+	width:700px;
+}
+
+table.list_table th{
+	text-align:left;
+	background:#ccc;
+	padding:5px;
+}
+
+table.list_table tr.odd_row{
+	background: #eee;
+}
+
+table.list_table td{
+	padding:1px 5px 1px 5px;
+}
+
+table.wish_edit{
+	width:970px;
+	height:583;
+}
+
+/**Accordion stuff**/
+td.wish_accordion{
+	width:315px;
+	padding-left:10px;	
+}
+div.wish_accordion{
+	height:550px;	
+}
+
+
+/**Home screen stuff**/
+table.home_table{
+	width:900px;
+	height:500px;	
+}
+
+table.home_table th,
+table.home_table tfoot td{
+	background:#ccc;
+	height:20px;
+	width: 300px;
+	text-align: left;
+	padding: 5px;
+}
+
+table.home_table td{
+	vertical-align:text-top;
+	overflow:auto;
+}
+
+table.home_table ul{
+	list-style-type: none;
+	padding-left:10px;
+}
+
+table.home_table ul li{
+	margin-top: 10px;
 }

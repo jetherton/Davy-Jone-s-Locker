@@ -7,6 +7,7 @@
 			{
 				$user_name = ORM::factory('user',$auth->get_user())->username;
 				echo '<span class="user_info"><a href="'.url::base().'home">'.__('welcome')." ".$user_name .'</a></span>';
+				echo '<span class="user_info"><a href="'.url::base().'home/profile">'.__('profile') .'</a></span>';
 				echo '<span class="user_action"><a href="'.url::base().'logout">'.__('logout').'</a></span>';
 			}
 			else

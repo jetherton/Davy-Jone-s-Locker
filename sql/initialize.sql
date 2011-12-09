@@ -76,6 +76,9 @@ CREATE TABLE IF NOT EXISTS `wishes` (
 ALTER TABLE `wishes`
 ADD CONSTRAINT `users_wishes_fk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
+/** use CHAR instead of VARCHAR because it's faster. Even though it takes up more space**/
+ALTER TABLE  `wishes` CHANGE  `title`  `title` CHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+
 
 
 

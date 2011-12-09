@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /***********************************************************
-* Register.php - Controller
+* Profile.php - Controller
 * This software is copy righted by Etherton Technologies Ltd. 2011
 * Writen by John Etherton <john@ethertontech.com>
 * Started on 8/20/2011
@@ -15,6 +15,9 @@ class Controller_Home_Profile extends Controller_Home {
 	*/
 	public function action_index()
 	{
+		
+		//turn on messages
+		$this->template->html_head->script_views[] = view::factory('js/messages');
 		
 		//The title to show on the browser
 		$this->template->html_head->title = __("profile");
