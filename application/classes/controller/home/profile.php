@@ -19,6 +19,9 @@ class Controller_Home_Profile extends Controller_Home {
 		//turn on messages
 		$this->template->html_head->script_views[] = view::factory('js/messages');
 		
+		//turn set focus to first UI form element
+		$this->template->html_head->script_views[] = '<script type="text/javascript">$(document).ready(function() {$("input:text:visible:first").focus();});</script>';
+		
 		//The title to show on the browser
 		$this->template->html_head->title = __("profile");
 		//the name in the menu

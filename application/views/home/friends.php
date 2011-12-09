@@ -2,7 +2,7 @@
 	<?php echo Kohana_Form::open(); ?>
 		<?php echo Form::label('search_for_people_on_ekphora', __('search on ekphora'));  ?>
 		<?php echo Form::input('search_term', null, array('id'=>'search_term'));?>
-		<?php echo Form::input("search",  __("search"), array('type'=>'BUTTON')); ?>
+		<?php echo Form::input('friend_id', null, array('id'=>'friend_id'));?>
 	<?php echo Kohana_Form::close(); ?>
 	<div id="search_results"></div>
 </div>

@@ -27,6 +27,9 @@ class Controller_Login extends Controller_Main {
 		$this->template->content = View::factory('login');
 		$this->template->content->errors = array();
 		
+		//set the focus on the username input box
+		$this->template->html_head->script_views[] = '<script type="text/javascript">$(document).ready(function() {  $("#username").focus();});</script>';
+		
 		if(!empty($_POST)) // They've submitted their registration form
 		{
 			$auth->login($_POST['username'], $_POST['password']);

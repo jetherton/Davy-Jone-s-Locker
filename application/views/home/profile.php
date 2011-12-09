@@ -48,7 +48,7 @@
 				<?php echo Form::label('email_address', __("email address"));  ?>
 			</td>
 			<td>
-				<?php echo Form::input('email', $user->email);?>
+				<?php echo Form::input('email', $user->email, array('id'=>'email'));?>
 			</td>
 		</tr>
 		<tr>

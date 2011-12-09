@@ -71,6 +71,9 @@ class Controller_Home_Wish extends Controller_Home {
 		$this->template->content->errors = array();
 		$this->template->content->messages = $messages;
 		
+		//turn set focus on title
+		$this->template->html_head->script_views[] = '<script type="text/javascript">$(document).ready(function() {$("#title").focus();});</script>';
+		
 		
 		if($wish_id == 0)
 		{

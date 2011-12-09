@@ -28,7 +28,7 @@
 				<?php echo __("user name");  ?>
 			</td>
 			<td>
-				<?php echo Form::input('username');?>
+				<?php echo Form::input('username', null, array('id'=>'username'));?>
 			</td>
 		</tr>
 		<tr>
@@ -36,7 +36,7 @@
 				<?php echo __("password");  ?>
 			</td>
 			<td>
-				<?php echo Form::password('password');?>
+				<?php echo Form::password('password', null, array('id'=>'password'));?>
 			</td>
 		</tr>
 	</table>

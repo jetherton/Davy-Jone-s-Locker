@@ -15,6 +15,9 @@ class Controller_Register extends Controller_Main {
 	*/
 	public function action_index()
 	{
+		//turn set focus to first UI form element
+		$this->template->html_head->script_views[] = '<script type="text/javascript">$(document).ready(function() {$("input:text:visible:first").focus();});</script>';
+		
 		//if they're already logged in then take them to their profile
 		$auth = Auth::instance();		
 		if( $auth->logged_in() OR $auth->auto_login())

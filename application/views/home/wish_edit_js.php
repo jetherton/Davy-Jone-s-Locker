@@ -7,4 +7,5 @@
 			$("#wish_edit_form").submit();
 		}
 	}
+
 </script>

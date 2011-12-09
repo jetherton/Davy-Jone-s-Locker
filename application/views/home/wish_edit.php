@@ -56,7 +56,7 @@
 				<?php echo Form::hidden('action', 'none', array('id'=>'action'));?>
 				<?php echo Form::label("title", __("title"). ':*');  ?>
 				<br/>				
-				<?php echo Form::input('title', isset($wish->title) ? $wish->title : null);?>
+				<?php echo Form::input('title', isset($wish->title) ? $wish->title : null, array('id'=>'title'));?>
 			</td>
 			<td rowspan="2" class="wish_accordion">
 				<div id="accordion" class="wish_accordion">
