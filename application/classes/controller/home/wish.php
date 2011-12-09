@@ -97,6 +97,7 @@ class Controller_Home_Wish extends Controller_Home {
 			$this->template->content->explanation = __('edit wish explanation');
 			$this->template->content->wish = $wish;
 			$this->template->content->submit_button = __('edit wish');
+			$this->template->html_head->script_views[] = view::factory('home/wish_edit_js');
 		}
 		
 		
@@ -117,8 +118,18 @@ class Controller_Home_Wish extends Controller_Home {
 				//or an old one
 				else
 				{
-					$wish->update_wish($_POST, $this->user);
-					$this->template->content->messages[] = __('wish edited successfully');
+					//did they want to delete it?
+					if($_POST['action'] == 'delete')
+					{
+						$wish->delete();
+						$this->request->redirect("home/wish");
+					}
+					else
+					{
+						//or do they want to edit it?
+						$wish->update_wish($_POST, $this->user);
+						$this->template->content->messages[] = __('wish edited successfully');
+					}
 				}
 			}
 			catch (ORM_Validation_Exception $e)

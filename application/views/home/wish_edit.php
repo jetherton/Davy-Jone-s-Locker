@@ -49,10 +49,11 @@
 }
 ?>
 
-<?php echo Kohana_Form::open(); ?>
+<?php echo Kohana_Form::open(null, array('id'=>'wish_edit_form')); ?>
 	<table class="wish_edit">
 		<tr>
-			<td>
+			<td>			
+				<?php echo Form::hidden('action', 'none', array('id'=>'action'));?>
 				<?php echo Form::label("title", __("title"). ':*');  ?>
 				<br/>				
 				<?php echo Form::input('title', isset($wish->title) ? $wish->title : null);?>
@@ -92,6 +93,6 @@
 	</table>
 	<br/>
 	<br/>
-	<?php echo Form::submit("wish_form",  $submit_button); ?>
+	<?php echo Form::submit("wish_form",  $submit_button); ?> <?php if(isset($wish->title))echo Form::input("wish_form",  __('delete wish'), array('onclick'=>'deleteWish(); return false;', 'type'=>'BUTTON')); ?>
 			
 <?php echo Kohana_Form::close(); ?>

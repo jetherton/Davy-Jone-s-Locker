@@ -50,7 +50,7 @@ return array
 
 	//home page
 	'home'=>'Home',
-	'updates'=>'Updates:',
+	'updates'=>'Updates',
 	'welcome home :user'=>'Welcome :first_name :last_name',	
 	
 	//universal
@@ -73,7 +73,8 @@ return array
 	'location'=>'Location',
 	'pictures'=>'Pictures',
 	'files'=>'files',
-	'who can view',
+	'who can view'=>'Who Can View',
+	'delete wish' => 'Delete Wish',
 
 	//friends
 	'friends'=>'Friends',

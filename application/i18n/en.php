@@ -73,7 +73,9 @@ return array
 	'location'=>'Location',
 	'pictures'=>'Pictures',
 	'files'=>'files',
-	'who can view',
+	'who can view'=>'Who Can View',
+	'delete wish' => 'Delete Wish',
+	'Are you sure you want to delete wish'=>'Are you sure you want to delete this wish?',
 
 	//friends
 	'friends'=>'Friends',

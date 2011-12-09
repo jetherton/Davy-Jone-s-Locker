@@ -53,6 +53,17 @@ class Helper_Mainmenu
 				}
 				echo '<a href="'.url::base().'home/wish">'.__("wishes").'</a></li>';
 				
+				//friends page
+				if($page == "friend")
+				{
+					echo '<li class="selected">';
+				}
+				else
+				{
+					echo '<li>';
+				}
+				echo '<a href="'.url::base().'home/friends">'.__("friends").'</a></li>';
+				
 			}
 			
 			//see if the given user is an admin, if so they can do super cool stuff
