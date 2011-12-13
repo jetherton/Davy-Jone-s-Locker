@@ -1,7 +1,7 @@
 <div id="right_menu">
 	<?php echo Kohana_Form::open(); ?>
 		<?php echo Form::label('search_for_people_on_ekphora', __('search on ekphora'));  ?>
-		<?php echo Form::input('search_term', null, array('id'=>'search_term'));?>
+		<?php echo Form::input('search_term', null, array('id'=>'search_term', 'style'=>'width:100%;'));?>
 		<?php echo Form::hidden('friend_id', null, array('id'=>'friend_id'));?>
 	<?php echo Kohana_Form::close(); ?>
 	<div id="friend_search_results" style="display:none;">

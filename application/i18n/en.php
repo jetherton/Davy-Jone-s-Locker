@@ -75,6 +75,7 @@ return array
 	'tags'=>'tags',
 	'last edited'=>'last edited',
 	'you have no wishes'=>'you have no wishes',
+	'has shared no wishes'=>' has not shared any wishes with you.',
 	'location'=>'Location',
 	'pictures'=>'Pictures',
 	'files'=>'files',
@@ -93,6 +94,7 @@ return array
 	'do you want to add'=>'Do you want to add ',
 	'as a friend'=>' as a friend',
 	'error occured while trying to add user as friend'=>'An error occured in our system while trying to add a new friend to your profile. Please try again.',
+	'friend view'=> 'Info on your friend and the wishes he or she has shared with you',
 
 	//groups
 	'groups'=>'Groups',

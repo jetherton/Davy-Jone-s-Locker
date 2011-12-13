@@ -34,7 +34,7 @@
 					foreach($wishes as $wish)
 					{
 					?>
-						<li><a href="<?php echo url::base() . 'home/wishes/edit?id=' . $wish->id;?>"><?php echo $wish->title; ?></a></li>	
+						<li><a href="<?php echo url::base() . 'home/wish/edit?id=' . $wish->id;?>"><?php echo $wish->title; ?></a></li>	
 					<?php 
 					}
 					echo '</ul>';
@@ -52,7 +52,7 @@
 					foreach($friends as $friend)
 					{
 					?>
-						<li><a href="<?php echo url::base() . 'home/profile/view?id='.$friend->id;?>"><?php echo $friend->first_name . ' ' . $friend->last_name; ?></a></li>	
+						<li><a href="<?php echo url::base() . 'home/friends/view?id='.$friend->id;?>"><?php echo $friend->first_name . ' ' . $friend->last_name; ?></a></li>	
 					<?php 
 					}
 					echo '</ul>';

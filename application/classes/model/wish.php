@@ -44,11 +44,12 @@ class Model_Wish extends ORM {
 	*/
 	public function create_wish($values, $user)
 	{
-		$expected = array('title', 'html', 'date_created', 'date_modified', 'user_id');
+		$expected = array('title', 'html', 'date_created', 'date_modified', 'user_id', 'is_live');
 		$now = date('Y-m-d G:i:s');
 		$values['date_created'] = $now;
 		$values['date_modified'] = $now;
 		$values['user_id'] = $user->id;
+		$values['is_live'] = 0;
 	
 		$this->values($values, $expected);
 		$this->check();
@@ -69,10 +70,11 @@ class Model_Wish extends ORM {
 	*/
 	public function update_wish($values, $user)
 	{
-		$expected = array('title', 'html', 'date_modified', 'user_id');
+		$expected = array('title', 'html', 'date_modified', 'user_id', 'is_live');
 		$now = date('Y-m-d G:i:s');
 		$values['date_modified'] = $now;
 		$values['user_id'] = $user->id;
+		$values['is_live'] = 1;
 	
 		$this->values($values, $expected);
 		$this->check();

@@ -61,8 +61,22 @@
 			<td rowspan="2" class="wish_accordion">
 				<div id="accordion" class="wish_accordion">
 					<h3><a href="#"><?php echo __('who can view');?></a></h3>
-					<div>
-						 something really cool here.
+					<div>						
+						 <ul>
+						 	<?php if(count($friends) < 1){?>
+						 	<li> <?php echo __('you have no friends');?>
+						 	<?php }
+						 	else
+						 	{
+						 		foreach($friends as $friend)
+						 		{
+						 			echo '<li id="friend_item_'.$friend->id.'">';
+						 			echo form::checkbox('friend_'.$friend->id,'friend_'.$friend->id, $friend->has('friends_wishes', $wish->id), array('id'=>'friend_'.$friend->id, 'onchange'=>"modifyFriend(".$friend->id."); return false;"));
+						 			echo $friend->first_name . ' ' . $friend->last_name;
+						 			echo '</li>';
+						 		}
+						 	}?>
+						 </ul>
 					</div>
 					<h3><a href="#"><?php echo __('tags');?></a></h3>
 					<div>

@@ -11,7 +11,8 @@ class Model_User extends Model_Auth_User {
 		'user_tokens' => array('model' => 'user_token'),
 		'roles'       => array('model' => 'role', 'through' => 'roles_users'),
 		'wish'		  => array(),
-		'friends'       => array('model' => 'user', 'through' => 'friends', 'far_key'=>'friend_id', 'foreign_key'=>'user_id'),
+		'friends'     => array('model' => 'user', 'through' => 'friends', 'far_key'=>'friend_id', 'foreign_key'=>'user_id'),
+	    'friends_wishes'     => array('model' => 'wish', 'through' => 'friends_wishes', 'far_key'=>'wish_id', 'foreign_key'=>'friend_id'),
 	);
 
 	

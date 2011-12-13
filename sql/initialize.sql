@@ -70,7 +70,8 @@ CREATE TABLE IF NOT EXISTS `wishes` (
   `html` LONGTEXT NOT NULL,
   `date_created` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`id`),
+  KEY `is_live` (`is_live`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 ALTER TABLE `wishes`
@@ -88,4 +89,20 @@ CREATE TABLE IF NOT EXISTS `friends` (
 
 ALTER TABLE `friends` ADD CONSTRAINT `friends_user_id_FK_1` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE;
 ALTER TABLE `friends` ADD CONSTRAINT `friends_user_id_FK_2` FOREIGN KEY (`friend_id`) REFERENCES `users`(`id`);
+
+/*** create table so we can map wishes to users ***/
+CREATE TABLE IF NOT EXISTS `friends_wishes` (
+  `friend_id` int(11) unsigned NOT NULL,
+  `wish_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`friend_id`,`wish_id` )  
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+
+ALTER TABLE `friends_wishes`
+  ADD CONSTRAINT `friends_wishes_fk_1` FOREIGN KEY (`friend_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+ALTER TABLE `friends_wishes`
+  ADD CONSTRAINT `friends_wishes_fk_2` FOREIGN KEY (`wish_id`) REFERENCES `wishes` (`id`) ON DELETE CASCADE;
+
+/*** We're always going to create a new wish so we need this to make sure things are saved***/
+ALTER TABLE  `wishes` ADD  `is_live` TINYINT( 4 ) NOT NULL DEFAULT  '0';
+
 

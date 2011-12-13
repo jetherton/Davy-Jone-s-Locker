@@ -23,7 +23,7 @@
 
 	<tr <?php echo $odd_row; ?>>
 		<td>
-			<a href="<?php echo url::base(). 'home/profile/view?id='.$friend->id?>"> <?php echo $friend->first_name . ' ' . $friend->last_name;?></a>
+			<a href="<?php echo url::base(). 'home/friends/view?id='.$friend->id?>"> <?php echo $friend->first_name . ' ' . $friend->last_name;?></a>
 		</td>
 		<td>
 			Group info

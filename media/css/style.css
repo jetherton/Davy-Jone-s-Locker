@@ -6,6 +6,14 @@ div#page{
 	margin-left:auto;
 	margin-right:auto;
 	border: solid black 1px;
+	font-family:"Arial";
+	font-size:14px;
+	font-weight:normal;
+}
+
+ul{
+	list-style-type:none;
+	padding-left:0px;
 }
 
 /************ Header **********/
@@ -196,7 +204,7 @@ table.list_table td{
 
 table.wish_edit{
 	width:970px;
-	height:583;
+	height:583px;
 }
 
 /**Accordion stuff**/
@@ -208,6 +216,10 @@ div.wish_accordion{
 	height:550px;	
 }
 
+div.wish_accordion div.ui-accordion-content{
+	height:380px;	
+	padding:15px;
+}
 
 /**Home screen stuff**/
 table.home_table{

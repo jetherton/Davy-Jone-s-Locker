@@ -51,9 +51,9 @@ class Controller_Home_Friends extends Controller_Home {
 		$d = Database::instance('default');
 		
 		$sql = "SELECT DISTINCT CONCAT(first_name, ' ', last_name) as name, email, username, id FROM users
-			LEFT JOIN friends on users.id = friends.user_id  
-			WHERE ((email LIKE '%$q%') OR (CONCAT(first_name, ' ', last_name) LIKE '%$q%') OR (username LIKE '%$q%')) AND (friends.friend_id = NULL) LIMIT 20";
+			WHERE ((email LIKE '%$q%') OR (CONCAT(first_name, ' ', last_name) LIKE '%$q%') OR (username LIKE '%$q%')) AND (id <> ".$this->user->id." AND ID NOT IN(SELECT friend_id from friends WHERE user_id = ".$this->user->id.")) LIMIT 20";
 
+		
 		$users = $d->query(Database::SELECT, $sql);
 		
 		
@@ -114,6 +114,40 @@ class Controller_Home_Friends extends Controller_Home {
 		
 		echo '<error>'.__('error occured while trying to add user as friend');
 	}//end addfriend
+	
+	
+	/**
+	 * This action is used to show details about a friend, including their wishes that they
+	 * have shared with the user
+	 */
+	public function action_view()
+	{
+		//get the wish id
+		$friend_id = isset($_GET['id']) ? $_GET['id'] : 0;
+		//is it a valid wish number
+		if(intval($friend_id) < 1)
+		{
+			$this->request->redirect('home/friends');
+		}
+		//does this person even exists and are we really friends with them?
+		if(!$this->user->has('friends', $friend_id))
+		{
+			$this->request->redirect('home/friends');
+		}
+		//so now that we know that they exist and that you can see them, get the friend info
+		$friend = ORM::factory('user', $friend_id);
+		
+		//setup the view		
+		$this->template->content = view::factory('home/friend_view');
+		$this->template->content->friend = $friend;
+		$this->template->content->wishes = ORM::factory('wish')
+			->join('friends_wishes')
+			->on( 'friends_wishes.wish_id', '=', 'wish.id')
+			->where('friends_wishes.friend_id', '=', $this->user->id)
+			->find_all();
+		 
+		
+	}//end action_view()
 	
 	
 } // End class
