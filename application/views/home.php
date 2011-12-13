@@ -42,11 +42,22 @@
 				?>
 			</td>
 			<td>
-				<p>place holder text</p>
-				
-				<p>place holder text</p>
-				
-				<p>place holder text</p>
+				<?php if(count($friends) == 0)
+				{
+					echo __('you have no friends');
+				}
+				else
+				{
+					echo '<ul>';
+					foreach($friends as $friend)
+					{
+					?>
+						<li><a href="<?php echo url::base() . 'home/profile/view?id='.$friend->id;?>"><?php echo $friend->first_name . ' ' . $friend->last_name; ?></a></li>	
+					<?php 
+					}
+					echo '</ul>';
+				}
+				?>
 			</td>
 		</tr>
 	</tbody>

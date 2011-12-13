@@ -2,6 +2,11 @@
 
 return array
 (
+
+	//misc
+	'yes' => 'Yes',
+	'no' => 'No',
+
 	//Header
 	'site name'=>'Ekphora',
 	'tagline'=>'Where you store your last wishes',
@@ -85,6 +90,9 @@ return array
 	'add friend'=>'Add Friend',
 	'search on ekphora'=>'Search for people on Ekphora',
 	'search'=>'Search',
+	'do you want to add'=>'Do you want to add ',
+	'as a friend'=>' as a friend',
+	'error occured while trying to add user as friend'=>'An error occured in our system while trying to add a new friend to your profile. Please try again.',
 
 	//groups
 	'groups'=>'Groups',

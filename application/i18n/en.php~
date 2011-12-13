@@ -2,6 +2,11 @@
 
 return array
 (
+
+	//misc
+	'yes' => 'Yes',
+	'no' => 'No',
+
 	//Header
 	'site name'=>'Ekphora',
 	'tagline'=>'Where you store your last wishes',
@@ -83,6 +88,10 @@ return array
 	'friends explanation'=>'These are the people you have set as friends or family.',
 	'you have no friends'=>'You have no friends. Try adding some.',
 	'add friend'=>'Add Friend',
+	'search on ekphora'=>'Search for people on Ekphora',
+	'search'=>'Search',
+	'do you want to add'=>'Do you want to add ',
+	'as a friend'=>' as a friend',
 
 	//groups
 	'groups'=>'Groups',

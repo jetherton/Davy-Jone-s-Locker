@@ -237,3 +237,16 @@ table.home_table ul{
 table.home_table ul li{
 	margin-top: 10px;
 }
+
+/*** Friend stuff ***/
+#friend_search_results{
+	margin-top:20px;
+	border:solid 3px grey;
+	background:#ccc;	
+	padding:5px;
+	text-align:center;
+}
+
+#friend_search_results span{
+	font-weight:bold;
+}

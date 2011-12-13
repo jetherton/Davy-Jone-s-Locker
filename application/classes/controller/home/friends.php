@@ -50,7 +50,9 @@ class Controller_Home_Friends extends Controller_Home {
 
 		$d = Database::instance('default');
 		
-		$sql = "SELECT DISTINCT CONCAT(first_name, ' ', last_name) as name, email, username, id FROM users WHERE (email LIKE '%$q%') OR (CONCAT(first_name, ' ', last_name) LIKE '%$q%') OR (username LIKE '%$q%') LIMIT 20";
+		$sql = "SELECT DISTINCT CONCAT(first_name, ' ', last_name) as name, email, username, id FROM users
+			LEFT JOIN friends on users.id = friends.user_id  
+			WHERE ((email LIKE '%$q%') OR (CONCAT(first_name, ' ', last_name) LIKE '%$q%') OR (username LIKE '%$q%')) AND (friends.friend_id = NULL) LIMIT 20";
 
 		$users = $d->query(Database::SELECT, $sql);
 		
@@ -59,6 +61,10 @@ class Controller_Home_Friends extends Controller_Home {
 		$return_array = array();
 		foreach($users as $user)
 		{
+			if($this->user->id == $user['id'])
+			{
+				continue; //don't show them, themself
+			}
 			$row_array = array();
 			$row_array['label'] = $user['name'] . ' ('. $user['email'].')';
 			$row_array['value'] = $user['id'];
@@ -68,6 +74,46 @@ class Controller_Home_Friends extends Controller_Home {
 		echo json_encode($return_array);
 	}
 	 
-
+	
+	/**
+	 * This function is used to add a friend
+	 * It takes friendid as get param so it knows which user to add as a friend
+	 * Enter description here ...
+	 */
+	public function action_addfriend()
+	{
+		$this->template = null;
+		$this->auto_render = false;
+		
+		//make sure the data is in a valid format
+		if(isset($_GET['friendid']) && intval($_GET['friendid'])>0 )
+		{
+			$friend_id = $_GET['friendid'];
+			//makre sure you're not adding yourself
+			if($friend_id != $this->user->id)
+			{				
+				try 
+				{	
+					$friend = ORM::factory('friend');
+					$friend->user_id = $this->user->id;
+					$friend->friend_id = $friend_id;
+					$friend->save();
+					
+					//create the table view
+					$view = view::factory('home/friends_list');
+					$view->friends = $this->user->friends->find_all();
+					echo $view;
+					return;
+				}
+				catch(Exception $e)
+				{
+					echo '<error>'.__('error occured while trying to add user as friend');
+				}
+			}
+		}
+		
+		echo '<error>'.__('error occured while trying to add user as friend');
+	}//end addfriend
+	
 	
 } // End class

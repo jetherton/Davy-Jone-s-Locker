@@ -54,6 +54,9 @@ class Controller_Home extends Controller_Main {
 			->order_by('date_modified')
 			->find_all();
 		$this->template->content->wishes = $wishes;
+		
+		//get all your friends
+		$this->template->content->friends = $this->user->friends->find_all();;
 	}
 	
 	
