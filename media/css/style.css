@@ -184,6 +184,13 @@ div#right_menu li a{
 	text-decoration:none;
 }
 
+div#right_menu div#search_wait{
+	width:30px;
+	height:30px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
 /** Wish stuff **/
 div.wish_view_frame {
 	border:solid 3px grey;
@@ -291,8 +298,7 @@ table.home_table ul li{
 input.ui-autocomplete-loading { 
 	background-image: url('../img/wait16trans.gif');
 	background-position:right;
-	background-repeat:no-repeat;
-	background-attachment:fixed;
+	background-repeat:no-repeat;	
 }
 
 /** updates **/

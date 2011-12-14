@@ -1,6 +1,6 @@
 <div id="right_menu">
 
-	<div id="search_wait" style="width:30px;height:30px;"></div>
+	<div id="search_wait"></div>
 
 		<?php echo Form::label('search_for_people_on_ekphora', __('search on ekphora'));  ?>
 		<?php echo Form::input('search_term', null, array('id'=>'search_term', 'style'=>'width:100%;'));?>
