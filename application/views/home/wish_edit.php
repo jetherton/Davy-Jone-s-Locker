@@ -49,7 +49,7 @@
 }
 ?>
 
-<?php echo Kohana_Form::open(null, array('id'=>'wish_edit_form')); ?>
+<form method="POST" action="<?php echo url::base().'home/wish/edit?id='. $wish->id;?>" id="wish_edit_form" accept-charset="utf-8">
 	<table class="wish_edit">
 		<tr>
 			<td>			

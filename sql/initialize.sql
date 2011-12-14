@@ -106,3 +106,21 @@ ALTER TABLE `friends_wishes`
 ALTER TABLE  `wishes` ADD  `is_live` TINYINT( 4 ) NOT NULL DEFAULT  '0';
 
 
+/*** create table for messages to users ***/
+CREATE TABLE IF NOT EXISTS `updates` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `date_created` datetime NOT NULL,
+  `html` TINYTEXT NOT NULL,
+  PRIMARY KEY (`id`)  
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+ALTER TABLE `updates`
+ADD CONSTRAINT `updates_users_fk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+
+
+
+
+
+
+

@@ -73,7 +73,7 @@ return array
 	'wish added successfully'=>'Wish Added Successfully',
 	'wish edited successfully'=>'Wish Edited Successfully',
 	'tags'=>'tags',
-	'last edited'=>'last edited',
+	'last edited'=>'Last modified',	
 	'you have no wishes'=>'you have no wishes',
 	'has shared no wishes'=>' has not shared any wishes with you.',
 	'location'=>'Location',
@@ -82,6 +82,11 @@ return array
 	'who can view'=>'Who Can View',
 	'delete wish' => 'Delete Wish',
 	'Are you sure you want to delete wish'=>'Are you sure you want to delete this wish?',
+	'your wishes'=>'Your Wishes',
+	'wishes :friend has shared with you'=>'Wishes :friend has shared with you',
+	'wishes you shared with :friend'=>'Wishes you have shared with :friend',
+	'you have not shared any wishes with :friend'=>'You have not shared any wishes with :friend',
+	'by'=>'By',
 
 	//friends
 	'friend'=>'Friend',
@@ -95,9 +100,25 @@ return array
 	'as a friend'=>' as a friend',
 	'error occured while trying to add user as friend'=>'An error occured in our system while trying to add a new friend to your profile. Please try again.',
 	'friend view'=> 'Info on your friend and the wishes he or she has shared with you',
+	'relationship'=>'Relationship',
+	'my friend' => 'My Friend',
+	'his her friend' => 'His/Her Friend',
+	'both friends' => 'Both Friends',
+	'remove your friend' => 'Remove Your Friendship',
+	'are you sure delete your friend' => 'Are you sure you want to delete this friend? If you delete this friend they will not be able to see any of your wishes. Friendships are not easily disolved.',
+	'add :friend as friend'=>'Add :friend as friend.',
 
 	//groups
 	'groups'=>'Groups',
+
+	//updates
+	'update :user added you as a friend :id'=>'<a href="'.url::base().'home/friends/view?id=:id">:user</a> added you as a friend.',
+
+	//dates
+	'a few seconds ago'=>'A few seconds ago',
+	':hours hours ago'=>':hours hours ago',
+	':minutes minutes ago'=>':minutes minutes ago',
+
 	
 );
 

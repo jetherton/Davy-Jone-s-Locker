@@ -28,7 +28,7 @@ class Controller_Home_Friends extends Controller_Home {
 		//the name in the menu
 		$this->template->header->menu_page = "friend";
 		$this->template->content = view::factory("home/friends");
-		$this->template->content->friends = $this->user->friends->find_all();
+		$this->template->content->friends = Model_Friend::get_friends($this->user);
 				
 	}//end action_index
 	
@@ -94,25 +94,27 @@ class Controller_Home_Friends extends Controller_Home {
 			{				
 				try 
 				{	
-					$friend = ORM::factory('friend');
-					$friend->user_id = $this->user->id;
-					$friend->friend_id = $friend_id;
-					$friend->save();
+					
+					Model_Friend::add_friend($this->user, $friend_id);
 					
 					//create the table view
 					$view = view::factory('home/friends_list');
-					$view->friends = $this->user->friends->find_all();
-					echo $view;
-					return;
+					$view->friends = Model_friend::get_friends($this->user); 
+
+					
+					echo json_encode(array('status'=>'success','payload'=>$view->render()));
+					return;					
 				}
 				catch(Exception $e)
 				{
-					echo '<error>'.__('error occured while trying to add user as friend');
+					echo json_encode(array('status'=>'error','payload'=>__('error occured while trying to add user as friend')));
+					return;
 				}
 			}
 		}
 		
-		echo '<error>'.__('error occured while trying to add user as friend');
+		echo json_encode(array('status'=>'error','payload'=>__('error occured while trying to add user as friend'). ' Input parameters do not seem to be formated correctly'));
+		return;
 	}//end addfriend
 	
 	
@@ -122,29 +124,54 @@ class Controller_Home_Friends extends Controller_Home {
 	 */
 	public function action_view()
 	{
-		//get the wish id
+
+		//get the friend id
 		$friend_id = isset($_GET['id']) ? $_GET['id'] : 0;
-		//is it a valid wish number
+		//is it a valid friend number
 		if(intval($friend_id) < 1)
 		{
 			$this->request->redirect('home/friends');
 		}
-		//does this person even exists and are we really friends with them?
-		if(!$this->user->has('friends', $friend_id))
+		//Does this person exist?
+		$friend = ORM::factory('user', $friend_id);
+		if(!$friend->loaded())
 		{
 			$this->request->redirect('home/friends');
 		}
-		//so now that we know that they exist and that you can see them, get the friend info
-		$friend = ORM::factory('user', $friend_id);
+		
+		//are we really friends with them, or are they friends with us, or what?
+		$is_my_friend = $this->user->has('friends', $friend_id);
+		if(!$is_my_friend AND !$friend->has('friends', $this->user->id))
+		{
+			$this->request->redirect('home/friends');
+		}
+
+		//did it load
+		if(!$friend->loaded())
+		{
+			$this->request->redirect('home/friends');
+		}
+		
+		if(!empty($_POST)) // They want to perform an action, probably deleting this friend
+		{
+			if(isset($_POST['action']) AND $_POST['action'] == 'delete')
+			{
+				//delete the friendship
+				$this->user->remove('friends', $friend_id);
+					
+				$this->request->redirect('home/friends');
+			}
+		}
+		
+		
+		//make sure the JS works
+		$this->template->html_head->script_views[] = view::factory('home/friend_view_js');
 		
 		//setup the view		
 		$this->template->content = view::factory('home/friend_view');
 		$this->template->content->friend = $friend;
-		$this->template->content->wishes = ORM::factory('wish')
-			->join('friends_wishes')
-			->on( 'friends_wishes.wish_id', '=', 'wish.id')
-			->where('friends_wishes.friend_id', '=', $this->user->id)
-			->find_all();
+		$this->template->content->wishes = Model_Wish::get_wishes_between_friends($this->user, $friend);
+		$this->template->content->is_my_friend = $is_my_friend;
 		 
 		
 	}//end action_view()

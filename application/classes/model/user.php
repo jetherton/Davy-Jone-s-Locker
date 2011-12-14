@@ -15,5 +15,13 @@ class Model_User extends Model_Auth_User {
 	    'friends_wishes'     => array('model' => 'wish', 'through' => 'friends_wishes', 'far_key'=>'wish_id', 'foreign_key'=>'friend_id'),
 	);
 
+
+	/**
+	 * Get the full name of a user
+	 */
+	public function full_name()
+	{
+		return $this->first_name . ' ' . $this->last_name;
+	} 
 	
 } // End User Model

@@ -5,7 +5,8 @@
 			$logged_in = ($auth->logged_in() OR $auth->auto_login());
 			if($logged_in)
 			{
-				$user_name = ORM::factory('user',$auth->get_user())->username;
+				$user = ORM::factory('user',$auth->get_user());
+				$user_name = $user->first_name. ' ' . $user->last_name;
 				echo '<span class="user_info"><a href="'.url::base().'home">'.__('welcome')." ".$user_name .'</a></span>';
 				echo '<span class="user_info"><a href="'.url::base().'home/profile">'.__('profile') .'</a></span>';
 				echo '<span class="user_action"><a href="'.url::base().'logout">'.__('logout').'</a></span>';

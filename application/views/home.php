@@ -7,7 +7,7 @@
 				<?php echo __('updates');?>
 			</th>
 			<th>
-				<?php echo __('wishes');?>
+				<?php echo __('your wishes');?>
 			</th>
 			<th>
 				<?php echo __('friends');?>
@@ -17,11 +17,26 @@
 	<tbody>
 		<tr>
 			<td>
-				<p>place holder text</p>
-				
-				<p>place holder text</p>
-				
-				<p>place holder text</p>
+				<?php if(count($updates) == 0)
+				{
+					
+				}
+				else
+				{
+					echo '<ul>';
+					foreach($updates as $update)
+					{
+					?>
+						
+						<li class="update">
+							<div class="update_time"><?php echo Helper_Dates::mysql_to_short_relative($update->date_created);?></div>
+							<div class="update_html"> <?php echo $update->html;?></div>
+						</li>	
+					<?php 
+					}
+					echo '</ul>';
+				}
+				?>
 			</td>
 			<td>
 				<?php if(count($wishes) == 0)
@@ -49,10 +64,20 @@
 				else
 				{
 					echo '<ul>';
-					foreach($friends as $friend)
+					foreach($friends as $friend_a)
 					{
+						$friend = $friend_a['friend'];
+						$relationship = $friend_a['relationship'];
+						$relationship_txt = "&lt;----&gt;";
+						if($relationship == Model_Friend::$MY_FRIEND)
+							$relationship_txt = "&lt;--";
+						else if($relationship == Model_Friend::$THEIR_FRIEND)
+							$relationship_txt = "--&gt;";
 					?>
-						<li><a href="<?php echo url::base() . 'home/friends/view?id='.$friend->id;?>"><?php echo $friend->first_name . ' ' . $friend->last_name; ?></a></li>	
+						<li>
+							<a href="<?php echo url::base() . 'home/friends/view?id='.$friend->id;?>"><?php echo $friend->first_name . ' ' . $friend->last_name; ?></a>
+							<?php echo $relationship_txt; ?>
+						</li>	
 					<?php 
 					}
 					echo '</ul>';

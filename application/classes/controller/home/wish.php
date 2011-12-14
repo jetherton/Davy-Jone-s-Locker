@@ -81,10 +81,11 @@ class Controller_Home_Wish extends Controller_Home {
 		if($wish_id == 0)
 		{
 			//create this wish
-			$values = array('title'=>'', 'html'=>'');
+			$values = array('title'=>' ', 'html'=>' ');
 			$wish = ORM::factory('wish');
 			$wish->create_wish($values, $this->user);
-			
+			$wish->title = '';
+			$wish->html = '';
 			//The title to show on the browser
 			$this->template->html_head->title = __("add wish");
 			//the name in the menu
@@ -97,14 +98,25 @@ class Controller_Home_Wish extends Controller_Home {
 			
 			//delete any outstanding wishes
 			$day_ago = date('Y-m-d G:i:s', time()-(24*60*60));
-			ORM::factory('wish')->
+			$old_wishes = ORM::factory('wish')->
 				and_where('is_live', '=', 0)->
 				and_where('date_created', '<', $day_ago )->
-				delete_all();
+				and_where('user_id', '=', $this->user->id)->
+				find_all();
+			foreach($old_wishes as $w)
+			{
+				$temp = $w->user_id;
+				$w->delete();
+			}
 		}
 		else
 		{
-			$wish = ORM::factory('wish', $wish_id);
+			
+			$wish = Model_Wish::validate_id_user($wish_id, $this->user);
+			if(!$wish)
+			{
+				$this->request->redirect("home/wish");
+			}
 			//The title to show on the browser
 			$this->template->html_head->title = __("edit wish"). ' :: '. $wish->title;
 			//the name in the menu
@@ -125,30 +137,20 @@ class Controller_Home_Wish extends Controller_Home {
 
 			try
 			{
-				//is this a new wish
-				if($wish_id == 0)
+
+				//did they want to delete it?
+				if($_POST['action'] == 'delete')
 				{
-					$wish = ORM::factory("wish");
-					$wish->create_wish($_POST, $this->user);
-					Session::instance()->set('message','wish added successfully');
-					$this->request->redirect('home/wish/edit?id='.$wish->id);
+					$wish->delete();
+					$this->request->redirect("home/wish");
 				}
-				//or an old one
 				else
 				{
-					//did they want to delete it?
-					if($_POST['action'] == 'delete')
-					{
-						$wish->delete();
-						$this->request->redirect("home/wish");
-					}
-					else
-					{
-						//or do they want to edit it?
-						$wish->update_wish($_POST, $this->user);
-						$this->template->content->messages[] = __('wish edited successfully');
-					}
+					//or do they want to edit it?
+					$wish->update_wish($_POST, $this->user);
+					$this->template->content->messages[] = __('wish edited successfully');
 				}
+
 			}
 			catch (ORM_Validation_Exception $e)
 			{
@@ -169,7 +171,18 @@ class Controller_Home_Wish extends Controller_Home {
 				}
 			}	
 		}//end if(!empty($_POST))
+		
+		if($wish_id != 0)
+		{
+			//setup view
+			$this->template->html_head->title = __("edit wish"). ' :: '. $wish->title;
+			$this->template->content->title = __('edit wish') . ' - '. $wish->title;
+			$this->template->content->wish = $wish;
+		}
 	}//end function action_edit
+	
+	
+	
 	
 	
 	/**
@@ -252,5 +265,45 @@ class Controller_Home_Wish extends Controller_Home {
 		}
 		
 	}//end addfriendwish
+	
+	/**
+	 * Render the page for viewing someone else's wish
+	 * Enter description here ...
+	 */
+	public function action_view()
+	{
+		if(!isset($_GET['id']))
+		{
+			$this->request->redirect("home/wish");
+		}
+		$wish = Model_Wish::validate_id($_GET['id']);
+		if(!$wish)
+		{
+			$this->request->redirect("home/wish");
+		}
+		
+		//does the current user have access to this wish?
+		//is it my wish, if so we're good to go
+		if($wish->user_id != $this->user->id)
+		{
+			//is it a friends wish that I'm allowed to see?
+			$wish = Model_Wish::get_friends_wish($wish->id, $this->user->id);
+			if(!$wish)
+			{
+				$this->request->redirect("home/wish");
+			}
+		}
+		
+		//now that we have access to this wish lets view it.
+		$this->template->content = view::factory('home/wish_view');
+		$this->template->content->wish = $wish;
+		//get the friend
+		$this->template->content->friend = ORM::factory('user', $wish->user_id);
+		
+		//The title to show on the browser
+		$this->template->html_head->title = __("wish"). ' :: '. $wish->title;
+		//the name in the menu
+		$this->template->header->menu_page = "wish";
+	}
 	
 } // End class

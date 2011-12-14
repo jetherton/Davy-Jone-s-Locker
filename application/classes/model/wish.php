@@ -80,5 +80,107 @@ class Model_Wish extends ORM {
 		$this->check();
 		$this->save();
 	}
+	
+	/**
+	 * This will return an array of wishes
+	 * that two friends have shared with one another
+	 * @param user $user
+	 * @param user $friend
+	 * @return array of wishes
+	 */
+	public static function get_wishes_between_friends($user, $friend)
+	{
+		$wishes_from_friend = ORM::factory('wish')
+			->join('friends_wishes')
+			->on( 'friends_wishes.wish_id', '=', 'wish.id')
+			->and_where('friends_wishes.friend_id', '=', $user->id)
+			->and_where('wish.user_id', '=', $friend->id)
+			->and_where('wish.is_live', '=', 1)
+			->find_all();
+		
+		$wishes_from_me = ORM::factory('wish')
+			->join('friends_wishes')
+			->on( 'friends_wishes.wish_id', '=', 'wish.id')
+			->and_where('friends_wishes.friend_id', '=', $friend->id)
+			->and_where('wish.user_id', '=', $user->id)
+			->and_where('wish.is_live', '=', 1)
+			->find_all();
+		
+		return array('from_friend'=>$wishes_from_friend, 'from_me'=>$wishes_from_me);
+	}
+	
+	
+	/**
+	 * 
+	 * Gets a wish from a friend, or false if I'm not allowed
+	 * @param int $wish_id
+	 * @param int $user_id
+	 * @return obj or bool if not allowed
+	 */
+	public static function get_friends_wish($wish_id, $user_id)
+	{
+		$wish = ORM::factory('wish')
+		->join('friends_wishes')
+		->on( 'friends_wishes.wish_id', '=', 'wish.id')
+		->and_where('friends_wishes.friend_id', '=', $user_id)
+		->and_where('wish.id', '=', $wish_id)
+		->and_where('wish.is_live', '=', 1)
+		->find();
+		
+		if($wish->loaded())
+		{
+			return $wish;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * This function will validate a wish ID
+	 * @param int $id
+	 * @return object wish object or false, depending on the validity of the ID
+	 */
+	public static function validate_id($id)
+	{
+		$id = intval($id);
+		//if id is properly formated
+		if($id < 1)
+		{
+			return false;
+		}
+		
+		$wish = ORM::factory('wish', $id);
+		if($wish->loaded() AND intval($wish->is_live) == 1)
+		{
+			return $wish;
+		}
+		
+		return false;
+	}
+	
+	
+	/**
+	 * Makes sure a wish is valid and belongs to the given user
+	 * Enter description here ...
+	 * @param int $id
+	 * @param obj $user
+	 * @return object - or false if not valid 
+	 */
+	public static function validate_id_user($id, $user)
+	{
+		//is the wish good
+		$wish = self::validate_id($id); 
+		if(!$wish)
+		{
+			return false;
+		}
+		
+		//is the wish mine
+		if($wish->user_id == $user->id)
+		{
+			return $wish;
+		}
+		return false;
+	}
 		
 }//end class

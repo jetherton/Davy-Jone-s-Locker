@@ -184,22 +184,47 @@ div#right_menu li a{
 	text-decoration:none;
 }
 
+/** Wish stuff **/
+div.wish_view_frame {
+	border:solid 3px grey;
+	padding:10px;
+	margin-top:10px;
+	margin-bottom:10px;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+}
+
 table.list_table{
 	width:700px;
+}
+
+table.list_table thead tr.header{
+	display:block;
+	position: relative;
 }
 
 table.list_table th{
 	text-align:left;
 	background:#ccc;
 	padding:5px;
+	height:20px;
+	width:500px;
 }
 
+table.list_table tbody{
+	height:150px;
+	overflow:auto;
+	display:block;
+	width:100%;
+}
 table.list_table tr.odd_row{
 	background: #eee;
 }
 
-table.list_table td{
+table.list_table tbody td{
 	padding:1px 5px 1px 5px;
+	width:500px;
+
 }
 
 table.wish_edit{
@@ -261,4 +286,16 @@ table.home_table ul li{
 
 #friend_search_results span{
 	font-weight:bold;
+}
+
+/** updates **/
+.update_time{
+	color:grey;
+	margin-left:20px;
+}
+
+li.update{
+	border-bottom: solid 1px grey;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
 }

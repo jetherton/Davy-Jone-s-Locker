@@ -55,8 +55,15 @@ class Controller_Home extends Controller_Main {
 			->find_all();
 		$this->template->content->wishes = $wishes;
 		
+		//get updates
+		$updates = ORM::factory('update')->
+			where('user_id', '=', $this->user->id)->
+			order_by('date_created', 'DESC')->
+			find_all();
+		$this->template->content->updates = $updates;
+		
 		//get all your friends
-		$this->template->content->friends = $this->user->friends->find_all();;
+		$this->template->content->friends = Model_Friend::get_friends($this->user);
 	}
 	
 	

@@ -1,7 +1,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("input#search_term").autocomplete({
-			source: "<?php echo url::base();?>/home/friends/search",
+			source: "<?php echo url::base();?>home/friends/search",
 
 			select: function( event, ui ) {
 				$( "#search_term" ).val( ui.item.label );
@@ -17,6 +17,11 @@
 				return false;
 			},
 		});
+
+	});
+
+	$(function() {
+		$( ".tooltip" ).tooltip();
 	});
 
 
@@ -31,17 +36,25 @@
 	{
 		//through up adding friend status bar
 
+		add_friend_id($("#friend_id").val());
+	}
+
+
+	function add_friend_id(friend_id)
+	{
+		//through up adding friend status bar
+
 		//run the get
-		$.get("<?php echo url::base();?>/home/friends/addfriend?friendid=" + $("#friend_id").val(), function(data) {
-			if(data.indexOf('<error>') == 0)
+		$.getJSON("<?php echo url::base();?>/home/friends/addfriend?friendid=" + friend_id, function(data) {
+			if(data.status == 'error')
 			{
-				alert(data.substring(7));
+				alert(data.payload);
 			}
 			else
 			{
-			  $('#friend_list').html('');
-			  $('#friend_list').html(data);
-			}
+				$('#friend_list').html('');
+				$('#friend_list').html(data.payload);
+			}			
 			
 			$("#friend_search_results").hide();
 			$("#search_term" ).val("");

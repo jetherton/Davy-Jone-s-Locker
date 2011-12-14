@@ -10,18 +10,20 @@
 <p><?php echo __("wishes explanation");?></p>
 
 <table class="list_table">
-	<tr>
-		<th>
-			<?php echo __('wish');?>
-		</th>
-		<th>
-			<?php echo __('tags');?>
-		</th>
-		<th>
-			<?php echo __('last edited');?>
-		</th>
-	</tr>
-	
+	<thead>
+		<tr class="header">
+			<th>
+				<?php echo __('wish');?>
+			</th>
+			<th>
+				<?php echo __('tags');?>
+			</th>
+			<th>
+				<?php echo __('last edited');?>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
 	<?php
 		if(count($wishes) == 0)
 		{
@@ -45,4 +47,5 @@
 		</td>
 	</tr>
 	<?php }?>
+	</tbody>
 </table>
