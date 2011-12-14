@@ -288,6 +288,13 @@ table.home_table ul li{
 	font-weight:bold;
 }
 
+input.ui-autocomplete-loading { 
+	background-image: url('../img/wait16trans.gif');
+	background-position:right;
+	background-repeat:no-repeat;
+	background-attachment:fixed;
+}
+
 /** updates **/
 .update_time{
 	color:grey;
@@ -306,3 +313,4 @@ li.update{
 .scrollable{
 	overflow:auto;
 }
+

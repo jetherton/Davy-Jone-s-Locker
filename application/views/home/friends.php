@@ -1,9 +1,11 @@
 <div id="right_menu">
-	<?php echo Kohana_Form::open(); ?>
+
+	<div id="search_wait" style="width:30px;height:30px;"></div>
+
 		<?php echo Form::label('search_for_people_on_ekphora', __('search on ekphora'));  ?>
 		<?php echo Form::input('search_term', null, array('id'=>'search_term', 'style'=>'width:100%;'));?>
 		<?php echo Form::hidden('friend_id', null, array('id'=>'friend_id'));?>
-	<?php echo Kohana_Form::close(); ?>
+
 	<div id="friend_search_results" style="display:none;">
 		<?php echo __('do you want to add');?><br/><span id="friend_name"></span><br/><?php echo __('as a friend');?><br/>
 		<input type="BUTTON" value="<?php echo __('yes');?>" onclick="add_friend(); return false;"/>

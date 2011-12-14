@@ -20,9 +20,6 @@
 
 	});
 
-	$(function() {
-		$( ".tooltip" ).tooltip();
-	});
 
 
 	function clear_friends()
@@ -43,9 +40,11 @@
 	function add_friend_id(friend_id)
 	{
 		//through up adding friend status bar
+		$("#search_wait").html('<img src="<?php echo url::base();?>media/img/wait30trans.gif" height="30" width="30"/>');
 
 		//run the get
-		$.getJSON("<?php echo url::base();?>/home/friends/addfriend?friendid=" + friend_id, function(data) {
+		$.getJSON("<?php echo url::base();?>home/friends/addfriend?friendid=" + friend_id, function(data) {
+			$("#search_wait").html('');
 			if(data.status == 'error')
 			{
 				alert(data.payload);
