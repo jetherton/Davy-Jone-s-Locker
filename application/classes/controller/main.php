@@ -41,7 +41,7 @@ class Controller_Main extends Controller_Template {
 	
 	public function action_index()
 	{
-		$this->template->content = '<h1>hello, world!</h1> <p> This is the home page of Davy Jones\' locker</p>';
+		$this->template->content = '<h1>hello, world!</h1> <p> This is the home page of Ekphora.com</p><p>This site is still under development</p>';
 	}
 	
 	/**

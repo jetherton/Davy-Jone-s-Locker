@@ -56,10 +56,10 @@ ALTER TABLE `user_tokens`
 /****Add last and first names to the users****/
 
 ALTER TABLE  `users` ADD  `first_name` VARCHAR( 255 ) NULL DEFAULT NULL ,
-ADD  `last_name` VARCHAR( 255 ) NULL DEFAULT NULL
+ADD  `last_name` VARCHAR( 255 ) NULL DEFAULT NULL;
 
 /***Add date_passed to users so we know if they are living or not and if so, when they passed***/
-ALTER TABLE  `users` ADD  `date_passed` DATETIME NULL DEFAULT NULL
+ALTER TABLE  `users` ADD  `date_passed` DATETIME NULL DEFAULT NULL;
 
 
 /***Create the table that stores the wishes***/
@@ -70,6 +70,7 @@ CREATE TABLE IF NOT EXISTS `wishes` (
   `html` LONGTEXT NOT NULL,
   `date_created` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
+  `is_live` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY  (`id`),
   KEY `is_live` (`is_live`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
@@ -78,7 +79,7 @@ ALTER TABLE `wishes`
 ADD CONSTRAINT `users_wishes_fk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 /** use CHAR instead of VARCHAR because it's faster. Even though it takes up more space**/
-ALTER TABLE  `wishes` CHANGE  `title`  `title` CHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+ALTER TABLE  `wishes` CHANGE  `title`  `title` CHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 
 /*** so we can have friendships ***/
 CREATE TABLE IF NOT EXISTS `friends` (
@@ -102,9 +103,6 @@ ALTER TABLE `friends_wishes`
 ALTER TABLE `friends_wishes`
   ADD CONSTRAINT `friends_wishes_fk_2` FOREIGN KEY (`wish_id`) REFERENCES `wishes` (`id`) ON DELETE CASCADE;
 
-/*** We're always going to create a new wish so we need this to make sure things are saved***/
-ALTER TABLE  `wishes` ADD  `is_live` TINYINT( 4 ) NOT NULL DEFAULT  '0';
-
 
 /*** create table for messages to users ***/
 CREATE TABLE IF NOT EXISTS `updates` (
@@ -118,7 +116,9 @@ ALTER TABLE `updates`
 ADD CONSTRAINT `updates_users_fk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 
-
+/*****************************************************************************************************************/
+/** Version 0.1 **/
+/*****************************************************************************************************************/
 
 
 
