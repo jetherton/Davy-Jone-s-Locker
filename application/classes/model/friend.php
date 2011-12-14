@@ -21,7 +21,7 @@ class Model_Friend extends ORM {
 		//put my friends into an array
 		foreach($my_friends as $my)
 		{
-			$friends[$my->id] = array('friend'=>$my, 'relationship'=>self::$MY_FRIEND);
+			$friends[$my->full_name()] = array('friend'=>$my, 'relationship'=>self::$MY_FRIEND);
 		}
 		
 		$their_friends = ORM::factory('user')->
@@ -33,17 +33,27 @@ class Model_Friend extends ORM {
 		//now put their friends into the array
 		foreach($their_friends as $f)
 		{
-			if(!isset($friends[$f->id]))
+			if(!isset($friends[$f->full_name()]))
 			{
-				$friends[$f->id] = array('friend'=>$f, 'relationship'=>self::$THEIR_FRIEND);
+				$friends[$f->full_name()] = array('friend'=>$f, 'relationship'=>self::$THEIR_FRIEND);
 			}
 			else
 			{
-				$friends[$f->id]['relationship'] = self::$BOTH_FRIENDS;
+				$friends[$f->full_name()]['relationship'] = self::$BOTH_FRIENDS;
 			}
 		}
+		
+		//sort
+		ksort($friends);
+		
+		//now make the key the ID and not their name
+		$return_friends = array();
+		foreach($friends as $friend)
+		{
+			$return_friends[$friend['friend']->id] = $friend;
+		}
 						
-		return $friends;
+		return $return_friends;
 	}
 	
 	

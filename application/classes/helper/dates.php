@@ -39,7 +39,7 @@ class Helper_Dates
 		else if($time_dif < 60 * 60 * 24)
 		{
 			$hours = intval($time_dif/(60*60));
-			return __(':hours hours ago', array(':hours'=>$minutes));
+			return __(':hours hours ago', array(':hours'=>$hours));
 		}
 		else
 		{

@@ -106,7 +106,7 @@ return array
 	'both friends' => 'Both Friends',
 	'remove your friend' => 'Remove Your Friendship',
 	'are you sure delete your friend' => 'Are you sure you want to delete this friend? If you delete this friend they will not be able to see any of your wishes. Friendships are not easily disolved.',
-	'Add :friend as friend'=>'Add :friend as friend',
+	'add :friend as friend'=>'Add :friend as friend.',
 
 	//groups
 	'groups'=>'Groups',

@@ -54,6 +54,7 @@
 		<tr>
 			<td>			
 				<?php echo Form::hidden('action', 'none', array('id'=>'action'));?>
+				<?php echo Form::hidden('is_add', $is_add ? '1' : '0', array('id'=>'is_add'));?>	
 				<?php echo Form::label("title", __("title"). ':*');  ?>
 				<br/>				
 				<?php echo Form::input('title', isset($wish->title) ? $wish->title : null, array('id'=>'title'));?>
@@ -101,7 +102,7 @@
 			<td>
 				<?php echo Form::label(__("wish"), __("wish") . ':*');  ?>
 				<br/>
-				<?php echo Form::textarea('html', isset($wish->html) ? $wish->html : null, array('class'=>'tinymce', 'style'=>'width:650px; height:500px;'));?>
+				<?php echo Form::textarea('html', isset($wish->html) ? $wish->html : null, array('id'=>'html', 'class'=>'tinymce', 'style'=>'width:650px; height:500px;'));?>
 			</td>
 		</tr>
 	</table>

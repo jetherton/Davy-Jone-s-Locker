@@ -18,7 +18,13 @@
 			add = 1;
 		}
 
-		$.getJSON('<?php echo url::base();?>home/wish/addfriendwish?wish_id=<?php echo $wish->id;?>&friend_id='+friendId +'&add='+add, 
+		$.post('<?php echo url::base();?>home/wish/addfriendwish?wish_id=<?php echo $wish->id;?>&friend_id='+friendId +'&add='+add,
+				{
+				html: $("#html").val(),
+				title: $("#title").val(),
+				is_add:$("#is_add").val(),
+				action:$("#action").val()
+			},
 			function(data) {			
 			if (data.status == 'success'){
 				var color = '#bbffbb';				
@@ -32,7 +38,7 @@
 			{
 				alert('<?php echo __('error');?>: ' + data.message);
 			}
-		});
+		}, 'JSON');
 	}
 
 </script>

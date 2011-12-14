@@ -299,3 +299,10 @@ li.update{
 	margin-bottom: 5px;
 	padding-bottom: 5px;
 }
+
+.reg_height{
+	height: 400px;
+}
+.scrollable{
+	overflow:auto;
+}

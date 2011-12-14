@@ -12,13 +12,13 @@
 <table class="list_table">
 	<thead>
 		<tr class="header">
-			<th>
+			<th style="width:200px;">
 				<?php echo __('wish');?>
 			</th>
-			<th>
+			<th style="width:200px;">
 				<?php echo __('tags');?>
 			</th>
-			<th>
+			<th style="width:300px;">
 				<?php echo __('last edited');?>
 			</th>
 		</tr>
@@ -36,13 +36,13 @@
 		?>
 
 	<tr <?php echo $odd_row; ?>>
-		<td>
+		<td style="width:200px;">
 			<a href="<?php echo url::base(). 'home/wish/edit?id='.$wish->id?>"> <?php echo $wish->title;?></a>
 		</td>
-		<td>
+		<td style="width:200px;">
 			blank for now
 		</td>
-		<td>
+		<td style="width:300px;">
 			<?php echo $wish->date_modified; ?>
 		</td>
 	</tr>

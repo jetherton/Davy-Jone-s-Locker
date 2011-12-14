@@ -113,6 +113,7 @@ return array
 
 	//updates
 	'update :user added you as a friend :id'=>'<a href="'.url::base().'home/friends/view?id=:id">:user</a> added you as a friend.',
+	'update :user sent you :wish :wish-id :user-id :user'=>'<a href="'.url::base().'home/friends/view?id=:user-id">:user</a> shared wish <a href="'.url::base().'home/wish/view?id=:wish-id">:wish</a> with you.',
 
 	//dates
 	'a few seconds ago'=>'A few seconds ago',

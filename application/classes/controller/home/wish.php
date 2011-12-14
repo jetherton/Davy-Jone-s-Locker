@@ -27,7 +27,7 @@ class Controller_Home_Wish extends Controller_Home {
 		$wishes = ORM::factory("wish")
 			->and_where('user_id', '=', $this->user->id)
 			->and_where('is_live', '=', 1)
-			->order_by('title', 'DESC')
+			->order_by('title', 'ASC')
 			->find_all();
 		
 		$this->template->content->wishes = $wishes;
@@ -77,12 +77,16 @@ class Controller_Home_Wish extends Controller_Home {
 		
 		//get a list of friends so we can let them view our wish
 		$this->template->content->friends = $this->user->friends->find_all();
+		$this->template->content->is_add = false;
 		
 		if($wish_id == 0)
 		{
+			//set the view to know that we're adding 
+			$this->template->content->is_add = true;
+			
 			//create this wish
 			$values = array('title'=>' ', 'html'=>' ');
-			$wish = ORM::factory('wish');
+			$wish = ORM::factory('wish');		
 			$wish->create_wish($values, $this->user);
 			$wish->title = '';
 			$wish->html = '';
@@ -111,8 +115,14 @@ class Controller_Home_Wish extends Controller_Home {
 		}
 		else
 		{
+			//ETHERTON: this is kludgey and needs to be refactored 
+			$is_add = false;
+			if(!empty($_POST)) // They've submitted the form to update his/her wish
+			{
+				$is_add = intval($_POST['is_add']);
+			}
 			
-			$wish = Model_Wish::validate_id_user($wish_id, $this->user);
+			$wish = Model_Wish::validate_id_user($wish_id, $this->user, $is_add);
 			if(!$wish)
 			{
 				$this->request->redirect("home/wish");
@@ -127,7 +137,6 @@ class Controller_Home_Wish extends Controller_Home {
 			$this->template->content->wish = $wish;
 			$this->template->content->submit_button = __('edit wish');			
 		}
-		
 		$js_view = view::factory('home/wish_edit_js');
 		$js_view->wish = $wish;
 		$this->template->html_head->script_views[] = $js_view;
@@ -137,7 +146,6 @@ class Controller_Home_Wish extends Controller_Home {
 
 			try
 			{
-
 				//did they want to delete it?
 				if($_POST['action'] == 'delete')
 				{
@@ -249,10 +257,16 @@ class Controller_Home_Wish extends Controller_Home {
 		//so finally we have valid input, lets do what we came here to do.
 		if($add == 1)
 		{
-			$friends_wish = ORM::factory('friendswishes');
-			$friends_wish->friend_id = $friend_id;
-			$friends_wish->wish_id = $wish_id;
-			$friends_wish->save();
+			//try to update the wish, if possible
+			try			
+			{
+				$wish->update_wish($_POST, $this->user);
+			}
+			catch(Exception $e)
+			{}
+			
+			Model_Wish::add_friend_to_wish($wish_id, $friend_id, $this->user);
+			
 			echo json_encode(array("status"=>'success', "response"=>'added', 'friend_id'=>$friend_id));
 			return;
 		}

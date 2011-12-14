@@ -3,13 +3,13 @@
 <table class="list_table tooltip">
 	<thead>
 		<tr class="header">
-			<th>
+			<th style="width:200px;">
 				<?php echo __('friend');?>
 			</th>
-			<th>
+			<th style="width:200px;">
 				<?php echo __('relationship');?>
 			</th>		
-			<th>
+			<th style="width:300px;">
 				<?php echo __('groups');?>
 			</th>		
 		</tr>
@@ -29,13 +29,13 @@
 		?>
 
 	<tr <?php echo $odd_row; ?>>
-		<td>
+		<td style="width:200px;">
 			<a href="<?php echo url::base(). 'home/friends/view?id='.$friend->id?>"> <?php echo $friend->first_name . ' ' . $friend->last_name;?></a>
 			<?php if($relationship == Model_Friend::$THEIR_FRIEND){?>
 			<a title="<?php echo __('add :friend as friend', array(':friend'=> $friend->full_name()));?>" style="float:right;" href="#" onclick="add_friend_id(<?php echo $friend->id;?>); return false;">+</a>
 			<?php }?>
 		</td>
-		<td>
+		<td style="width:200px;">
 			<?php
 				if($relationship == Model_Friend::$MY_FRIEND)
 				{
@@ -51,7 +51,7 @@
 				}
 			?>
 		</td>
-		<td>
+		<td style="width:300px;">
 			Group info
 		</td>
 	</tr>

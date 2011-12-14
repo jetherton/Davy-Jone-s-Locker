@@ -23,7 +23,7 @@
 				}
 				else
 				{
-					echo '<ul>';
+					echo '<ul class="reg_height scrollable">';
 					foreach($updates as $update)
 					{
 					?>

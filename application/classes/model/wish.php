@@ -70,6 +70,7 @@ class Model_Wish extends ORM {
 	*/
 	public function update_wish($values, $user)
 	{
+		
 		$expected = array('title', 'html', 'date_modified', 'user_id', 'is_live');
 		$now = date('Y-m-d G:i:s');
 		$values['date_modified'] = $now;
@@ -96,6 +97,7 @@ class Model_Wish extends ORM {
 			->and_where('friends_wishes.friend_id', '=', $user->id)
 			->and_where('wish.user_id', '=', $friend->id)
 			->and_where('wish.is_live', '=', 1)
+			->order_by('title', 'ASC')
 			->find_all();
 		
 		$wishes_from_me = ORM::factory('wish')
@@ -104,6 +106,7 @@ class Model_Wish extends ORM {
 			->and_where('friends_wishes.friend_id', '=', $friend->id)
 			->and_where('wish.user_id', '=', $user->id)
 			->and_where('wish.is_live', '=', 1)
+			->order_by('title', 'ASC')
 			->find_all();
 		
 		return array('from_friend'=>$wishes_from_friend, 'from_me'=>$wishes_from_me);
@@ -138,9 +141,10 @@ class Model_Wish extends ORM {
 	/**
 	 * This function will validate a wish ID
 	 * @param int $id
+	 * @param bool $is_add - if this is the result of an add controller than ignore the is_alive bit
 	 * @return object wish object or false, depending on the validity of the ID
 	 */
-	public static function validate_id($id)
+	public static function validate_id($id, $is_add = false)
 	{
 		$id = intval($id);
 		//if id is properly formated
@@ -150,9 +154,21 @@ class Model_Wish extends ORM {
 		}
 		
 		$wish = ORM::factory('wish', $id);
-		if($wish->loaded() AND intval($wish->is_live) == 1)
+		//if the wish is the product of an add
+		if($is_add == 1)
 		{
-			return $wish;
+			if($wish->loaded())
+			{
+				return $wish;
+			}
+		}
+		//not the product of an add
+		else
+		{
+			if($wish->loaded() AND intval($wish->is_live) == 1)
+			{
+				return $wish;
+			}
 		}
 		
 		return false;
@@ -164,12 +180,13 @@ class Model_Wish extends ORM {
 	 * Enter description here ...
 	 * @param int $id
 	 * @param obj $user
+	 * @param bool $is_add - if this is the result of an add controller than ignore the is_alive bit
 	 * @return object - or false if not valid 
 	 */
-	public static function validate_id_user($id, $user)
+	public static function validate_id_user($id, $user, $is_add = false)
 	{
 		//is the wish good
-		$wish = self::validate_id($id); 
+		$wish = self::validate_id($id, $is_add); 
 		if(!$wish)
 		{
 			return false;
@@ -181,6 +198,36 @@ class Model_Wish extends ORM {
 			return $wish;
 		}
 		return false;
+	}
+	
+	
+	/**
+	 * This function will link a wish to a friend
+	 * It will also issue the requisite updates
+	 * @param int $wish_id
+	 * @param int $friend_id
+	 */
+	public static function add_friend_to_wish($wish_id, $friend_id, $user)
+	{
+
+		$friends_wish = ORM::factory('friendswishes');
+		$friends_wish->friend_id = $friend_id;
+		$friends_wish->wish_id = $wish_id;
+		$friends_wish->save();
+
+		
+		$wish = ORM::factory('wish', $wish_id);
+		
+	
+		if($wish->loaded() && $wish->title != '')
+		{
+			//make an update	
+			$message = __('update :user sent you :wish :wish-id :user-id :user', array(':user'=>$user->full_name(), 
+				':wish'=>$wish->title,			
+				':wish-id'=>$wish_id,
+				':user-id'=>$user->id));
+			ORM::factory('update')->create_update($message, $friend_id);
+		}
 	}
 		
 }//end class
