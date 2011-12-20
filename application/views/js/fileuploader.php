@@ -7,11 +7,33 @@
           debug: false,
           allowedExtensions: <?php echo isset($extensions) ?  '['.implode(',',$extensions). ']' : '[]';?>,
           onComplete: function(id, fileName, responseJSON){
-				console.log(responseJSON);
-				$("#images").append('<div style="height:90px;" class="image_thumb"><div style="float:left;"><img src="<?php echo url::base();?>uploads/'+responseJSON['thumbnail_file_name']+'" style="margin:3px;"></div>'+responseJSON['title']+'</div>');
+				var imageHtml = '<div id="image_'+responseJSON['id']+'" style="height:90px;" class="image_thumb"><div style="float:left;">';
+				imageHtml += '<img src="'+responseJSON['thumbnail'] + '"';
+				imageHtml += ' style="margin:3px;"></div>'+responseJSON['title'];
+				imageHtml += '<span style="float:right;"><a href="#" onclick="deletePic('+responseJSON['id']+'); return false;">';
+				imageHtml += '<?php echo __('delete picture'); ?></a></span>';				
+				imageHtml += '<?php echo __('insert'); ?> -- <a href="#" onclick="insertLink(\''+responseJSON['fullsize']+'\', \''+responseJSON['title']+'\'); return false;"><?php echo __('link');?> </a>, ';
+				imageHtml += '<a href="#" onclick="insertImage(\''+responseJSON['thumbnail']+'\', \''+responseJSON['fullsize']+'\'); return false;"><?php echo __('thumbnail');?></a>, ';
+				imageHtml += '<a href="#" onclick="insertImage(\''+responseJSON['passport']+'\', \''+responseJSON['fullsize']+'\'); return false;"><?php echo __('passport');?></a>, ';
+				imageHtml += '<a href="#" onclick="insertImage(\''+responseJSON['fullsize']+'\', \''+responseJSON['fullsize']+'\'); return false;"><?php echo __('full size');?></a>';
+				imageHtml +='</div>';
+				
+				
+									
+				$("#images").append(imageHtml);
 				$(".qq-upload-list").delay(1000).fadeOut(500);
 			  }
       });           
     
   });
+  
+  function deletePic(id)
+  {
+	  $.post("<?php echo url::base();?>home/wish/deleteimage", {'id':id}, function (data){
+			if(data.status == "success")
+			{
+				$("#image_"+id).fadeOut(500);
+			}
+		  }, 'json');
+  }
   </script>

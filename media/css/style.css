@@ -203,6 +203,12 @@ div.wish_view_frame {
 	margin-bottom:10px;
 	-webkit-border-radius: 20px;
 	-moz-border-radius: 20px;
+	
+}
+
+iv.wish_view_frame img{
+	height:auto;
+	
 }
 
 table.list_table{

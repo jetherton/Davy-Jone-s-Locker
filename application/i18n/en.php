@@ -122,6 +122,11 @@ return array
 	
 	//pictures
 	'delete picture'=>'Delete',
+	'insert'=>'Insert',
+	'link'=>'Link',
+	'thumbnail'=>'Thumbnail',
+	'passport'=>'Passport',
+	'full size'=>'Full Size',
 
 	
 );

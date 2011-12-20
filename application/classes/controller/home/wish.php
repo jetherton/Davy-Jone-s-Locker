@@ -75,7 +75,7 @@ class Controller_Home_Wish extends Controller_Home {
 		$file_uploader_view->element_id = 'image-uploader';
 		$file_uploader_view->extension = array('jpg', 'png', 'gif', 'bmp', 'jpeg');
 		
-		$this->template->html_head->script_views[] = $file_uploader_view; 
+		
 		
 		$this->template->content = view::factory("home/wish_edit");
 		$this->template->content->errors = array();
@@ -87,6 +87,7 @@ class Controller_Home_Wish extends Controller_Home {
 		//get a list of friends so we can let them view our wish
 		$this->template->content->friends = $this->user->friends->find_all();
 		$this->template->content->is_add = false;
+		
 		
 		if($wish_id == 0)
 		{
@@ -146,12 +147,17 @@ class Controller_Home_Wish extends Controller_Home {
 			$this->template->content->wish = $wish;
 			$this->template->content->submit_button = __('edit wish');			
 		}
+		$wish_id = $wish->id;
+		
 		$js_view = view::factory('home/wish_edit_js');
 		$js_view->wish = $wish;
 		$this->template->html_head->script_views[] = $js_view;
-		$file_uploader_view->wish_id = $wish->id;
 		
-		//get the pictures associated with this wish
+				
+		$file_uploader_view->wish_id = $wish_id;
+		$this->template->html_head->script_views[] = $file_uploader_view;
+		
+		//get the pictures associated with this wish		
 		$this->template->content->pictures = $wish->wpics->find_all();
 		
 		if(!empty($_POST)) // They've submitted the form to update his/her wish
@@ -398,9 +404,11 @@ class Controller_Home_Wish extends Controller_Home {
 				->save($upload_folder.$new_filename.'_t.'.$file_type);
 		
 		//store in the Database
-		$picture = ORM::factory('wpic')->create_wish_pic(array('title'=>$title, 
+		$picture = ORM::factory('wpic');
+		$picture->create_wish_pic(array('title'=>$title, 
 			'wish_id'=>$wish->id, 
 			'file_name'=>$new_filename.'.'.$file_type));
+
 		
 
 		//delete the original file
@@ -411,16 +419,50 @@ class Controller_Home_Wish extends Controller_Home {
 		unset($result['extention']);
 		
 
-		$result['original_file_name'] = $new_filename . '.' . $file_type;
-		$result['medium_file_name'] = $new_filename . '_m.' . $file_type;
-		$result['thumbnail_file_name'] = $new_filename . '_t.' . $file_type;
+		$result['fullsize'] = $picture->full_web_full_size();
+		$result['passport'] = $picture->full_web_passport();
+		$result['thumbnail'] = $picture->full_web_thumbnail();
 		$result['title'] = $title;
 		$result['id'] = $picture->id;
 		
 		// to pass data through iframe you will need to encode all html tags
 		echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
 		
+	}//end function
+	
+	
+	/**
+	 * Use this function to delete images
+	 * that the user doesn't want any more
+	 */
+	public function action_deleteimage()
+	{
+		//this function isn't participating in the auto render side of things
+		$this->template = "";
+		$this->auto_render = FALSE;
+		
+		//verify the image id
+		if(!isset($_POST['id']) OR intval($_POST['id']) == 0)
+		{
+				echo json_encode(array('status'=>'error'));
+				return;
+		}
+		$image_id = $_POST['id'];
+		//does this image belong to this user?
+		$image = Model_Wpic::verify_image_user($image_id, $this->user);
+		if(!$image)
+		{
+				echo json_encode(array('status'=>'error'));
+				return;
+		}
+		
+		$image->delete();
+		
+		echo json_encode(array('status'=>'success'));
+		return;
 	}
+	
+	
 	
 } // End class
 

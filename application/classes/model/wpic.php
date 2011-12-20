@@ -72,6 +72,24 @@ class Model_Wpic extends ORM {
 	}
 	
 	/**
+	 * Returns the fully qualified path of the 
+	 * thumbnail for web use
+	 */
+	public function full_web_passport()
+	{
+		return $this->get_upload_dir_web() . $this->get_file_name_wo_ext() . '_m.' . $this->get_extension();
+	}
+	
+	/**
+	 * Returns the fully qualified path of the 
+	 * thumbnail for web use
+	 */
+	public function full_web_full_size()
+	{
+		return $this->get_upload_dir_web() . $this->get_file_name_wo_ext() . '.' . $this->get_extension();
+	}
+	
+	/**
 	 * Get the extension of this file
 	 */
 	public function get_extension()
@@ -102,6 +120,32 @@ class Model_Wpic extends ORM {
 	{
 		return  url::base().'uploads/';
 	}
+	
+	/**
+	 * This tells you if the given image belongs to the given user
+	 * and is a valid image
+	 * @param $image_id int
+	 * @param $user object
+	 * @return false if the image isn't valid, otherwise the image object
+	 */
+	public static function verify_image_user($image_id, $user)
+	{
+		//get the image
+		$image = ORM::factory('wpic', $image_id);
+		
+		if(!$image->loaded())
+		{
+			return false;
+		}
+		
+		$wish = ORM::factory('wish', $image->wish_id);
+		if($user->id == $wish->user_id)
+		{
+			return $image;
+		}
+		return false;
+
+	}//end function
 	
 		
 }//end class

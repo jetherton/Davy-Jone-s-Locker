@@ -99,8 +99,13 @@
 									<div style="float:left;">
 										<img src="<?php echo $pic->full_web_thumbnail();?>" style="margin:3px;">
 									</div>
-									<?php echo $pic->title; ?><br/>
-									<a href="#" onclick="deletePic(<?php echo $pic->id; ?>); return false;"><?php echo __('delete picture'); ?></a>
+									<?php echo $pic->title; ?> 
+									<span style="float:right;"><a href="#" onclick="deletePic(<?php echo $pic->id; ?>); return false;"><?php echo __('delete picture'); ?></a></span>
+									<br/>
+									<?php echo __('insert'); ?> -- <a href="#" onclick="insertLink('<?php echo $pic->full_web_full_size(); ?>', '<?php echo $pic->title;?>'); return false;"><?php echo __('link');?> </a>, 
+									<a href="#" onclick="insertImage('<?php echo $pic->full_web_thumbnail(); ?>', '<?php echo $pic->full_web_full_size(); ?>'); return false;"><?php echo __('thumbnail');?></a>, 
+									<a href="#" onclick="insertImage('<?php echo $pic->full_web_passport(); ?>', '<?php echo $pic->full_web_full_size(); ?>'); return false;"><?php echo __('passport');?></a>, 
+									<a href="#" onclick="insertImage('<?php echo $pic->full_web_full_size(); ?>', '<?php echo $pic->full_web_full_size(); ?>'); return false;"><?php echo __('full size');?></a>
 								</div>
 							<?php } ?>
 						</div>

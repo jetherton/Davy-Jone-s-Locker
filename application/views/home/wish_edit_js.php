@@ -40,5 +40,16 @@
 			}
 		}, 'JSON');
 	}
+	
+	
+	function insertImage(url, imageLink)
+	{
+		tinyMCE.execCommand("mceInsertContent", false, '<a href="'+imageLink+'"><img style="margin:8px;" src="'+url+'"/></a>');
+	}
+	
+	function insertLink(url, title)
+	{
+		tinyMCE.execCommand("mceInsertContent", false, '<a href="'+url+'">'+ title + '</a>');
+	}
 
 </script>

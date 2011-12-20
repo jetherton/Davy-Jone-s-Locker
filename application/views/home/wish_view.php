@@ -10,6 +10,9 @@
 
 <div class="wish_view_frame">
 <h2 ><?php echo __('wish'). ' - '. $wish->title; ?></h2>
-<?php echo $wish->html; ?>
+<div >
+	<?php echo $wish->html; ?>
+</div>
+<div style="clear:both;"></div>
 </div>
 <?php echo __('last edited'). ': '. Helper_Dates::mysql_date_to_string_formal($wish->date_modified);?>
