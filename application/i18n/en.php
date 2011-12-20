@@ -119,6 +119,9 @@ return array
 	'a few seconds ago'=>'A few seconds ago',
 	':hours hours ago'=>':hours hours ago',
 	':minutes minutes ago'=>':minutes minutes ago',
+	
+	//pictures
+	'delete picture'=>'Delete',
 
 	
 );

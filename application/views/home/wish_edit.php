@@ -72,7 +72,11 @@
 						 		foreach($friends as $friend)
 						 		{
 						 			echo '<li id="friend_item_'.$friend->id.'">';
-						 			echo form::checkbox('friend_'.$friend->id,'friend_'.$friend->id, $friend->has('friends_wishes', $wish->id), array('id'=>'friend_'.$friend->id, 'onchange'=>"modifyFriend(".$friend->id."); return false;"));
+						 			echo form::checkbox('friend_'.$friend->id,
+										'friend_'.$friend->id, 
+										$friend->has('friends_wishes', $wish->id), 
+										array('id'=>'friend_'.$friend->id, 
+											'onchange'=>"modifyFriend(".$friend->id."); return false;"));
 						 			echo $friend->first_name . ' ' . $friend->last_name;
 						 			echo '</li>';
 						 		}
@@ -89,7 +93,23 @@
 					</div>
 					<h3><a href="#"><?php echo __('pictures');?></a></h3>
 					<div>
-						 code to add pictures
+						<div id="images">
+							<?php foreach($pictures as $pic) { ?>
+								<div style="height:90px;" id="image_<?php echo $pic->id;?>" class="image_thumb">				
+									<div style="float:left;">
+										<img src="<?php echo $pic->full_web_thumbnail();?>" style="margin:3px;">
+									</div>
+									<?php echo $pic->title; ?><br/>
+									<a href="#" onclick="deletePic(<?php echo $pic->id; ?>); return false;"><?php echo __('delete picture'); ?></a>
+								</div>
+							<?php } ?>
+						</div>
+						<div id="image-uploader">		
+							<noscript>			
+								<p>Please enable JavaScript to use file uploader.</p>
+								<!-- or put a simple form for upload here -->
+							</noscript>         
+						</div>
 					</div>
 					<h3><a href="#"><?php echo __('files');?></a></h3>
 					<div>

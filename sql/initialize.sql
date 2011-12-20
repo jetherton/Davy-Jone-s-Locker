@@ -120,7 +120,17 @@ ADD CONSTRAINT `updates_users_fk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (
 /** Version 0.1 **/
 /*****************************************************************************************************************/
 
-
+/*** create table for pictures in wishes ***/
+CREATE TABLE IF NOT EXISTS `wpics` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `wish_id` int(11) UNSIGNED NOT NULL,
+  `date_created` datetime NOT NULL,
+  `file_name` CHAR(255) NOT NULL,
+  `title` CHAR(255) NOT NULL,
+  PRIMARY KEY (`id`)  
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+ALTER TABLE `wpics`
+ADD CONSTRAINT `wpics_wish_fk_1` FOREIGN KEY (`wish_id`) REFERENCES `wishes` (`id`) ON DELETE CASCADE;
 
 
 

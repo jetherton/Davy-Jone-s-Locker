@@ -1,5 +1,8 @@
   <script type="text/javascript">
   $(document).ready(function() {
-    $("#accordion").accordion();
+    $("#accordion").accordion({
+			autoHeight:false,
+			navigation: true
+		});
   });
   </script>

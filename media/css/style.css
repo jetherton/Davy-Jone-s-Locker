@@ -16,6 +16,10 @@ ul{
 	padding-left:0px;
 }
 
+a:visited{
+	color:blue;
+}
+
 /************ Header **********/
 div#header{
 	border: solid 2px black;
@@ -319,4 +323,8 @@ li.update{
 .scrollable{
 	overflow:auto;
 }
+
+.image_thumb{
+	color:#666;
+	font-size:70%;
 

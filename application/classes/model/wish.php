@@ -10,6 +10,10 @@ class Model_Wish extends ORM {
 	//belongs to a user
 	protected $_belongs_to = array('user' => array());
 	
+	protected $_has_many =  array(
+			'wpics' => array('model' => 'wpic'),
+	);
+	
 	/**
 	 * Rules function
 	 * @see Kohana_ORM::rules()
