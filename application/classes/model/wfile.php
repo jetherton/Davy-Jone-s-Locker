@@ -58,7 +58,7 @@ class Model_Wfile extends ORM {
 	 */
 	 public function get_path()
 	 {
-		 return $this->get_upload_dir().$this->get_file_name_wo_ext().$this->get_extension();
+		 return $this->get_upload_dir().$this->get_file_name_wo_ext().'.'.$this->get_extension();
 	 }
 	 
 	 /**
@@ -108,7 +108,7 @@ class Model_Wfile extends ORM {
 	 * @param $user object
 	 * @return false if the image isn't valid, otherwise the image object
 	 */
-	public static function verify_file_user($file_id, $user)
+	public static function verify_file_user($file_id, $user, $only_owner = false)
 	{
 		//get the image
 		$file = ORM::factory('wfile', $file_id);
@@ -122,6 +122,11 @@ class Model_Wfile extends ORM {
 		if($user->id == $wish->user_id)
 		{
 			return $file;
+		}
+		
+		if($only_owner)
+		{
+			return false;
 		}
 		
 		//or maybe this image belongs to a wish, that the current user is allowed to see

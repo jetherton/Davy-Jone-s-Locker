@@ -72,12 +72,12 @@ class Controller_Home_Wish extends Controller_Home {
 		$this->template->html_head->script_files[] = 'media/js/fileuploader.js';
 		$this->template->html_head->styles['media/css/fileuploader.css'] = 'screen';
 		$picture_uploader_view = view::factory('js/pictureuploader');
-		$picture_uploader_view->element_id = 'image-uploader';
+		$picture_uploader_view->element_id = 'image_uploader';
 		$picture_uploader_view->extension = array('jpg', 'png', 'gif', 'bmp', 'jpeg');
 		
 		//turn on file upload
 		$file_uploader_view = view::factory('js/fileuploader');
-		$file_uploader_view->element_id = 'file-uploader';
+		$file_uploader_view->element_id = 'file_uploader';
 		
 		
 		
@@ -340,6 +340,11 @@ class Controller_Home_Wish extends Controller_Home {
 		//now that we have access to this wish lets view it.
 		$this->template->content = view::factory('home/wish_view');
 		$this->template->content->wish = $wish;
+		//get the pictures associated with this wish		
+		$this->template->content->pictures = $wish->wpics->find_all();
+		
+		//get the files associated with this wish		
+		$this->template->content->files = $wish->wfiles->find_all();
 		//get the friend
 		$this->template->content->friend = ORM::factory('user', $wish->user_id);
 		
@@ -510,7 +515,7 @@ class Controller_Home_Wish extends Controller_Home {
 
 		$result['link'] = $file->get_link();
 		$result['title'] = $title;
-		$result['id'] = $picture->id;
+		$result['id'] = $file->id;
 		
 		// to pass data through iframe you will need to encode all html tags
 		echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
@@ -536,7 +541,7 @@ class Controller_Home_Wish extends Controller_Home {
 		}
 		$image_id = $_POST['id'];
 		//does this image belong to this user?
-		$image = Model_Wpic::verify_image_user($image_id, $this->user);
+		$image = Model_Wpic::verify_image_user($image_id, $this->user, true);
 		if(!$image)
 		{
 				echo json_encode(array('status'=>'error'));
@@ -555,7 +560,44 @@ class Controller_Home_Wish extends Controller_Home {
 	
 	
 	
+	/**
+	 * Use this function to delete images
+	 * that the user doesn't want any more
+	 */
+	public function action_deletefile()
+	{
+		//this function isn't participating in the auto render side of things
+		$this->template = "";
+		$this->auto_render = FALSE;
+		
+		//verify the image id
+		if(!isset($_POST['id']) OR intval($_POST['id']) == 0)
+		{
+				echo json_encode(array('status'=>'error'));
+				return;
+		}
+		$file_id = $_POST['id'];
+		//does this image belong to this user?
+		$file = Model_Wfile::verify_file_user($file_id, $this->user, true);
+		if(!$file)
+		{
+				echo json_encode(array('status'=>'error'));
+				return;
+		}
+		//delete the file
+		unlink($file->get_path());
+		
+		$file->delete();
+		
+		echo json_encode(array('status'=>'success'));
+		return;
+	}
+	
+	
 } // End class
+
+
+
 
 
 /** Stuff for uploading files**/

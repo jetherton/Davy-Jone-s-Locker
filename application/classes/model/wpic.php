@@ -146,7 +146,7 @@ class Model_Wpic extends ORM {
 	 * @param $user object
 	 * @return false if the image isn't valid, otherwise the image object
 	 */
-	public static function verify_image_user($image_id, $user)
+	public static function verify_image_user($image_id, $user, $owner_only = false)
 	{
 		//get the image
 		$image = ORM::factory('wpic', $image_id);
@@ -161,7 +161,11 @@ class Model_Wpic extends ORM {
 		{
 			return $image;
 		}
-		
+		//maybe we want to delete this picture and want to make sure only the owner can delete it
+		if($owner_only)
+		{
+			return true;
+		}
 		//or maybe this image belongs to a wish, that the current user is allowed to see
 		$friends_wish = Model_Wish::get_friends_wish($wish->id, $user->id);
 		if($friends_wish)

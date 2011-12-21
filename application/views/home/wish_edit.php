@@ -109,7 +109,7 @@
 								</div>
 							<?php } ?>
 						</div>
-						<div id="image-uploader">		
+						<div id="image_uploader">		
 							<noscript>			
 								<p>Please enable JavaScript to use file uploader.</p>
 								<!-- or put a simple form for upload here -->
@@ -118,17 +118,17 @@
 					</div>
 					<h3><a href="#"><?php echo __('files');?></a></h3>
 					<div>
-						<div id="files">
+						<ul id="files">
 							<?php foreach($files as $file) { ?>
-								<div style="height:90px;" id="image_<?php echo $file->id;?>" class="image_thumb">				
+								<li id="file_<?php echo $file->id;?>" class="file_thumb">				
 									<?php echo $file->title; ?> 
-									<span style="float:right;"><a href="#" onclick="deletePic(<?php echo $file->id; ?>); return false;"><?php echo __('delete picture'); ?></a></span>
+									<span style="float:right;"><a href="#" onclick="deleteFile(<?php echo $file->id; ?>); return false;"><?php echo __('delete file'); ?></a></span>
 									<br/>
-									<?php echo __('insert'); ?> -- <a href="#" onclick="insertLink('<?php echo $file->get_link(); ?>', '<?php echo $file->title;?>'); return false;"><?php echo __('link');?> </a>, 
-								</div>
+									<?php echo __('insert'); ?> -- <a href="#" onclick="insertLink('<?php echo $file->get_link(); ?>', '<?php echo $file->title;?>'); return false;"><?php echo __('link');?> </a>
+								</li>
 							<?php } ?>
-						</div>
-						 <div id="file-uploader">		
+						</ul>
+						 <div id="file_uploader">		
 							<noscript>			
 								<p>Please enable JavaScript to use file uploader.</p>
 								<!-- or put a simple form for upload here -->

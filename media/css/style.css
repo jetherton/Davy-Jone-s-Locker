@@ -203,7 +203,7 @@ div.wish_view_frame {
 	margin-bottom:10px;
 	-webkit-border-radius: 20px;
 	-moz-border-radius: 20px;
-	
+	width:944px;
 }
 
 iv.wish_view_frame img{
@@ -334,3 +334,22 @@ li.update{
 	color:#666;
 	font-size:70%;
 
+}
+
+.file_thumb{
+	margin-top:15px;
+	color:#666;
+	font-size:70%;
+}
+
+table.picture_horizontal_list {
+	border-collapse:collapse;
+	}
+
+table.picture_horizontal_list td{
+	width:90px;
+	padding-left:10px;
+	padding-right:10px;
+	border-left: 1px #aaa solid;
+	border-right: 1px #aaa solid;
+}

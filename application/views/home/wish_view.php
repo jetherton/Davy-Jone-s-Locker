@@ -15,4 +15,37 @@
 </div>
 <div style="clear:both;"></div>
 </div>
+
+<div class="wish_view_frame scrollable">
+	<h3><?php echo __('wishes pictures'); ?></h3>
+	<table class="picture_horizontal_list">
+		<tr>
+			<?php foreach($pictures as $pic) { ?>
+				<td>
+					<a href="<?php echo $pic->full_web_full_size(); ?>"><img src="<?php echo $pic->full_web_thumbnail();?>"/></a>
+				</td>
+			<?php } ?>
+		</tr>
+		<tr>
+			<?php foreach($pictures as $pic) { ?>
+				<td>
+					<?php echo $pic->title; ?>
+				</td>
+			<?php } ?>
+		</tr>
+	</table>
+</div>
+
+<div class="wish_view_frame scrollable">
+	<h3><?php echo __('wishes files'); ?></h3>
+	<table class="picture_horizontal_list">
+		<tr>
+			<?php foreach($files as $file) { ?>
+				<td>
+					<a href="<?php echo $file->get_link(); ?>"><?php echo $file->title . '.' . $file->get_extension() ;?></a>
+				</td>
+			<?php } ?>
+		</tr>
+	</table>
+</div>
 <?php echo __('last edited'). ': '. Helper_Dates::mysql_date_to_string_formal($wish->date_modified);?>

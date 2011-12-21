@@ -122,11 +122,14 @@ return array
 	
 	//pictures
 	'delete picture'=>'Delete',
+	'delete file'=>'Delete',
 	'insert'=>'Insert',
 	'link'=>'Link',
 	'thumbnail'=>'Thumbnail',
 	'passport'=>'Passport',
 	'full size'=>'Full Size',
+	'wishes pictures' => 'Pictures',
+	'wishes files' => 'Files',
 
 	
 );
