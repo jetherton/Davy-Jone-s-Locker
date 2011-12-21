@@ -64,11 +64,29 @@ class Model_Wpic extends ORM {
 	
 	/**
 	 * Returns the fully qualified path of the 
+	 * passport
+	 */
+	public function full_passport()
+	{
+		return $this->get_upload_dir() . $this->get_file_name_wo_ext() . '_m.' . $this->get_extension();
+	}
+	
+	/**
+	 * Returns the fully qualified path of the 
+	 * fullsize
+	 */
+	public function full_fullsize()
+	{
+		return $this->get_upload_dir() . $this->get_file_name_wo_ext() . '.' . $this->get_extension();
+	}
+	
+	/**
+	 * Returns the fully qualified path of the 
 	 * thumbnail for web use
 	 */
 	public function full_web_thumbnail()
 	{
-		return $this->get_upload_dir_web() . $this->get_file_name_wo_ext() . '_t.' . $this->get_extension();
+		return $this->get_upload_dir_web() . '?id='. $this->id . '&type=t';
 	}
 	
 	/**
@@ -77,7 +95,7 @@ class Model_Wpic extends ORM {
 	 */
 	public function full_web_passport()
 	{
-		return $this->get_upload_dir_web() . $this->get_file_name_wo_ext() . '_m.' . $this->get_extension();
+		return $this->get_upload_dir_web() . '?id='. $this->id . '&type=p';
 	}
 	
 	/**
@@ -86,7 +104,7 @@ class Model_Wpic extends ORM {
 	 */
 	public function full_web_full_size()
 	{
-		return $this->get_upload_dir_web() . $this->get_file_name_wo_ext() . '.' . $this->get_extension();
+		return $this->get_upload_dir_web() . '?id='. $this->id . '&type=f';
 	}
 	
 	/**
@@ -118,7 +136,7 @@ class Model_Wpic extends ORM {
 	 */
 	public function get_upload_dir_web()
 	{
-		return  url::base().'uploads/';
+		return  url::base().'home/picture';
 	}
 	
 	/**
@@ -143,6 +161,14 @@ class Model_Wpic extends ORM {
 		{
 			return $image;
 		}
+		
+		//or maybe this image belongs to a wish, that the current user is allowed to see
+		$friends_wish = Model_Wish::get_friends_wish($wish->id, $user->id);
+		if($friends_wish)
+		{
+			return $image;
+		}
+		
 		return false;
 
 	}//end function

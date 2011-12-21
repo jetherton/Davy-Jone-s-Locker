@@ -455,6 +455,10 @@ class Controller_Home_Wish extends Controller_Home {
 				echo json_encode(array('status'=>'error'));
 				return;
 		}
+		//delete the file
+		unlink($image->full_thumbnail());
+		unlink($image->full_passport());
+		unlink($image->full_fullsize());
 		
 		$image->delete();
 		
