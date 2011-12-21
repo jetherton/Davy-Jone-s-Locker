@@ -68,12 +68,16 @@ class Controller_Home_Wish extends Controller_Home {
 		$this->template->html_head->styles['media/css/jquery-ui.css'] = 'screen';
 		$this->template->html_head->script_views[] = view::factory('js/accordion');
 		
-		//turn on file upload
+		//turn on picture upload
 		$this->template->html_head->script_files[] = 'media/js/fileuploader.js';
 		$this->template->html_head->styles['media/css/fileuploader.css'] = 'screen';
+		$picture_uploader_view = view::factory('js/pictureuploader');
+		$picture_uploader_view->element_id = 'image-uploader';
+		$picture_uploader_view->extension = array('jpg', 'png', 'gif', 'bmp', 'jpeg');
+		
+		//turn on file upload
 		$file_uploader_view = view::factory('js/fileuploader');
-		$file_uploader_view->element_id = 'image-uploader';
-		$file_uploader_view->extension = array('jpg', 'png', 'gif', 'bmp', 'jpeg');
+		$file_uploader_view->element_id = 'file-uploader';
 		
 		
 		
@@ -153,12 +157,18 @@ class Controller_Home_Wish extends Controller_Home {
 		$js_view->wish = $wish;
 		$this->template->html_head->script_views[] = $js_view;
 		
-				
+		
+		//nail down that mysterious wish ID		
+		$picture_uploader_view->wish_id = $wish_id;
 		$file_uploader_view->wish_id = $wish_id;
+		$this->template->html_head->script_views[] = $picture_uploader_view;
 		$this->template->html_head->script_views[] = $file_uploader_view;
 		
 		//get the pictures associated with this wish		
 		$this->template->content->pictures = $wish->wpics->find_all();
+		
+		//get the files associated with this wish		
+		$this->template->content->files = $wish->wfiles->find_all();
 		
 		if(!empty($_POST)) // They've submitted the form to update his/her wish
 		{
@@ -422,6 +432,83 @@ class Controller_Home_Wish extends Controller_Home {
 		$result['fullsize'] = $picture->full_web_full_size();
 		$result['passport'] = $picture->full_web_passport();
 		$result['thumbnail'] = $picture->full_web_thumbnail();
+		$result['title'] = $title;
+		$result['id'] = $picture->id;
+		
+		// to pass data through iframe you will need to encode all html tags
+		echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+		
+	}//end function
+	
+	
+	
+	/**
+	 * Used to upload images to the server
+	 * Enter description here ...
+	 */
+	public function action_fileuploader()
+	{
+		//this function isn't participating in the auto render side of things
+		$this->template = "";
+		$this->auto_render = FALSE;
+		
+		//make sure the wish id is valid
+		if(!isset($_GET['wish_id']) OR intval($_GET['wish_id'] == 0))
+		{
+			echo htmlspecialchars(json_encode(array('error'=>'invalid wish ID')), ENT_NOQUOTES);
+			return;
+		}
+		//make sure this user can mess with this wish
+		$wish = Model_Wish::validate_id_user($_GET['wish_id'], $this->user);
+		if(!$wish)
+		{
+			echo htmlspecialchars(json_encode(array('error'=>'invalid wish ID')), ENT_NOQUOTES);
+			return;
+		}
+		
+				
+		// list of valid extensions, ex. array("jpeg", "xml", "bmp")
+		$allowedExtensions = array();
+		// max file size in bytes
+		$sizeLimit = 6 *  1048576; //6 mega bytes
+		
+		$upload_folder = getcwd().'/uploads/';
+		
+		$uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
+		$result = $uploader->handleUpload($upload_folder);
+		//if there was an error
+		if(!isset($result['success']))
+		{
+			echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
+			return;
+		}
+		
+		$file_name = $result['filename'];
+		$file_type = $result['extention'];
+		$file_name_ext = $file_name . '.' . $file_type;
+		$title = substr($file_name,strrpos($file_name, '/')+1);
+		
+		// create the new name
+		$new_filename = $this->user->id.'_'.time();
+		
+		//do the rename
+		rename($file_name_ext, $upload_folder.$new_filename.'.'.$file_type);
+		
+		
+		//store in the Database
+		$file = ORM::factory('wfile');
+		$file->create_wish_file(array('title'=>$title, 
+			'wish_id'=>$wish->id, 
+			'file_name'=>$new_filename.'.'.$file_type));
+
+		
+
+		//unset the items used to pass info back and forth
+		unset($result['filename']);
+		unset($result['extention']);
+		
+
+		$result['link'] = $file->get_link();
 		$result['title'] = $title;
 		$result['id'] = $picture->id;
 		

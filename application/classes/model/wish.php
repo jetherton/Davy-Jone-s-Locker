@@ -12,6 +12,7 @@ class Model_Wish extends ORM {
 	
 	protected $_has_many =  array(
 			'wpics' => array('model' => 'wpic'),
+			'wfiles' => array('model' => 'wfile'),
 	);
 	
 	/**

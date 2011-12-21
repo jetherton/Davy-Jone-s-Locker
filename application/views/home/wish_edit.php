@@ -118,7 +118,22 @@
 					</div>
 					<h3><a href="#"><?php echo __('files');?></a></h3>
 					<div>
-						 code to add files
+						<div id="files">
+							<?php foreach($files as $file) { ?>
+								<div style="height:90px;" id="image_<?php echo $file->id;?>" class="image_thumb">				
+									<?php echo $file->title; ?> 
+									<span style="float:right;"><a href="#" onclick="deletePic(<?php echo $file->id; ?>); return false;"><?php echo __('delete picture'); ?></a></span>
+									<br/>
+									<?php echo __('insert'); ?> -- <a href="#" onclick="insertLink('<?php echo $file->get_link(); ?>', '<?php echo $file->title;?>'); return false;"><?php echo __('link');?> </a>, 
+								</div>
+							<?php } ?>
+						</div>
+						 <div id="file-uploader">		
+							<noscript>			
+								<p>Please enable JavaScript to use file uploader.</p>
+								<!-- or put a simple form for upload here -->
+							</noscript>         
+						</div>
 					</div>
 				</div>
 			<td>
