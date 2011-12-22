@@ -79,6 +79,14 @@ class Controller_Home_Wish extends Controller_Home {
 		$file_uploader_view = view::factory('js/fileuploader');
 		$file_uploader_view->element_id = 'file_uploader';
 		
+		//turn on the map
+		$map_view = view::factory('js/googlemaps');
+		$map_view->element_id = 'map';
+		$this->template->html_head->script_views[] =  $map_view;
+		
+		//turn on div blocking
+		$this->template->html_head->script_files[] = 'media/js/jquery.blockUI.js';
+		
 		
 		
 		$this->template->content = view::factory("home/wish_edit");

@@ -48,7 +48,6 @@
 <?php 
 }
 ?>
-
 <form method="POST" action="<?php echo url::base().'home/wish/edit?id='. $wish->id;?>" id="wish_edit_form" accept-charset="utf-8">
 	<table class="wish_edit">
 		<tr>
@@ -88,8 +87,24 @@
 						 some tag stuff here
 					</div>
 					<h3><a href="#"><?php echo __('location');?></a></h3>
-					<div>
-						 add a map
+					<div id="map_tab"  style="padding-top:0px;padding-bottom:0px;">
+						<?php
+						echo form::checkbox('use_location',
+										'use_location', false, 
+										array('id'=>'use_location', 
+											'onchange'=>"toggleUseLocation(); return false;"));
+						echo __('use location');
+						?>
+						 <div id="map_panel">
+							 <div id="map" class="map"></div>
+							 <p></p>
+							 <input rel="writehere|<?php echo __('search map'); ?>|cssoff|csson" style="width:150px;"id="map_search_input" name="map_search" onkeypress="return searchKeyPress(event,this);">
+							 <input type="button" id="map_search_button" value="<?php echo __('search'); ?>" onclick="codeAddress(); return false;"/>
+							 <input type="hidden" id="lat"/>
+							 <input type="hidden" id="lon"/>
+							 <input type="hidden" id="zoom"/>
+							 <input type="hidden" id="map_type"/>
+						 </div>
 					</div>
 					<h3><a href="#"><?php echo __('pictures');?></a></h3>
 					<div>

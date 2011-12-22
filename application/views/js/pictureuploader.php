@@ -14,7 +14,7 @@
 					imageHtml += ' style="margin:3px;"></div>'+responseJSON['title'];
 					imageHtml += '<span style="float:right;"><a href="#" onclick="deletePic('+responseJSON['id']+'); return false;">';
 					imageHtml += '<?php echo __('delete picture'); ?></a></span>';				
-					imageHtml += '<?php echo __('insert'); ?> -- <a href="#" onclick="insertLink(\''+responseJSON['fullsize']+'\', \''+responseJSON['title']+'\'); return false;"><?php echo __('link');?> </a>, ';
+					imageHtml += '<br/><?php echo __('insert'); ?> -- <a href="#" onclick="insertLink(\''+responseJSON['fullsize']+'\', \''+responseJSON['title']+'\'); return false;"><?php echo __('link');?> </a>, ';
 					imageHtml += '<a href="#" onclick="insertImage(\''+responseJSON['thumbnail']+'\', \''+responseJSON['fullsize']+'\'); return false;"><?php echo __('thumbnail');?></a>, ';
 					imageHtml += '<a href="#" onclick="insertImage(\''+responseJSON['passport']+'\', \''+responseJSON['fullsize']+'\'); return false;"><?php echo __('passport');?></a>, ';
 					imageHtml += '<a href="#" onclick="insertImage(\''+responseJSON['fullsize']+'\', \''+responseJSON['fullsize']+'\'); return false;"><?php echo __('full size');?></a>';

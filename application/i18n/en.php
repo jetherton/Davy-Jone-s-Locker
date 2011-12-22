@@ -130,6 +130,10 @@ return array
 	'full size'=>'Full Size',
 	'wishes pictures' => 'Pictures',
 	'wishes files' => 'Files',
+	
+	//map
+	'search map'=>'Search Map: ',
+	'use location'=>'Use Location',
 
 	
 );

@@ -353,3 +353,20 @@ table.picture_horizontal_list td{
 	border-left: 1px #aaa solid;
 	border-right: 1px #aaa solid;
 }
+
+div.map{
+	width:260px;
+	height:300px;
+	padding:0;
+	margin:0;
+	border:#888 1px solid;
+	position: relative;
+}
+
+input.csson{
+	color: black;
+}
+	
+input.cssoff{
+	color: grey;
+}

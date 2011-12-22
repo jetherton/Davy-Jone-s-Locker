@@ -51,5 +51,28 @@
 	{
 		tinyMCE.execCommand("mceInsertContent", false, '<a href="'+url+'">'+ title + '</a>');
 	}
+	
+	
+	function setWriteHere(search) 
+	{
+		/* add on click event handler */
+		$("input[rel^="+search+"]").click( function () {
+			var ar = $(this).attr('rel').split('|');
+			if($(this).val()==ar[1]) { $(this).val(""); $(this).attr('class',ar[3]); }
+		} );
+		/* add on blur event handler */
+		$("input[rel^="+search+"]").blur( function () {
+			var ar = $(this).attr('rel').split('|');
+			if($(this).val()=="") { $(this).val(ar[1]); $(this).attr('class',ar[2]); }
+		} );
+		/* trigger blur event */
+		$("input[rel^="+search+"]").each( function () { $(this).blur(); } );
+	}
+	
+	$(document).ready(function() 
+	{
+		/* fix forms when ready */
+		setWriteHere("writehere");
+    });
 
 </script>
