@@ -41,10 +41,25 @@ class Model_Category extends Model_Auth_User {
 	*/
 	public function update_category($values)
 	{
-		
+
 		$expected = array('title', 'description', 'order');	
-		
-		//update the order, this only affects categories with orders > than the current
+
+		//update the order first decrease everything above the cats current position
+		//but only if the order is already known for this cat
+		if($this->order)
+		{
+			$cats = ORM::factory('category')->
+				where('order', '>', $this->order)->
+				find_all();
+			
+			foreach($cats as $cat)
+			{
+				$cat->order = intval($cat->order) - 1;
+				$cat->save();
+			}
+		}
+
+		//now push everything up that's greater than or equal to the new position
 		$cats = ORM::factory('category')->
 			where('order', '>=', $values['order'])->
 			find_all();

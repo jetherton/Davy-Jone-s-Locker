@@ -141,6 +141,13 @@ return array
 	'categories explanation'=>'Use this page to add, edit, and delete categories',
 	'description'=>'Description',
 	'you have no categories'=>'You have no categories',
+	'add/edit category'=>'Add / Edit Category',
+	'add edit'=>'Add/Edit',
+	'order'=>'Order',
+	'actions'=>'Actions',
+	'are you sure you want to delete category'=>'Are you sure you want to delete this category?',
+	'edit'=>'Edit',
+	'delete'=>'Delete',
 	
 	//forms
 	'forms'=>'Forms',
