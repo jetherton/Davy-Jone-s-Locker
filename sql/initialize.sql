@@ -170,6 +170,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 ALTER TABLE  `categories` ADD  `order` INT( 11 ) UNSIGNED NOT NULL;
 
+
 /*** create table for forms ***/
 CREATE TABLE IF NOT EXISTS `forms` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -180,6 +181,7 @@ CREATE TABLE IF NOT EXISTS `forms` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 ALTER TABLE `forms`
 ADD CONSTRAINT `forms_category_fk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
+ALTER TABLE  `forms` ADD  `order` INT( 11 ) UNSIGNED NOT NULL;
 
 
 
