@@ -151,6 +151,11 @@ return array
 	
 	//forms
 	'forms'=>'Forms',
+	'forms explanation'=>'Use this page to add, edit, and delete forms',
+	'are you sure you want to delete category'=>'Are you sure you want to delete this form?',
+	'you have no forms'=>'You have no forms',
+	'add form'=>'Add Form',
+	'edit form'=>'Edit Form';
 	
 );
 

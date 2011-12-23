@@ -6,6 +6,10 @@ class Model_Category extends Model_Auth_User {
 	protected $_table_name = 'categories';
 
 
+	protected $_has_many =  array(
+				'forms' => array('model' => 'form'),
+		);
+		
 		/**
 	 * Rules function
 	 * @see Kohana_ORM::rules()
@@ -27,6 +31,14 @@ class Model_Category extends Model_Auth_User {
 			);		
 	}//end function
 	
+	
+	/**
+	 * The to string method. Ahh Java, how I miss the
+	 */
+	public function __toString()
+	{
+		return $this->title;
+	}
 	
 	/**
 	* Update an existing category
@@ -68,6 +80,14 @@ class Model_Category extends Model_Auth_User {
 		{
 			$cat->order = intval($cat->order) + 1;
 			$cat->save();
+		}
+		
+		//a sanity check to make sure we don't accidentally get the order screwed up
+		$num_cats = ORM::factory('category')->count_all();
+		$offset = $this->order ? 0 : 1;
+		if($values['order'] > $num_cats + $offset)
+		{
+			$values['order'] == $num_cats + $offset;
 		}
 		
 		$this->values($values, $expected);

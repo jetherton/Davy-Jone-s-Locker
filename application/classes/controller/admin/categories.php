@@ -32,26 +32,47 @@ class Controller_Admin_Categories extends Controller_Admin {
 		/********Check if we're supposed to do something ******/
 		if(!empty($_POST)) // They've submitted the form to update his/her wish
 		{
-			//if we're editing things
-			if($_POST['action'] == 'edit')
+			try
 			{
-				//new cat or existing cat?
-				if($_POST['cat_id'] == 0)
+				//if we're editing things
+				if($_POST['action'] == 'edit')
 				{
-					$cat = ORM::factory('category');
-				}
-				else
-				{
-					$cat = ORM::factory('category', $_POST['cat_id']);
+					//new cat or existing cat?
+					if($_POST['cat_id'] == 0)
+					{
+						$cat = ORM::factory('category');
+					}
+					else
+					{
+						$cat = ORM::factory('category', $_POST['cat_id']);
+					}
+					
+					$cat->update_category($_POST);
 				}
 				
-				$cat->update_category($_POST);
+				else if($_POST['action'] == 'delete')
+				{
+					Model_Category::delete_category($_POST['cat_id']);
+				}
 			}
-			
-			else if($_POST['action'] == 'delete')
+			catch (ORM_Validation_Exception $e)
 			{
-				Model_Category::delete_category($_POST['cat_id']);
-			}
+				$errors_temp = $e->errors('register');
+				if(isset($errors_temp["_external"]))
+				{
+					$this->template->content->errors = array_merge($errors_temp["_external"], $this->template->content->errors);
+				}				
+				else
+				{
+					foreach($errors_temp as $error)
+					{
+						if(is_string($error))
+						{
+							$this->template->content->errors[] = $error;							
+						}
+					}
+				}
+			}	
 		}
 		
 		/*****Render the categories****/

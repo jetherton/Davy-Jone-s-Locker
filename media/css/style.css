@@ -378,9 +378,9 @@ div#header div#mainMenu div.admin_menu ul li a {
 }
 
 div#header div#mainMenu div.admin_menu ul li.selected a {
-	background: #aaffaa;
-	border: solid 1px #448844;
-	color: #050;	
+	background: #292;
+	border: solid 1px #9e9;
+	color: #9e9;	
 }
 
 div#header div#mainMenu div.admin_menu ul li a:hover {
@@ -393,4 +393,18 @@ div#header div#mainMenu div.admin_menu ul li a:hover {
 div#category_editor{
 	border:solid grey 2px;
 	padding:10px;
+}
+
+a.button{
+	border:outset 5px grey;
+	background:#bbb;
+	padding:5px;
+	margin:10px;
+	color:black;
+	text-decoration:none;
+}
+
+a.button:hover, a.button:focus{
+	border:inset 5px grey;
+	background:#999;
 }
