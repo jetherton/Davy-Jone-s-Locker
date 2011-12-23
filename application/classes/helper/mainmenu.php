@@ -4,6 +4,7 @@ class Helper_Mainmenu
 {
 	public static function make_menu($page, $user)
 	{
+		$end_div = false;
 		echo '<ul>';
 		
 		//Don't show the register link if the user is logged in
@@ -65,20 +66,56 @@ class Helper_Mainmenu
 				echo '<a href="'.url::base().'home/friends">'.__("friends").'</a></li>';
 				
 			}
+		
+		
+		
 			
 			//see if the given user is an admin, if so they can do super cool stuff
 			$admin_role = ORM::factory('role')->where("name", "=", "admin")->find();
 			if($user->has('roles', $admin_role))
 			{
+				$end_div = true;
+				echo '</ul>';				
+				echo '<p style="clear:both; height:1px;"></p>';
+				echo '<div class="admin_menu">';
+				echo '<ul>';
+				//page for making/editing categories
+				if($page == "categories")
+				{
+					echo '<li class="selected">';
+				}
+				else
+				{
+					echo '<li>';
+				}
+				echo '<a href="'.url::base().'admin/categories">'.__("categories").'</a></li>';
+					
+					
+				//page for making/editing categories
+				if($page == "forms")
+				{
+					echo '<li class="selected">';
+				}
+				else
+				{
+					echo '<li>';
+				}
+				echo '<a href="'.url::base().'admin/forms">'.__("forms").'</a></li>';
+			
 				
-				//page for making/editing pages
-				//page for making/eidting tags
-				//page for making/eidting users
+			
+			
 				
 			}
 		}//end is logged in
 		
-		
 		echo '</ul>';
+		echo '<p style="clear:both;"></p>';
+		if($end_div)
+		{
+			echo '</div>';
+		}
+		
+		
 	}//end function
 }//end class

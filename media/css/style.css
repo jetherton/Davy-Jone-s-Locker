@@ -37,7 +37,7 @@ div#header div#mainMenu{
 	padding:10px;
 	color:white;
 	background: #aaa;
-	height:35px;
+
 }
 
 div#header div#mainMenu ul{
@@ -369,4 +369,22 @@ input.csson{
 	
 input.cssoff{
 	color: grey;
+}
+/** Admin Menu stuff **/
+div#header div#mainMenu div.admin_menu ul li a {
+	background: #aaffaa;
+	border: solid 1px #448844;
+	color: #050;	
+}
+
+div#header div#mainMenu div.admin_menu ul li.selected a {
+	background: #aaffaa;
+	border: solid 1px #448844;
+	color: #050;	
+}
+
+div#header div#mainMenu div.admin_menu ul li a:hover {
+	background: #88dd88;
+	border: solid 1px #448844;
+	color: #050;	
 }

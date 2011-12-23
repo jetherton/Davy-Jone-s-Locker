@@ -135,6 +135,15 @@ return array
 	'search map'=>'Search Map: ',
 	'use location'=>'Use Location',
 
+	//categories
+	'categories'=>'Categories',
+	'category'=>'Category',
+	'categories explanation'=>'Use this page to add, edit, and delete categories',
+	'description'=>'Description',
+	'you have no categories'=>'You have no categories',
+	
+	//forms
+	'forms'=>'Forms',
 	
 );
 
