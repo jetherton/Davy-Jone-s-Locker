@@ -157,3 +157,29 @@ CREATE TABLE IF NOT EXISTS `location` (
 ALTER TABLE `location`
 ADD CONSTRAINT `location_wish_fk_1` FOREIGN KEY (`wish_id`) REFERENCES `wishes` (`id`) ON DELETE CASCADE;
 
+/****************************************************************************************************/
+/*   VERSION 0.2   */
+/****************************************************************************************************/
+
+/*** create table for categories ***/
+CREATE TABLE IF NOT EXISTS `categories` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` CHAR(255) NOT NULL,
+  `description` CHAR(255) NOT NULL,
+  PRIMARY KEY (`id`)  
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+
+/*** create table for forms ***/
+CREATE TABLE IF NOT EXISTS `forms` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) UNSIGNED,
+  `title` CHAR(255) NOT NULL,
+  `description` CHAR(255) NOT NULL,
+  PRIMARY KEY (`id`)  
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+ALTER TABLE `forms`
+ADD CONSTRAINT `forms_category_fk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
+
+
+/*** create table for form fields ***/
+
