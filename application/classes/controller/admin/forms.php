@@ -87,7 +87,7 @@ class Controller_Admin_Forms extends Controller_Admin {
 		//if it's 0 then we're adding a form
 		if($id == 0)
 		{
-			$form = ORM::factory('form');
+			$form = null;
 		}
 		else
 		{
@@ -103,7 +103,8 @@ class Controller_Admin_Forms extends Controller_Admin {
 		
 		/***Now that we have the form, lets initialize the UI***/
 		//The title to show on the browser
-		$this->template->html_head->title = __("edit form") . $form->title ? ' :: '. $form->title : '';
+		$header = $form ? __("edit form") . ' :: '. $form->title : __("add form") ;
+		$this->template->html_head->title = $header;		
 		//make messages roll up when done
 		$this->template->html_head->messages_roll_up = true;
 		//the name in the menu
@@ -111,9 +112,51 @@ class Controller_Admin_Forms extends Controller_Admin {
 		$this->template->content = view::factory("admin/form_edit");
 		$this->template->content->errors = array();
 		$this->template->content->messages = array();
+		$this->template->content->header = $header;
 		//set the JS
 		$js = view::factory('admin/form_edit_js');
+		$js->form = $form;
 		$this->template->html_head->script_views[] = $js;
+		
+		
+		
+		/******* Handle incoming data*****/
+		
+		/**** Finish setting things up ****/
+		//categories
+		$cats = ORM::factory('category')->find_all();
+		$category = array();
+		foreach($cats as $cat)
+		{
+			$category[$cat->id] = $cat;
+		}
+		$this->template->content->categories = $category;
+		
+		//form fields
+		$formfields = ORM::factory('formfield')->find_all();
+		$this->template->content->formfields = $formfields;
+		
+		//get the number of items per category
+		$forms = ORM::factory('form')
+			->order_by('category_id')
+			->find_all();
+		$cat_counts = array();
+		$current_count = 0;
+		$current_cat_id = 0;
+		foreach($forms as $form)
+		{
+			if($current_cat_id != 0 AND $current_cat_id != $form->category_id)
+			{
+				$cat_counts[$current_cat_id] = $current_count;
+				$current_count = 0;
+				$current_cat_id = $form->category_id;
+			}
+			$current_count++;
+		}
+		
+		$js->cat_counts = json_encode($cat_counts);
+			
+		
 		 
 	 }//end action_edit
 	

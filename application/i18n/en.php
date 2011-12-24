@@ -155,7 +155,10 @@ return array
 	'are you sure you want to delete category'=>'Are you sure you want to delete this form?',
 	'you have no forms'=>'You have no forms',
 	'add form'=>'Add Form',
-	'edit form'=>'Edit Form';
+	'edit form'=>'Edit Form',
+	'form edit explanation'=>'Use this page to edit a form',
+	'form fields'=>'Form Fields',
+	'you have no form fields'=>'You have no form fields',
 	
 );
 

@@ -184,5 +184,21 @@ ADD CONSTRAINT `forms_category_fk_1` FOREIGN KEY (`category_id`) REFERENCES `cat
 ALTER TABLE  `forms` ADD  `order` INT( 11 ) UNSIGNED NOT NULL;
 
 
+/*** create table form fields ***/
+CREATE TABLE IF NOT EXISTS `formfields` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `form_id` int(11) UNSIGNED NOT NULL,
+  `title` CHAR(255) NOT NULL,
+  `description` CHAR(255) NOT NULL,
+  `order` INT( 11 ) UNSIGNED NOT NULL DEFAULT '0',
+  `required` tinyint(4) UNSIGNED NOT NULL DEFAULT '0',
+  `type` tinyint(4) UNSIGNED NOT NULL,
+  `default_value` CHAR(255) NULL,
+  PRIMARY KEY (`id`)  
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+ALTER TABLE `formfields`
+ADD CONSTRAINT `formfields_form_id_fk_1` FOREIGN KEY (`form_id`) REFERENCES `forms` (`id`) ON DELETE CASCADE;
+
+
 
 

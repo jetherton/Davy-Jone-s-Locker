@@ -6,14 +6,10 @@
 * Started on 12/23/2011
 *************************************************************/
 
-class Model_Form extends ORM {
+class Model_Formfield extends ORM {
 
 	//belongs to a category
-	protected $_belongs_to = array('category' => array());
-	
-		protected $_has_many =  array(
-				'formfields' => array('model' => 'formfield'),
-		);
+	protected $_belongs_to = array('form' => array());
 
 	/**
 	 * Rules function
@@ -27,6 +23,23 @@ class Model_Form extends ORM {
 				array('max_length', array(':value', 254)),
 				array('min_length', array(':value', 1))
 				),
+				
+			'form_id' => array(
+				array('not_empty'),
+				),
+				
+			'type' => array(
+				array('not_empty'),
+				),			
+			'required' => array(
+				array('not_empty'),
+				),			
+
+			'default_value' => array(
+				array('max_length', array(':value', 254)),
+				array('min_length', array(':value', 1))
+				),
+
 	
 			'description' => array(
 				array('not_empty'),
@@ -38,51 +51,51 @@ class Model_Form extends ORM {
 	
 	
 	/**
-	* Update an existing form
+	* Update an existing formfield
 	*
 	* Example usage:
 	* ~~~
-	* $form = ORM::factory('form', $id)->update_form($_POST);
+	* $form_field = ORM::factory('formfield', $id)->update_formfield($_POST);
 	* ~~~
 	*
 	* @param array $values
 	* @throws ORM_Validation_Exception
 	*/
-	public function update_form($values)
+	public function update_formfield($values)
 	{
 
-		$expected = array('title', 'description', 'order', 'category_id');	
+		$expected = array('title', 'description', 'order', 'form_id', 'required', 'type', 'default_value');	
 
-		//update the order first decrease everything above the cats current position
-		//but only if the order is already known for this cat
+		//update the order first decrease everything above the forms current position
+		//but only if the order is already known for this form
 		if($this->order)
 		{
-			$forms = ORM::factory('form')->
+			$formfields = ORM::factory('formfield')->
 				and_where('order', '>', $this->order)->
-				and_where('category_id', '=', $this->category_id)->
+				and_where('form_id', '=', $this->form_id)->
 				find_all();
 			
-			foreach($forms as $form)
+			foreach($formfields as $ff)
 			{
-				$form->order = intval($form->order) - 1;
-				$form->save();
+				$ff->order = intval($ff->order) - 1;
+				$ff->save();
 			}
 		}
 
 		//now push everything up that's greater than or equal to the new position
-		$forms = ORM::factory('form')->
+		$formfields = ORM::factory('formfield')->
 			and_where('order', '>=', $values['order'])->
-			and_where('category_id', '=', $values['category_id'])->
+			and_where('form_id', '=', $values['form_id'])->
 			find_all();
 		
-		foreach($forms as $form)
+		foreach($formfields as $ff)
 		{
-			$form->order = intval($form->order) + 1;
-			$form->save();
+			$ff->order = intval($ff->order) + 1;
+			$ff->save();
 		}
 		
 		//a sanity check to make sure we don't accidentally get the order screwed up
-		$num_forms = ORM::factory('form')->where('category_id', '=', $values['category_id'])->count_all();
+		$num_formfieldss = ORM::factory('formfields')->where('form_id', '=', $values['form_id'])->count_all();
 		$offset = $this->order ? 0 : 1;
 		if($values['order'] > $num_forms + $offset)
 		{
@@ -96,28 +109,28 @@ class Model_Form extends ORM {
 	
 	
 	/**
-	 * Delete a form and keep the ordering in tact
+	 * Delete a form field and keep the ordering in tact
 	 * 
-	 * Model_Form::delete($id);
+	 * Model_Form::delete_formfield($id);
 	 * 
 	 * @param id $id - the ID of the form you want to delete
 	 * */
-	public static function delete_form($id)
+	public static function delete_formfield($id)
 	{
-		$form = ORM::factory('form', $id);
+		$formfield = ORM::factory('formfield', $id);
 		//update the order, this only affects categories with orders > than the current
-		$forms = ORM::factory('form')->
+		$formfields = ORM::factory('formfield')->
 			and_where('order', '>', $category->order)->
-			and_where('category_id', '=', $category->category_id)->
+			and_where('form_id', '=', $category->form_id)->
 			find_all();
 		
-		foreach($forms as $f)
+		foreach($formfields as $ff)
 		{
-			$f->order = intval($f->order) - 1;
-			$f->save();
+			$ff->order = intval($ff->order) - 1;
+			$ff->save();
 		}
 		
-		$form->delete();
+		$formfield->delete();
 	}//end function
 
 	
