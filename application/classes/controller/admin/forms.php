@@ -80,6 +80,14 @@ class Controller_Admin_Forms extends Controller_Admin {
 	 */
 	 public function action_edit()
 	 {
+		//initialize data
+		$data = array(
+			'title'=>'',
+			'description'=>'',
+			'category_id'=>null,
+			'order'=>null);
+			
+		 
 		/*** Make sure we have the right form ***/		
 		//first order of business, get that id, if there is one
 		$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -92,13 +100,18 @@ class Controller_Admin_Forms extends Controller_Admin {
 		else
 		{
 			//get the form
-			$form = ORM::factory('form', $form);
+			$form = ORM::factory('form', $id);
 
 			//does the form exist?
 			if(!$form->loaded())
 			{
 			 $this->request->redirect('admin/forms');
 			}
+			echo "here";
+			$data['title'] = $form->title;
+			$data['description'] = $form->description;
+			$data['category_id'] = $form->category_id;
+			$data['order'] = $form->order;
 		}
 		
 		/***Now that we have the form, lets initialize the UI***/
@@ -121,6 +134,56 @@ class Controller_Admin_Forms extends Controller_Admin {
 		
 		
 		/******* Handle incoming data*****/
+		if(!empty($_POST)) // They've submitted the form to update his/her wish
+		{
+			try
+			{
+				//if we're editing things
+				if($_POST['action'] == 'edit')
+				{
+					//new cat or existing cat?
+					if($_POST['form_id'] == 0)
+					{
+						$form = ORM::factory('form');
+					}
+					else
+					{
+						$form = ORM::factory('form', $_POST['form_id']);
+					}
+					
+					$form->update_form($_POST);
+					$data['title'] = $form->title;
+					$data['description'] = $form->description;
+					$data['category_id'] = $form->category_id;
+					$data['order'] = $form->order;
+				}
+				
+				else if($_POST['action'] == 'delete')
+				{
+					Model_Form::delete_form($_POST['form_id']);
+				}
+			}
+			catch (ORM_Validation_Exception $e)
+			{
+				$errors_temp = $e->errors('register');
+				if(isset($errors_temp["_external"]))
+				{
+					$this->template->content->errors = array_merge($errors_temp["_external"], $this->template->content->errors);
+				}				
+				else
+				{
+					foreach($errors_temp as $error)
+					{
+						if(is_string($error))
+						{
+							$this->template->content->errors[] = $error;							
+						}
+					}
+				}
+			}	
+		}
+		
+		
 		
 		/**** Finish setting things up ****/
 		//categories
@@ -155,7 +218,7 @@ class Controller_Admin_Forms extends Controller_Admin {
 		}
 		
 		$js->cat_counts = json_encode($cat_counts);
-			
+		$this->template->content->data = $data;
 		
 		 
 	 }//end action_edit

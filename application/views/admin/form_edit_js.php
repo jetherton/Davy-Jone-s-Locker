@@ -15,32 +15,53 @@
 	function updateOrder()
 	{
 			var currentCategory = $("#category option:selected").val();
+			console.log(currentCategory);
+			var catCount = catCounts[currentCategory];
+			if( catCount == null && catCount == undefined)
+			{
+				catCount = 1;
+			}
+			//remove the current options first
+			$("#order option").remove();
+			
+			//add the new ones
+			for(i = 1; i <= catCount; i++)
+			{
+				$('#order')
+					.append($("<option></option>")
+					.attr("value",i)
+					.text(i)); 
+			}
 	}
 	
-	function deleteCategory(id)
+	function deleteForm(id)
 	{
-		if (confirm("<?php echo __('are you sure you want to delete category');?>"))
+		if (confirm("<?php echo __('are you sure you want to delete form');?>"))
 		{
-			$("#cat_id").val(id);
+			$("#form_id").val(id);
 			$("#action").val('delete');
-			$("#edit_cat_form").submit();
+			$("#edit_form_form").submit();
 		}
 	}
 
 	
-	function editCat(catId, order, title, description)
+	function editForm(formId, catId, order, title, description)
 	{
 		if($("#order option").size() > numberOfCats)
 		{
 			$("#order option:last").remove();
 		}
 	
-		$("#cat_id").val(catId);
+		$("#form_id").val(formId);
 		$("#title").val(title);
 		$("#description").val(description);
 		$("#order").val(order);
 
 	}
+	
+	$(document).ready(function () {
+		updateOrder();
+	});
 	
 	
 </script>

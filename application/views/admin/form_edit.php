@@ -58,15 +58,15 @@
 	echo '<table><tr><td>';
 	echo Form::label('title', __('title').": ");
 	echo '</td><td>';
-	echo Form::input('title', '', array('id'=>'title', 'style'=>'width:300px;'));
+	echo Form::input('title', $data['title'], array('id'=>'title', 'style'=>'width:300px;'));
 	echo '</td></tr><tr><td>';
 	echo Form::label('description', __('description').": ");
 	echo '</td><td>';
-	echo Form::input('description', '', array('id'=>'description', 'style'=>'width:300px;'));
+	echo Form::input('description', $data['description'], array('id'=>'description', 'style'=>'width:300px;'));
 	echo '</td></tr><tr><td>';
 	echo Form::label('category_id', __('category').": ");
 	echo '</td><td>';
-	echo Form::select('category_id', $categories, null,  array('id'=>'category_id'));
+	echo Form::select('category_id', $categories, $data['category_id'],  array('id'=>'category_id'));
 	echo '</td></tr><tr><td>';	
 	echo Form::label('order', __('order').": ");
 	echo '</td><td>';
