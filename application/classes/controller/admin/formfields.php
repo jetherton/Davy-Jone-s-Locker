@@ -83,7 +83,8 @@ class Controller_Admin_Formfields extends Controller_Admin {
 		$this->template->content->form_id = $form_id;
 		//set the JS		
 		$this->template->html_head->script_views[] = view::factory('js/messages');
-		
+		$js = view::factory('admin/formfield_edit_js');
+		$this->template->html_head->script_views[] = $js;
 		//get the status
 		$status = isset($_GET['status']) ? $_GET['status'] : null;
 		if($status == 'saved')

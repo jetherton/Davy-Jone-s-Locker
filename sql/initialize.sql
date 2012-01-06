@@ -200,5 +200,16 @@ ALTER TABLE `formfields`
 ADD CONSTRAINT `formfields_form_id_fk_1` FOREIGN KEY (`form_id`) REFERENCES `forms` (`id`) ON DELETE CASCADE;
 
 
+/*** create table form fields ***/
+CREATE TABLE IF NOT EXISTS `formfieldoptions` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `formfield_id` int(11) UNSIGNED NOT NULL,
+  `title` CHAR(255) NOT NULL,
+  `description` CHAR(255) NOT NULL,
+  `order` INT( 11 ) UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)  
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+ALTER TABLE `formfieldoptions`
+ADD CONSTRAINT `formfieldoptions_formfields_id_fk_1` FOREIGN KEY (`formfield_id`) REFERENCES `formfields` (`id`) ON DELETE CASCADE;
 
 

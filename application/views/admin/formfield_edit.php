@@ -74,7 +74,7 @@
 	echo '</td></tr><tr><td>';
 	echo Form::label('type', __('type').": ");
 	echo '</td><td>';
-	echo Form::select('type', Model_Formfields::get_human_readable_type(), $data['type'],  array('id'=>'type'));
+	echo Form::select('type', Model_Formfields::get_human_readable_type(), $data['type'],  array('id'=>'type', 'onclick'=>'typeChange();'));
 	echo '</td></tr><tr><td>';	
 	echo Form::submit('edit', __('add edit'), array('id'=>'edit_button'));
 	echo '</td><td></td></tr></table>';
@@ -86,7 +86,7 @@
 <a style="margin-left:300px;"class="button" id="back_to_form_button" href="<?php echo url::base(); ?>admin/forms/edit?id=<?php echo $form_id;?>">&lt;&lt; <?php echo __('back to form');?></a>
 <br/><br/>
 
-<div style="float:clear" id="options">
+<div style="float:clear; display:none;" id="options_div" >
 <h2><?php echo __('form options');?></h2>
 
 <a class="button" id="add_field_button" href="<?php echo url::base(); ?>admin/formfields/edit?id=<?php echo $form_id;?>"><?php echo __('add option');?></a>
