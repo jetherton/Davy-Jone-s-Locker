@@ -74,6 +74,7 @@ class Model_Category extends Model_Auth_User {
 		//now push everything up that's greater than or equal to the new position
 		$cats = ORM::factory('category')->
 			where('order', '>=', $values['order'])->
+			where('id', '!=', $this->id)->
 			find_all();
 		
 		foreach($cats as $cat)

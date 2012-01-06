@@ -12,15 +12,19 @@
 	var catCounts = <?php echo $cat_counts; ?>;
 
 	
-	function updateOrder()
+	function updateOrder(init)
 	{
-			var currentCategory = $("#category option:selected").val();
-			console.log(currentCategory);
+			var currentCategory = $("#category_id option:selected").val();
 			var catCount = catCounts[currentCategory];
 			if( catCount == null && catCount == undefined)
 			{
 				catCount = 1;
 			}
+			else if(<?php echo $is_add;?> || currentCategory != <?php echo $current_cat_id; ?>)//increment by one
+			{
+				catCount++;
+			}
+			
 			//remove the current options first
 			$("#order option").remove();
 			
@@ -31,6 +35,11 @@
 					.append($("<option></option>")
 					.attr("value",i)
 					.text(i)); 
+			}
+			
+			if(init == true && !<?php echo $is_add;?>)
+			{
+				$('#order').val('<?php echo $current_order; ?>');
 			}
 	}
 	
@@ -60,7 +69,7 @@
 	}
 	
 	$(document).ready(function () {
-		updateOrder();
+		updateOrder(true);
 	});
 	
 	

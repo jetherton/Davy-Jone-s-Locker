@@ -36,7 +36,7 @@ class Controller_Admin_Forms extends Controller_Admin {
 			{	
 				if($_POST['action'] == 'delete')
 				{
-					Model_Category::delete_form($_POST['form_id']);
+					Model_Form::delete_form($_POST['form_id']);
 				}
 			}
 			catch (ORM_Validation_Exception $e)
@@ -96,9 +96,11 @@ class Controller_Admin_Forms extends Controller_Admin {
 		if($id == 0)
 		{
 			$form = null;
+			$is_add = "true";
 		}
 		else
 		{
+			$is_add = "false";
 			//get the form
 			$form = ORM::factory('form', $id);
 
@@ -107,7 +109,6 @@ class Controller_Admin_Forms extends Controller_Admin {
 			{
 			 $this->request->redirect('admin/forms');
 			}
-			echo "here";
 			$data['title'] = $form->title;
 			$data['description'] = $form->description;
 			$data['category_id'] = $form->category_id;
@@ -128,7 +129,7 @@ class Controller_Admin_Forms extends Controller_Admin {
 		$this->template->content->header = $header;
 		//set the JS
 		$js = view::factory('admin/form_edit_js');
-		$js->form = $form;
+		$js->is_add = $is_add;
 		$this->template->html_head->script_views[] = $js;
 		
 		
@@ -142,26 +143,24 @@ class Controller_Admin_Forms extends Controller_Admin {
 				if($_POST['action'] == 'edit')
 				{
 					//new cat or existing cat?
-					if($_POST['form_id'] == 0)
+					if($id == 0)
 					{
 						$form = ORM::factory('form');
 					}
 					else
 					{
-						$form = ORM::factory('form', $_POST['form_id']);
+						$form = ORM::factory('form', $id);
 					}
 					
 					$form->update_form($_POST);
-					$data['title'] = $form->title;
-					$data['description'] = $form->description;
-					$data['category_id'] = $form->category_id;
-					$data['order'] = $form->order;
 				}
 				
 				else if($_POST['action'] == 'delete')
 				{
 					Model_Form::delete_form($_POST['form_id']);
 				}
+				
+				$this->request->redirect('admin/forms/edit?id='.$form->id);
 			}
 			catch (ORM_Validation_Exception $e)
 			{
@@ -199,6 +198,17 @@ class Controller_Admin_Forms extends Controller_Admin {
 		$formfields = ORM::factory('formfield')->find_all();
 		$this->template->content->formfields = $formfields;
 		
+		if($id == 0)
+		{
+			$js->current_cat_id = 0;
+			$js->current_order = 0;
+		}
+		else
+		{
+			$js->current_cat_id = $form->category_id;
+			$js->current_order = $form->order;
+		}
+		
 		//get the number of items per category
 		$forms = ORM::factory('form')
 			->order_by('category_id')
@@ -208,7 +218,12 @@ class Controller_Admin_Forms extends Controller_Admin {
 		$current_cat_id = 0;
 		foreach($forms as $form)
 		{
-			if($current_cat_id != 0 AND $current_cat_id != $form->category_id)
+			if($current_cat_id == 0)
+			{
+				$current_cat_id = $form->category_id;
+			}
+			
+			if( $current_cat_id != $form->category_id)
 			{
 				$cat_counts[$current_cat_id] = $current_count;
 				$current_count = 0;
@@ -216,8 +231,14 @@ class Controller_Admin_Forms extends Controller_Admin {
 			}
 			$current_count++;
 		}
+		//catch the last category group
+		if($current_cat_id != 0)
+		{
+			$cat_counts[$current_cat_id] = $current_count;
+		}
 		
 		$js->cat_counts = json_encode($cat_counts);
+		
 		$this->template->content->data = $data;
 		
 		 

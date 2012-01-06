@@ -148,6 +148,7 @@ return array
 	'are you sure you want to delete category'=>'Are you sure you want to delete this category?',
 	'edit'=>'Edit',
 	'delete'=>'Delete',
+	'you can not delete that category'=>'You cannot delete that category, it is being used by one or more forms. You must change those forms to not use this category first.',
 	
 	//forms
 	'forms'=>'Forms',

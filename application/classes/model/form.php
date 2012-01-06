@@ -53,13 +53,14 @@ class Model_Form extends ORM {
 
 		$expected = array('title', 'description', 'order', 'category_id');	
 
-		//update the order first decrease everything above the cats current position
+		//update the order, first decrease everything above the cats current position
 		//but only if the order is already known for this cat
 		if($this->order)
 		{
 			$forms = ORM::factory('form')->
 				and_where('order', '>', $this->order)->
 				and_where('category_id', '=', $this->category_id)->
+				and_where('id', '!=', $this->id)->
 				find_all();
 			
 			foreach($forms as $form)
@@ -73,6 +74,7 @@ class Model_Form extends ORM {
 		$forms = ORM::factory('form')->
 			and_where('order', '>=', $values['order'])->
 			and_where('category_id', '=', $values['category_id'])->
+			and_where('id', '!=', $this->id)->
 			find_all();
 		
 		foreach($forms as $form)
@@ -107,8 +109,8 @@ class Model_Form extends ORM {
 		$form = ORM::factory('form', $id);
 		//update the order, this only affects categories with orders > than the current
 		$forms = ORM::factory('form')->
-			and_where('order', '>', $category->order)->
-			and_where('category_id', '=', $category->category_id)->
+			and_where('order', '>', $form->order)->
+			and_where('category_id', '=', $form->category_id)->
 			find_all();
 		
 		foreach($forms as $f)

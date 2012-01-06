@@ -92,12 +92,18 @@
 			<?php echo ORM::factory('category',$form->category_id)->title; ?>
 		</td>
 		<td style="width:200px;">
-			<a href="<?php echo url::base(); ?>admin/forms/edit?=<?php echo $form->id;?>" > <?php echo __('edit');?></a>
+			<a href="<?php echo url::base(); ?>admin/forms/edit?id=<?php echo $form->id;?>" > <?php echo __('edit');?></a>
 			<a href="#" onclick="deleteForm(<?php echo $form->id?>);"> <?php echo __('delete');?></a>
 		</td>
 	</tr>
 	<?php }?>
 	</tbody>
 </table>
+<?php
+echo Form::open(NULL, array('id'=>'edit_form_form')); 
+echo Form::hidden('action','edit', array('id'=>'action'));
+echo Form::hidden('form_id','0', array('id'=>'form_id'));
+echo Form::close();
+?>
 
 

@@ -72,6 +72,13 @@ class Controller_Admin_Categories extends Controller_Admin {
 						}
 					}
 				}
+			}
+			catch(Database_Exception $e)
+			{
+				if($_POST['action'] == 'delete')
+				{
+					$this->template->content->errors[] = __('you can not delete that category');
+				}
 			}	
 		}
 		

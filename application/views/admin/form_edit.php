@@ -66,7 +66,7 @@
 	echo '</td></tr><tr><td>';
 	echo Form::label('category_id', __('category').": ");
 	echo '</td><td>';
-	echo Form::select('category_id', $categories, $data['category_id'],  array('id'=>'category_id'));
+	echo Form::select('category_id', $categories, $data['category_id'],  array('id'=>'category_id', 'onchange'=>'updateOrder();'));
 	echo '</td></tr><tr><td>';	
 	echo Form::label('order', __('order').": ");
 	echo '</td><td>';
