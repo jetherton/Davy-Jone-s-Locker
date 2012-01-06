@@ -8,12 +8,13 @@
 class Model_Wish extends ORM {
 
 	//belongs to a user
-	protected $_belongs_to = array('user' => array());
+	protected $_belongs_to = array('user' => array(), 'form'=>array());
 	
 	protected $_has_many =  array(
 			'wpics' => array('model' => 'wpic'),
 			'wfiles' => array('model' => 'wfile'),
 	);
+	
 	
 	/**
 	 * Rules function
@@ -31,7 +32,8 @@ class Model_Wish extends ORM {
 			'html' => array(
 				array('not_empty'),
 				array('min_length', array(':value', 1)),
-				)		
+				),
+			'form_id'=>array(array('not_empty')),		
 			);		
 	}
 	
@@ -49,7 +51,7 @@ class Model_Wish extends ORM {
 	*/
 	public function create_wish($values, $user)
 	{
-		$expected = array('title', 'html', 'date_created', 'date_modified', 'user_id', 'is_live');
+		$expected = array('title', 'html', 'date_created', 'date_modified', 'user_id', 'is_live', 'form_id');
 		$now = date('Y-m-d G:i:s');
 		$values['date_created'] = $now;
 		$values['date_modified'] = $now;

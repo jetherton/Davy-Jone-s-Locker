@@ -182,10 +182,17 @@ div#right_menu ul{
 div#right_menu li{
 	border: 1px solid black;
 	text-align: center;  
+	margin-top:5px;
+	margin-bottom:5px;
 }
 
 div#right_menu li a{
-	text-decoration:none;
+	text-decoration:none;	
+}
+
+div#right_menu li:hover{
+	color:white;
+	background-color:grey;
 }
 
 div#right_menu div#search_wait{

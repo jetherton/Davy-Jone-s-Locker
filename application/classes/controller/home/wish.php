@@ -49,6 +49,13 @@ class Controller_Home_Wish extends Controller_Home {
 		
 		$this->template->content->wishes = $wishes;
 		
+		//get the forms that correspond to this category
+		$forms = ORM::factory('form')
+			->and_where('category_id', '=', $cat_id)
+			->order_by('order')
+			->find_all();
+		$this->template->content->forms = $forms;
+		
 	}//end action_index
 	
 	
@@ -69,6 +76,15 @@ class Controller_Home_Wish extends Controller_Home {
 	{
 		//get the wish id
 		$wish_id = isset($_GET['id']) ? $_GET['id'] : 0;
+		
+		$form_id = isset($_GET['form']) ? $_GET['form'] : 0;
+		
+		//can't not have both wish and form_id
+		if($wish_id == 0 AND $form_id == 0)
+		{
+			$this->request->redirect('home');
+		}
+		
 		
 		//get message from session params if any
 		$session_message = Session::instance()->get_once('message','<none>');
@@ -123,8 +139,15 @@ class Controller_Home_Wish extends Controller_Home {
 			//set the view to know that we're adding 
 			$this->template->content->is_add = true;
 			
+			//since this is an add, must have a form id
+			$form = ORM::factory('form',$form_id);
+			if(!$form->loaded())
+			{
+				$this->request->redirect("home");
+			}
+			
 			//create this wish
-			$values = array('title'=>' ', 'html'=>' ');
+			$values = array('title'=>' ', 'html'=>' ', 'form_id'=>$form_id);
 			$wish = ORM::factory('wish');		
 			$wish->create_wish($values, $this->user);
 			$wish->title = '';

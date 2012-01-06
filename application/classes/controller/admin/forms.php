@@ -207,6 +207,7 @@ class Controller_Admin_Forms extends Controller_Admin {
 		
 		//form fields
 		$formfields = ORM::factory('formfields')->
+			where('form_id', '=', $id)->
 			order_by('order')->
 			find_all();
 		$this->template->content->formfields = $formfields;

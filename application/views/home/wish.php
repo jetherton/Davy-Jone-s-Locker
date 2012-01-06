@@ -1,8 +1,13 @@
 <div id="right_menu">
 	<ul>
+		<?php 
+			foreach($forms as $form)
+			{
+		?>
 		<li>
-			<a href="<?php echo url::base().'home/wish/add' ?>"><?php echo __('add wish');?></a>
+			<a href="<?php echo url::base().'home/wish/add?form='.$form->id; ?>"><?php echo __('add') . ' '. $form->title;?></a>
 		</li>
+		<?php } ?>
 	</ul>
 </div>
 		
@@ -16,7 +21,7 @@
 				<?php echo __('wish');?>
 			</th>
 			<th style="width:200px;">
-				<?php echo __('tags');?>
+				<?php echo __('type');?>
 			</th>
 			<th style="width:300px;">
 				<?php echo __('last edited');?>
@@ -27,7 +32,7 @@
 	<?php
 		if(count($wishes) == 0)
 		{
-			echo '<tr><td colspan="3">'.__('you have no wishes').'</td></tr>';
+			echo '<tr><td colspan="3">'.__('you have no').' '.$cat->title.'</td></tr>';
 		}
 		$i = 0;
 		foreach($wishes as $wish){
@@ -40,7 +45,7 @@
 			<a href="<?php echo url::base(). 'home/wish/edit?id='.$wish->id?>"> <?php echo $wish->title;?></a>
 		</td>
 		<td style="width:200px;">
-			blank for now
+			<?php echo $wish->form->title; ?>
 		</td>
 		<td style="width:300px;">
 			<?php echo $wish->date_modified; ?>
