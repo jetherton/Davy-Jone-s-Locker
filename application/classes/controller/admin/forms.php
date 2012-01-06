@@ -63,7 +63,7 @@ class Controller_Admin_Forms extends Controller_Admin {
 		
 		/*****Render the forms****/
 		
-		//get the wishes that belong to this user
+		//get the forms that belong to this user
 		$forms = ORM::factory("form")
 			->order_by('category_id', 'ASC')
 			->order_by('order', 'ASC')
@@ -84,6 +84,7 @@ class Controller_Admin_Forms extends Controller_Admin {
 	 {
 		//initialize data
 		$data = array(
+			'id'=>'0',
 			'title'=>'',
 			'description'=>'',
 			'category_id'=>null,
@@ -112,6 +113,7 @@ class Controller_Admin_Forms extends Controller_Admin {
 			{
 			 $this->request->redirect('admin/forms');
 			}
+			$data['id'] = $form->id;
 			$data['title'] = $form->title;
 			$data['description'] = $form->description;
 			$data['category_id'] = $form->category_id;
@@ -204,7 +206,9 @@ class Controller_Admin_Forms extends Controller_Admin {
 		$this->template->content->categories = $category;
 		
 		//form fields
-		$formfields = ORM::factory('formfield')->find_all();
+		$formfields = ORM::factory('formfields')->
+			order_by('order')->
+			find_all();
 		$this->template->content->formfields = $formfields;
 		
 		if($id == 0)

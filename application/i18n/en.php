@@ -163,6 +163,25 @@ return array
 	'changes saved'=>'Changes Saved.',
 	'form deleted'=>'Form Deleted.',
 	
+	//form fields
+	'text input'=>'Text Box',
+	'text area input'=>'Text Area',
+	'date input'=>'Date',
+	'radio input'=> 'Radio Buttons',
+	'check box input'=>'Check Boxes',
+	'dropdown input'=>'Drop Down Box',
+	'password input'=>'Password Text Box',
+	'add field'=>'Add Field',
+	'edit form field'=>'Edit Form Field',
+	'add form field'=>'Add Form Field',
+	'form field edit explanation'=>'Use this form to edit a form field that users will use to fill out their wishes',
+	'add option'=>'Add Option',
+	'form options'=>'Form Options',
+	'you have no options'=>'You have no options',
+	'type'=>'Type',
+	'required'=>'Required',
+	'back to form'=>'Back to Form',
+	
 );
 
 

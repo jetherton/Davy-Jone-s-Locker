@@ -6,10 +6,12 @@
 * Started on 12/23/2011
 *************************************************************/
 
-class Model_Formfield extends ORM {
+class Model_Formfields extends ORM {
 
 	//belongs to a category
 	protected $_belongs_to = array('form' => array());
+
+	protected $_table_name = 'formfields';
 
 	/**
 	 * Rules function
@@ -70,7 +72,7 @@ class Model_Formfield extends ORM {
 		//but only if the order is already known for this form
 		if($this->order)
 		{
-			$formfields = ORM::factory('formfield')->
+			$formfields = ORM::factory('formfields')->
 				and_where('order', '>', $this->order)->
 				and_where('form_id', '=', $this->form_id)->
 				find_all();
@@ -83,9 +85,10 @@ class Model_Formfield extends ORM {
 		}
 
 		//now push everything up that's greater than or equal to the new position
-		$formfields = ORM::factory('formfield')->
+		$formfields = ORM::factory('formfields')->
 			and_where('order', '>=', $values['order'])->
 			and_where('form_id', '=', $values['form_id'])->
+			and_where('id', '!=', $this->id)->
 			find_all();
 		
 		foreach($formfields as $ff)
@@ -95,11 +98,16 @@ class Model_Formfield extends ORM {
 		}
 		
 		//a sanity check to make sure we don't accidentally get the order screwed up
-		$num_formfieldss = ORM::factory('formfields')->where('form_id', '=', $values['form_id'])->count_all();
+		$num_formfields = ORM::factory('formfields')->where('form_id', '=', $values['form_id'])->count_all();
 		$offset = $this->order ? 0 : 1;
-		if($values['order'] > $num_forms + $offset)
+		if($values['order'] > $num_formfields + $offset)
 		{
-			$values['order'] == $num_forms + $offset;
+			$values['order'] == $num_formfields + $offset;
+		}
+		
+		if(!isset($values['required']))
+		{
+			$values['required'] = 0;
 		}
 		
 		$this->values($values, $expected);
@@ -117,9 +125,9 @@ class Model_Formfield extends ORM {
 	 * */
 	public static function delete_formfield($id)
 	{
-		$formfield = ORM::factory('formfield', $id);
+		$formfield = ORM::factory('formfields', $id);
 		//update the order, this only affects categories with orders > than the current
-		$formfields = ORM::factory('formfield')->
+		$formfields = ORM::factory('formfields')->
 			and_where('order', '>', $category->order)->
 			and_where('form_id', '=', $category->form_id)->
 			find_all();
@@ -133,5 +141,26 @@ class Model_Formfield extends ORM {
 		$formfield->delete();
 	}//end function
 
+
+	/**
+	 * Used to get the human readable name for the type of 
+	 * field
+	 * @param int type id for the given type
+	 * @return string human readable field type
+	 **/
+	public static function get_human_readable_type()
+	{
+			
+		return array(	
+		1=>__('text input'),
+		2=>__('text area input'),
+		3=>__('date input'),
+		4=>__('radio input'),
+		5=>__('check box input'),
+		6=>__('dropdown input'),
+		7=>__('password input')
+		);
+
+	}
 	
 } // End Category Model
