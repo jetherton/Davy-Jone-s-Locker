@@ -6,6 +6,10 @@
 * Started on 12/06/2011
 *************************************************************/
 ?>
+
+<div id="right_menu" style="padding:12px;">
+		<a class="button" id="back_to_form_button" href="<?php echo url::base(); ?>admin/forms/edit?id=<?php echo $form_id;?>">&lt;&lt; <?php echo __('back to form');?></a>
+</div>
 		
 <h2><?php echo $header ?></h2>
 <p><?php echo __("form field edit explanation");?></p>
@@ -70,7 +74,7 @@
 	echo '</td></tr><tr><td>';
 	echo Form::label('required', __('required').": ");
 	echo '</td><td>';
-	echo Form::checkbox('required', $data['required'],  array('id'=>'required'));
+	echo Form::checkbox('required', 1, $data['required'] == 1,  array('id'=>'required'));
 	echo '</td></tr><tr><td>';
 	echo Form::label('type', __('type').": ");
 	echo '</td><td>';
@@ -83,13 +87,33 @@
 </table>
 </div>
 
-<a style="margin-left:300px;"class="button" id="back_to_form_button" href="<?php echo url::base(); ?>admin/forms/edit?id=<?php echo $form_id;?>">&lt;&lt; <?php echo __('back to form');?></a>
-<br/><br/>
+
 
 <div style="float:clear; display:none;" id="options_div" >
 <h2><?php echo __('form options');?></h2>
 
-<a class="button" id="add_field_button" href="<?php echo url::base(); ?>admin/formfields/edit?id=<?php echo $form_id;?>"><?php echo __('add option');?></a>
+<?php 	
+	echo Form::open(NULL, array('id'=>'edit_formfieldoption_form')); 
+	echo Form::hidden('action','edit_option', array('id'=>'option_action'));
+	echo Form::hidden('id',0, array('id'=>'formfieldoption_id'));
+	echo Form::hidden('formfield_id',$data['id'], array('id'=>'formfield_id'));
+	echo '<table><tr><td>';
+	echo Form::label('title', __('title').": ");
+	echo '</td><td>';
+	echo Form::input('title', null, array('id'=>'option_title', 'style'=>'width:300px;'));
+	echo '</td></tr><tr><td>';
+	echo Form::label('description', __('description').": ");
+	echo '</td><td>';
+	echo Form::input('description', null, array('id'=>'option_description', 'style'=>'width:300px;'));
+	echo '</td></tr><tr><td>';
+	echo Form::label('order', __('order').": ");
+	echo '</td><td>';
+	echo Form::select('order', $option_orders, null,  array('id'=>'option_order'));
+	echo '</td><td></td></tr></table>';
+	echo Form::close();
+?>
+<br/>
+<a class="button" id="add_field_button" href="#" onclick="addEditOption();"><?php echo __('add option');?></a>
 <br/><br/>
 
 <table class="list_table">
@@ -97,6 +121,9 @@
 		<tr class="header">
 			<th style="width:200px;">
 				<?php echo __('Label');?>
+			</th>
+			<th style="width:300px;">
+				<?php echo __('description');?>
 			</th>
 			<th style="width:200px;">
 				<?php echo __('actions');?>
@@ -119,9 +146,15 @@
 		<td style="width:200px;">
 			<?php echo $ffo->title;?>
 		</td>
+		<td style="width:300px;">
+			<?php echo $ffo->description;?>
+		</td>
 		<td style="width:200px;">
-			<a href="<?php echo url::base(); ?>admin/formfields/edit?id=<?php echo $ffo->id;?>" <?php echo __('edit');?></a>
-			<a href="#" onclick="deleteFormField(<?php echo $ffo->id?>);"> <?php echo __('delete');?></a>
+			<a href="#" onclick="editFormFieldOption('<?php echo $ffo->title;?>',
+			    '<?php echo $ffo->description;?>',
+				<?php echo $ffo->order;?>,
+				<?php echo $ffo->id;?>); return false;"><?php echo __('edit');?></a>
+			<a href="#" onclick="deleteFormFieldOption(<?php echo $ffo->id?>);"> <?php echo __('delete');?></a>
 		</td>
 	</tr>
 	<?php }?>

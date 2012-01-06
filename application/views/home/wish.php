@@ -6,8 +6,8 @@
 	</ul>
 </div>
 		
-<h2><?php echo __("wishes"); ?></h2>
-<p><?php echo __("wishes explanation");?></p>
+<h2><?php echo $cat->title; ?></h2>
+<p><?php echo $cat->description;?></p>
 
 <table class="list_table">
 	<thead>

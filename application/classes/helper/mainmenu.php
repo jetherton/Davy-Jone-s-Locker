@@ -43,16 +43,7 @@ class Helper_Mainmenu
 				
 			
 				
-				//wish page
-				if($page == "wish")
-				{
-					echo '<li class="selected">';
-				}
-				else
-				{
-					echo '<li>';
-				}
-				echo '<a href="'.url::base().'home/wish">'.__("wishes").'</a></li>';
+				
 				
 				//friends page
 				if($page == "friend")
@@ -64,6 +55,24 @@ class Helper_Mainmenu
 					echo '<li>';
 				}
 				echo '<a href="'.url::base().'home/friends">'.__("friends").'</a></li>';
+				
+				//spacer
+					echo '<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>';
+				
+				//categories
+				$cats = ORM::factory('category')->find_all();
+				foreach($cats as $cat)
+				{
+					if($page == "cat_".$cat->title)
+					{
+						echo '<li class="selected">';
+					}
+					else
+					{
+						echo '<li>';
+					}
+					echo '<a href="'.url::base().'home/wish?cat='.$cat->id.'"</a>'.$cat->title.'</a></li>';
+				}
 				
 			}
 		

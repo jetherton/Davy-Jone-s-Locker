@@ -51,7 +51,7 @@ class Model_Formfieldoption extends ORM {
 	public function update_formfieldoption($values)
 	{
 
-		$expected = array('title', 'description', 'order', 'form_id');	
+		$expected = array('title', 'description', 'order', 'formfield_id');	
 
 		//update the order first decrease everything above the forms current position
 		//but only if the order is already known for this form
@@ -59,7 +59,7 @@ class Model_Formfieldoption extends ORM {
 		{
 			$formfields = ORM::factory('formfieldoption')->
 				and_where('order', '>', $this->order)->
-				and_where('formfield_id', '=', $this->form_id)->
+				and_where('formfield_id', '=', $this->formfield_id)->
 				find_all();
 			
 			foreach($formfields as $ff)
@@ -109,8 +109,8 @@ class Model_Formfieldoption extends ORM {
 		$formfieldoption = ORM::factory('formfieldoption', $id);
 		//update the order, this only affects categories with orders > than the current
 		$formfields = ORM::factory('formfieldoption')->
-			and_where('order', '>', $category->order)->
-			and_where('formfield_id', '=', $category->formfield_id)->
+			and_where('order', '>', $formfieldoption->order)->
+			and_where('formfield_id', '=', $formfieldoption->formfield_id)->
 			find_all();
 		
 		foreach($formfields as $ff)

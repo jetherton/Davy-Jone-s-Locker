@@ -212,4 +212,5 @@ CREATE TABLE IF NOT EXISTS `formfieldoptions` (
 ALTER TABLE `formfieldoptions`
 ADD CONSTRAINT `formfieldoptions_formfields_id_fk_1` FOREIGN KEY (`formfield_id`) REFERENCES `formfields` (`id`) ON DELETE CASCADE;
 
-
+ALTER TABLE  `wishes` ADD  `form_id` INT( 11 ) UNSIGNED NOT NULL AFTER  `user_id`;
+ALTER TABLE `wishes` ADD CONSTRAINT `form_wishes_id_fk_1` FOREIGN KEY (`form_id`) REFERENCES `forms` (`id`) ON DELETE CASCADE;

@@ -84,12 +84,21 @@ class Controller_Admin_Formfields extends Controller_Admin {
 		//set the JS		
 		$this->template->html_head->script_views[] = view::factory('js/messages');
 		$js = view::factory('admin/formfield_edit_js');
+		$js->form_field_id = $id;
 		$this->template->html_head->script_views[] = $js;
 		//get the status
 		$status = isset($_GET['status']) ? $_GET['status'] : null;
 		if($status == 'saved')
 		{
 				$this->template->content->messages[] = __('changes saved');
+		}		
+		elseif($status == 'option_saved')
+		{
+				$this->template->content->messages[] = __('changes saved');
+		}
+		elseif($status == 'option_deleted')
+		{
+				$this->template->content->messages[] = __('option deleted');
 		}
 
 		/******* Handle incoming data*****/
@@ -111,8 +120,41 @@ class Controller_Admin_Formfields extends Controller_Admin {
 					}
 					
 					$form_field->update_formfield($_POST);
-					
 					$this->request->redirect('admin/formfields?form='.$form_id.'&id='.$form_field->id.'&status=saved');
+				}
+				elseif ($_POST['action'] == 'edit_option')
+				{
+					//this shouldn't happen, but just in case
+					if($id == 0)
+					{
+						$this->template->content->errors[] = __('Must save field before adding options');
+					}
+					else
+					{
+						if($_POST['id'] == 0)
+						{
+							$form_field_option = ORM::factory('formfieldoption');
+						}
+						else
+						{
+							$form_field_option = ORM::factory('formfieldoption', $_POST['id']);
+						}
+						$form_field_option->update_formfieldoption($_POST);
+					}
+				}
+				elseif ($_POST['action'] == 'delete')
+				{
+					//this shouldn't happen, but just in case
+					if($id == 0)
+					{
+						$this->template->content->errors[] = __('Must save field before adding options');
+					}
+					else
+					{
+						Model_Formfieldoption::delete_formfieldoption($_POST['id']);
+						
+						$this->request->redirect('admin/formfields?form='.$form_id.'&id='.$form_field->id.'&status=option_deleted');
+					}
 				}
 				
 			}
@@ -159,10 +201,32 @@ class Controller_Admin_Formfields extends Controller_Admin {
 			$orders[$i] = $i;
 		}
 		$this->template->content->orders = $orders;
-		$this->template->content->form_field_options = array();
+		//figure out how many options there are, if any for this field
+		if($id == 0)
+		{
+			$this->template->content->option_orders = array(1=>1);
+		}
+		else
+		{
+			$count = ORM::factory("formfieldoption")->
+				where('formfield_id', '=', $id)->
+				count_all() + 1;
+			$option_orders = array();
+			for($i = 1; $i <= $count; $i++)
+			{
+				$option_orders[$i] = $i;
+			}
+			$this->template->content->option_orders = $option_orders;
+		}
+		
 		
 		//form field options
 		/** John you need to add this **/
+		$form_field_option = ORM::factory('formfieldoption')->
+			where('formfield_id', '=', $id)->
+			order_by('order')->
+			find_all();
+		$this->template->content->form_field_options = $form_field_option;
 		 
 	 }//end action_edit
 	

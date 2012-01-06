@@ -109,6 +109,10 @@ class Model_Formfields extends ORM {
 		{
 			$values['required'] = 0;
 		}
+		else
+		{
+			$values['required'] = 1;
+		}
 		
 		$this->values($values, $expected);
 		$this->check();

@@ -63,6 +63,7 @@ return array
 	
 	//Wish
 	'wish' => 'Wish',
+	'add' => 'Add',
 	'wishes' => 'Wishes',
 	'wishes explanation' => 'These are the wishes you have created',
 	'add wish' => 'Add Wish',
@@ -181,6 +182,10 @@ return array
 	'type'=>'Type',
 	'required'=>'Required',
 	'back to form'=>'Back to Form',
+	
+	//form field options
+	'Must save field before adding options'=>'Sorry, you must first save a new field before you can add options to it',
+	'option deleted'=>'Option Deleted',
 	
 );
 

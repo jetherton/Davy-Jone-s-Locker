@@ -15,18 +15,35 @@ class Controller_Home_Wish extends Controller_Home {
 	*/
 	public function action_index()
 	{
+		
+		//figure out what the category is, if not category, go home
+		$cat_id = isset($_GET['cat']) ? intval($_GET['cat']) : 0;
+		if($cat_id == 0)
+		{
+			$this->request->redirect("home");
+		}
+		$cat = ORM::factory('category', $cat_id);
+		if(!$cat->loaded())
+		{
+			$this->request->redirect("home");
+		}
+		
+		
 		//The title to show on the browser
-		$this->template->html_head->title = __("wish");
+		$this->template->html_head->title = $cat->title;
 		//make messages roll up when done
 		$this->template->html_head->messages_roll_up = true;
 		//the name in the menu
-		$this->template->header->menu_page = "wish";
+		$this->template->header->menu_page = "cat_".$cat->title;
 		$this->template->content = view::factory("home/wish");
+		$this->template->content->cat = $cat;
 		
 		//get the wishes that belong to this user
 		$wishes = ORM::factory("wish")
+			->join('forms')
+			->on('wish.form_id', '=', 'forms.id')
 			->and_where('user_id', '=', $this->user->id)
-			->and_where('is_live', '=', 1)
+			->and_where('forms.category_id', '=', $cat_id)
 			->order_by('title', 'ASC')
 			->find_all();
 		
@@ -147,7 +164,7 @@ class Controller_Home_Wish extends Controller_Home {
 			$wish = Model_Wish::validate_id_user($wish_id, $this->user, $is_add);
 			if(!$wish)
 			{
-				$this->request->redirect("home/wish");
+				$this->request->redirect("home");
 			}
 			//The title to show on the browser
 			$this->template->html_head->title = __("edit wish"). ' :: '. $wish->title;
