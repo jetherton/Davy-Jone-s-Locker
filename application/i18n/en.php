@@ -160,6 +160,8 @@ return array
 	'form edit explanation'=>'Use this page to edit a form',
 	'form fields'=>'Form Fields',
 	'you have no form fields'=>'You have no form fields',
+	'changes saved'=>'Changes Saved.',
+	'form deleted'=>'Form Deleted.',
 	
 );
 

@@ -28,6 +28,7 @@ class Controller_Admin_Forms extends Controller_Admin {
 		//set the JS
 		$js = view::factory('admin/forms_js');
 		$this->template->html_head->script_views[] = $js;
+		$this->template->html_head->script_views[] = view::factory('js/messages');
 		
 		/********Check if we're supposed to do something ******/
 		if(!empty($_POST)) // They've submitted the form to update his/her wish
@@ -37,6 +38,7 @@ class Controller_Admin_Forms extends Controller_Admin {
 				if($_POST['action'] == 'delete')
 				{
 					Model_Form::delete_form($_POST['form_id']);
+					$this->template->content->messages[] = __('form deleted');
 				}
 			}
 			catch (ORM_Validation_Exception $e)
@@ -86,7 +88,8 @@ class Controller_Admin_Forms extends Controller_Admin {
 			'description'=>'',
 			'category_id'=>null,
 			'order'=>null);
-			
+		
+		
 		 
 		/*** Make sure we have the right form ***/		
 		//first order of business, get that id, if there is one
@@ -131,8 +134,14 @@ class Controller_Admin_Forms extends Controller_Admin {
 		$js = view::factory('admin/form_edit_js');
 		$js->is_add = $is_add;
 		$this->template->html_head->script_views[] = $js;
+		$this->template->html_head->script_views[] = view::factory('js/messages');
 		
-		
+		//get the status
+		$status = isset($_GET['status']) ? $_GET['status'] : null;
+		if($status == 'saved')
+		{
+				$this->template->content->messages[] = __('changes saved');
+		}
 		
 		/******* Handle incoming data*****/
 		if(!empty($_POST)) // They've submitted the form to update his/her wish
@@ -160,7 +169,7 @@ class Controller_Admin_Forms extends Controller_Admin {
 					Model_Form::delete_form($_POST['form_id']);
 				}
 				
-				$this->request->redirect('admin/forms/edit?id='.$form->id);
+				$this->request->redirect('admin/forms/edit?id='.$form->id.'&status=saved');
 			}
 			catch (ORM_Validation_Exception $e)
 			{
