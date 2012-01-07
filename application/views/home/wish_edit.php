@@ -54,11 +54,12 @@
 			<td>			
 				<?php echo Form::hidden('action', 'none', array('id'=>'action'));?>
 				<?php echo Form::hidden('is_add', $is_add ? '1' : '0', array('id'=>'is_add'));?>	
-				<?php echo Form::label("title", __("title"). ':*');  ?>
-				<br/>				
+				<?php echo Form::label("title", '*'.__("title"). ':');  ?>
+			</td>
+			<td>
 				<?php echo Form::input('title', isset($wish->title) ? $wish->title : null, array('id'=>'title'));?>
 			</td>
-			<td rowspan="2" class="wish_accordion">
+			<td rowspan="3" class="wish_accordion">
 				<div id="accordion" class="wish_accordion">
 					<h3><a href="#"><?php echo __('who can view');?></a></h3>
 					<div>						
@@ -154,8 +155,13 @@
 			<td>
 		</tr>
 		<tr>
-			<td>
-				<?php echo Form::label(__("wish"), __("wish") . ':*');  ?>
+			<td colspan="2">
+				<?php echo Helper_Form::get_html_form($form, null); ?>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<?php echo Form::label(__("wish"), '*'.__("wish") . ':');  ?>
 				<br/>
 				<?php echo Form::textarea('html', isset($wish->html) ? $wish->html : null, array('id'=>'html', 'class'=>'tinymce', 'style'=>'width:650px; height:500px;'));?>
 			</td>

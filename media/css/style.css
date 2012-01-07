@@ -415,3 +415,13 @@ a.button:hover, a.button:focus{
 	border:inset 5px grey;
 	background:#999;
 }
+
+
+label{
+	font-weight:bold;
+		color:#555;
+	}
+	
+span.radio_wrapper{
+	margin-right:20px;
+}

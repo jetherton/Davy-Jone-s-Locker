@@ -189,6 +189,13 @@ class Controller_Home_Wish extends Controller_Home {
 			{
 				$this->request->redirect("home");
 			}
+			//use the wishes form, not what the URL says
+			$form = ORM::factory('form', $wish->form_id);
+			if(!$form->loaded())
+			{
+				$this->request->redirect("home");
+			}
+			
 			//The title to show on the browser
 			$this->template->html_head->title = __("edit wish"). ' :: '. $wish->title;
 			//the name in the menu
@@ -217,6 +224,9 @@ class Controller_Home_Wish extends Controller_Home {
 		
 		//get the files associated with this wish		
 		$this->template->content->files = $wish->wfiles->find_all();
+		
+		//get the form associated with this wish
+		$this->template->content->form = $form;
 		
 		if(!empty($_POST)) // They've submitted the form to update his/her wish
 		{
