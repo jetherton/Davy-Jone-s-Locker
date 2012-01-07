@@ -212,5 +212,19 @@ CREATE TABLE IF NOT EXISTS `formfieldoptions` (
 ALTER TABLE `formfieldoptions`
 ADD CONSTRAINT `formfieldoptions_formfields_id_fk_1` FOREIGN KEY (`formfield_id`) REFERENCES `formfields` (`id`) ON DELETE CASCADE;
 
+/** add forms to wishes **/
 ALTER TABLE  `wishes` ADD  `form_id` INT( 11 ) UNSIGNED NOT NULL AFTER  `user_id`;
 ALTER TABLE `wishes` ADD CONSTRAINT `form_wishes_id_fk_1` FOREIGN KEY (`form_id`) REFERENCES `forms` (`id`) ON DELETE CASCADE;
+
+/** add table to hold answers to forms in wishes **/
+CREATE TABLE IF NOT EXISTS `formfieldresponses` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `formfield_id` int(11) UNSIGNED NOT NULL,
+  `wish_id` int (11) UNSIGNED NOT NULL,
+  `response` CHAR(255) NOT NULL,
+  PRIMARY KEY (`id`)  
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+ALTER TABLE `formfieldresponses`
+ADD CONSTRAINT `formfieldresponses_formfields_id_fk_1` FOREIGN KEY (`formfield_id`) REFERENCES `formfields` (`id`) ON DELETE CASCADE;
+ALTER TABLE `formfieldresponses`
+ADD CONSTRAINT `formfieldresponses_wish_id_fk_1` FOREIGN KEY (`wish_id`) REFERENCES `wishes` (`id`) ON DELETE CASCADE;

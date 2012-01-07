@@ -9,7 +9,8 @@
 class Model_Formfieldoption extends ORM {
 
 	//belongs to a category
-	protected $_belongs_to = array('formfields' => array());
+	protected $_belongs_to = array('formfields' => array(),
+		'wishes'=>array());
 
 	/**
 	 * Rules function
@@ -18,21 +19,24 @@ class Model_Formfieldoption extends ORM {
 	public function rules()
 	{
 		return array(
-			'title' => array(
-				array('not_empty'),
-				array('max_length', array(':value', 254)),
-				array('min_length', array(':value', 1))
-				),
 				
 			'formfield_id' => array(
 				array('not_empty'),
 				),
-					
-			'description' => array(
+				
+			'wish_id' => array(
 				array('not_empty'),
+				),
+			'title'=>array(
 				array('max_length', array(':value', 254)),
 				array('min_length', array(':value', 1))
 				),
+			'description'=>array(
+				array('max_length', array(':value', 254)),
+				array('min_length', array(':value', 1))
+				),
+
+
 			);		
 	}//end function
 	

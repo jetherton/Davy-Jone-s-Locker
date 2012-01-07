@@ -184,6 +184,8 @@ return array
 	'type'=>'Type',
 	'required'=>'Required',
 	'back to form'=>'Back to Form',
+	'is a required field'=>'is a required field.',
+	'cannot be longer than 255 characters'=>'cannot be longer than 255 characters.',
 	
 	//form field options
 	'Must save field before adding options'=>'Sorry, you must first save a new field before you can add options to it',

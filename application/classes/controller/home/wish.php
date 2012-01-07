@@ -243,6 +243,8 @@ class Controller_Home_Wish extends Controller_Home {
 				{
 					//or do they want to edit it?
 					$wish->update_wish($_POST, $this->user);
+					print_r($_POST);
+					Helper_Form::save_form($wish, $_POST['ff']);
 					$this->template->content->messages[] = __('wish edited successfully');
 				}
 

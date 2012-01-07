@@ -60,6 +60,37 @@ class Helper_Form
 	
 	
 	/**
+	 * Use this to find out what answer there is for 
+	 * a form field in a given wish. Returns null if no
+	 * answer
+	 * @param db_object $form_field form field in question
+	 * @param db_object $wish wish in question
+	 * @return array the answer or null
+	 */
+	public static function get_answer($form_field, $wish)
+	{
+		
+		if($wish == null)
+		{
+			return null;
+		}
+		
+		$response = ORM::factory('formfieldresponse')
+			->and_where('formfield_id', '=', $form_field->id)
+			->and_where('wish_id', '=', $wish->id)
+			->find_all();
+			
+		$responses = array();
+		foreach($response as $r)
+		{		
+			$responses[] = $r->response;
+		}
+		
+		return $responses;
+	}
+	
+	
+	/**
 	 * Use this to get the html for a text box question
 	 * @param db_object $form_field the Form Field in question
 	 * @param db_object $wish the wish from which to pull data from, if no wish leave empty or null
@@ -67,7 +98,11 @@ class Helper_Form
 	 */
 	public static function text_box($form_field, $wish = null)
 	{
-		$default_value = null;
+		
+		//check and see if there's already an answer to this question
+		$default_value = self::get_answer($form_field, $wish);		
+		$default_value = is_array($default_value) ? $default_value[0] : null;
+		
 		$required_str = $form_field->required == 1 ? "*" : "";
 		$html = '<tr><td>';
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
@@ -87,7 +122,10 @@ class Helper_Form
 	 */
 	public static function text_area($form_field, $wish = null)
 	{
-		$default_value = null;
+		//check and see if there's already an answer to this question
+		$default_value = self::get_answer($form_field, $wish);
+		$default_value = is_array($default_value) ? $default_value[0] : null;
+		
 		$required_str = $form_field->required == 1 ? "*" : "";
 		
 		$html = '<tr><td>';
@@ -108,7 +146,9 @@ class Helper_Form
 	 */
 	public static function date_box($form_field, $wish = null)
 	{
-		$default_value = null;
+		//check and see if there's already an answer to this question
+		$default_value = self::get_answer($form_field, $wish);
+		$default_value = is_array($default_value) ? $default_value[0] : null;
 		$required_str = $form_field->required == 1 ? "*" : "";
 		
 		$html = '<tr><td>';
@@ -130,7 +170,8 @@ class Helper_Form
 	 */
 	public static function radio_button($form_field, $wish = null)
 	{
-		$default_value = null;
+		$default_value = self::get_answer($form_field, $wish);
+		$default_value = is_array($default_value) ? intval($default_value[0]) : null;
 		$required_str = $form_field->required == 1 ? "*" : "";
 		
 		$options = ORM::factory('formfieldoption')->
@@ -143,6 +184,7 @@ class Helper_Form
 		$html .= '</td><td>';
 		foreach($options as $option)
 		{
+			$checked = $
 			$html .= '<span class="radio_wrapper"><abbr title="'.$option->description.'">'.$option->title.'</abbr>';
 			$html .= Form::radio('ff['.$form_field->id.']', $option->id, FALSE, array('id'=>'ff_'.$form_field->id.'_'.$option->id));
 			$html .= '</span>';
@@ -194,7 +236,9 @@ class Helper_Form
 	 */
 	public static function dropdown_box($form_field, $wish = null)
 	{
-		$default_value = null;
+		//check and see if there's already an answer to this question
+		$default_value = self::get_answer($form_field, $wish);
+		$default_value = is_array($default_value) ? $default_value[0] : null;
 		$required_str = $form_field->required == 1 ? "*" : "";
 		
 		$options = ORM::factory('formfieldoption')->
@@ -220,7 +264,7 @@ class Helper_Form
 	
 	
 	
-		/**
+	/**
 	 * Use this to get the html for a password box question
 	 * @param db_object $form_field the Form Field in question
 	 * @param db_object $wish the wish from which to pull data from, if no wish leave empty or null
@@ -228,7 +272,9 @@ class Helper_Form
 	 */
 	public static function password_box($form_field, $wish = null)
 	{
-		$default_value = null;
+		//check and see if there's already an answer to this question
+		$default_value = self::get_answer($form_field, $wish);
+		$default_value = is_array($default_value) ? $default_value[0] : null;
 		$required_str = $form_field->required == 1 ? "*" : "";
 		
 		$html = '<tr><td>';
@@ -239,5 +285,86 @@ class Helper_Form
 		
 		return $html;
 	}//end password_box()
+	
+	
+	
+	/**
+	 * this saves the post data, passed in as $values, for a given wish
+	 * @param db_object $wish wish you want to save the data too
+	 * @param array $values array full of data to save
+	 * @return array errors, empty array if there were no errors
+	 */
+	public static function save_form($wish, $values)
+	{
+		//in case their are issues
+		$errors = array();
+		
+		//first get the form so we know if something is missing
+		$form_fields = ORM::factory('formfields')
+			->and_where('form_id', '=',$wish->form_id)
+			->order_by('order')
+			->find_all();
+		//now loop over them all
+		foreach($form_fields as $form_field)
+		{
+			$required = $form_field->required == 1;
+			
+			if(!isset($values[$form_field->id]))
+			{
+				if($required)
+				{
+					$errors[] = $form_field->title .' '. __('is a required field');
+				}
+				continue;
+			}
+			
+			//make sure the response isn't longer than 255 characters
+			if(is_string($values[$form_field->id]) AND strlen($values[$form_field->id]) > 255)
+			{
+					$errors[] = $form_field->title .' '. __('cannot be longer than 255 characters');
+					continue;
+			}
+			
+			//is this a multi value answer or single answer?
+			if($form_field->type == 5)
+			{
+				//first delete all pre-existing answer for this form and wish
+				$old_responses = ORM::factory('formfieldresponse')
+					->and_where('wish_id', '=', $wish->id)
+					->and_where('formfield_id', '=', $form_field->id)
+					->find_all();
+				foreach($old_responses as $or)
+				{
+					$or->delete();
+				}
+				/*****************************
+				/*****************************
+				/*****************************
+				/*****************************
+				//JOHN FIGURE THIS OUT
+				******************************
+				******************************
+				******************************
+				******************************/
+				
+			}
+			else //not a multi value answer
+			{
+				//is there already a response for this?
+				$response = ORM::factory('formfieldresponse')
+					->and_where('wish_id', '=', $wish->id)
+					->and_where('formfield_id', '=', $form_field->id)
+					->find();
+				if(!$response->loaded())
+				{
+					$response = ORM::factory('formfieldresponse');
+				}
+				
+				$response->update_formfieldresponse(array('wish_id'=>$wish->id, 'formfield_id'=>$form_field->id, 'response'=>$values[$form_field->id]));
+			}
+		}
+		
+		return $errors;
+	}
 	
 }//end class

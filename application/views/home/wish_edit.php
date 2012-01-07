@@ -156,7 +156,7 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<?php echo Helper_Form::get_html_form($form, null); ?>
+				<?php echo Helper_Form::get_html_form($form, $wish); ?>
 			</td>
 		</tr>
 		<tr>
