@@ -106,6 +106,7 @@ class Helper_Form
 		$required_str = $form_field->required == 1 ? "*" : "";
 		$html = '<tr><td>';
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
+		$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
 		$html .= '</td><td>';
 		$html .= Form::input('ff['.$form_field->id.']', $default_value, array('id'=>'ff_'.$form_field->id, 'style'=>'width:300px;'));
 		$html .= '</td></tr>';
@@ -130,6 +131,7 @@ class Helper_Form
 		
 		$html = '<tr><td>';
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
+		$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
 		$html .= '</td><td>';
 		$html .= Form::textarea('ff['.$form_field->id.']', $default_value, array('id'=>'ff_'.$form_field->id, 'style'=>'width:300px;'));
 		$html .= '</td></tr>';
@@ -153,6 +155,7 @@ class Helper_Form
 		
 		$html = '<tr><td>';
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
+		$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
 		$html .= '</td><td>';
 		$html .= ' date '.Form::input('ff['.$form_field->id.']', $default_value, array('id'=>'ff_'.$form_field->id, 'style'=>'width:300px;'));
 		$html .= '</td></tr>';
@@ -181,6 +184,7 @@ class Helper_Form
 		
 		$html = '<tr><td>';
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
+		$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
 		$html .= '</td><td>';
 		foreach($options as $option)
 		{
@@ -214,6 +218,7 @@ class Helper_Form
 		
 		$html = '<tr><td>';
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
+		$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
 		$html .= '</td><td>';
 		foreach($options as $option)
 		{
@@ -255,6 +260,7 @@ class Helper_Form
 		
 		$html = '<tr><td>';
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
+		$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
 		$html .= '</td><td>';		
 		$html .= Form::checkbox('ff['.$form_field->id.']', $selects, null, array('id'=>'ff_'.$form_field->id));					
 		$html .= '</td></tr>';
@@ -279,6 +285,7 @@ class Helper_Form
 		
 		$html = '<tr><td>';
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
+		$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
 		$html .= '</td><td>';
 		$html .= Form::password('ff['.$form_field->id.']', $default_value, array('id'=>'ff_'.$form_field->id, 'style'=>'width:300px;'));
 		$html .= '</td></tr>';
@@ -366,5 +373,39 @@ class Helper_Form
 		
 		return $errors;
 	}
+	
+	
+	
+	/**
+	 * Use this to get a string of HTML for a form to display the resutls.
+	 * @param db_object $form the Form in question
+	 * @param db_object $wish the wish from which to pull data from, if no wish leave empty or null
+	 * @return a string of html
+	 */
+	public static function get_html($form, $wish)
+	{
+		$html = '<table>';
+		
+		//loop over the questions
+		$form_fields = ORM::factory('formfields')->
+			where('form_id','=', $form->id)->
+			order_by('order')->
+			find_all();
+		foreach($form_fields as $form_field)
+		{
+			if($form_field->type == 1 OR 
+				$form_field->type == 2 OR
+				$form_field->type == 3 OR
+				$form_field->type == 7) // straight up text
+			{
+				$html .= self::text_box($form_field, $wish);
+			}
+			
+		}//end foreach
+		
+		$html .= '</table>';
+		return $html;
+	}//end get_html_form;
+
 	
 }//end class

@@ -43,6 +43,7 @@ class Controller_Home_Wish extends Controller_Home {
 			->join('forms')
 			->on('wish.form_id', '=', 'forms.id')
 			->and_where('user_id', '=', $this->user->id)
+			->and_where('is_live', '=', 1)
 			->and_where('forms.category_id', '=', $cat_id)
 			->order_by('title', 'ASC')
 			->find_all();
@@ -243,7 +244,6 @@ class Controller_Home_Wish extends Controller_Home {
 				{
 					//or do they want to edit it?
 					$wish->update_wish($_POST, $this->user);
-					print_r($_POST);
 					Helper_Form::save_form($wish, $_POST['ff']);
 					$this->template->content->messages[] = __('wish edited successfully');
 				}
@@ -400,6 +400,11 @@ class Controller_Home_Wish extends Controller_Home {
 		//now that we have access to this wish lets view it.
 		$this->template->content = view::factory('home/wish_view');
 		$this->template->content->wish = $wish;
+		//get the form for this wish
+		$form = ORM::factory('form')
+			->and_where('id', '=', $wish->form_id)
+			->find();
+		$this->template->content->form = $form;
 		//get the pictures associated with this wish		
 		$this->template->content->pictures = $wish->wpics->find_all();
 		

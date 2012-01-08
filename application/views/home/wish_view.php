@@ -11,6 +11,8 @@
 <div class="wish_view_frame">
 <h2 ><?php echo __('wish'). ' - '. $wish->title; ?></h2>
 <div >
+	<?php echo Helper_Form::get_html($form, $wish); ?>
+	<br/>
 	<?php echo $wish->html; ?>
 </div>
 <div style="clear:both;"></div>

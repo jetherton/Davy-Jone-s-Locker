@@ -425,3 +425,8 @@ label{
 span.radio_wrapper{
 	margin-right:20px;
 }
+
+span.form_description{
+	color:grey;
+	font-size:11px;
+}

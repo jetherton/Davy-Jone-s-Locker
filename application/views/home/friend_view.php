@@ -22,7 +22,7 @@
 				<?php echo __('wish');?>
 			</th>
 			<th>
-				<?php echo __('tags');?>
+				<?php echo __('type');?>
 			</th>
 		</tr>
 	</thead>
@@ -44,7 +44,7 @@
 			<a href="<?php echo url::base(). 'home/wish/view?id='.$wish->id?>"> <?php echo $wish->title;?></a>
 		</td>
 		<td>
-			blank for now
+			<?php echo $wish->form->title;?>
 		</td>
 	</tr>
 	<?php }?>
