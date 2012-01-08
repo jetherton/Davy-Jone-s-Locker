@@ -101,8 +101,8 @@ class Helper_Form
 		
 		//check and see if there's already an answer to this question
 		$default_value = self::get_answer($form_field, $wish);		
-		$default_value = is_array($default_value) ? $default_value[0] : null;
-		
+		$default_value = (is_array($default_value) AND count($default_value) > 0) ? $default_value[0] : null;
+				
 		$required_str = $form_field->required == 1 ? "*" : "";
 		$html = '<tr><td>';
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
@@ -124,8 +124,8 @@ class Helper_Form
 	{
 		//check and see if there's already an answer to this question
 		$default_value = self::get_answer($form_field, $wish);
-		$default_value = is_array($default_value) ? $default_value[0] : null;
-		
+		$default_value = (is_array($default_value) AND count($default_value) > 0) ? $default_value[0] : null;
+				
 		$required_str = $form_field->required == 1 ? "*" : "";
 		
 		$html = '<tr><td>';
@@ -148,7 +148,7 @@ class Helper_Form
 	{
 		//check and see if there's already an answer to this question
 		$default_value = self::get_answer($form_field, $wish);
-		$default_value = is_array($default_value) ? $default_value[0] : null;
+		$default_value = (is_array($default_value) AND count($default_value) > 0) ? $default_value[0] : null;
 		$required_str = $form_field->required == 1 ? "*" : "";
 		
 		$html = '<tr><td>';
@@ -171,7 +171,7 @@ class Helper_Form
 	public static function radio_button($form_field, $wish = null)
 	{
 		$default_value = self::get_answer($form_field, $wish);
-		$default_value = is_array($default_value) ? intval($default_value[0]) : null;
+		$default_value = (is_array($default_value) AND count($default_value) > 0) ? $default_value[0] : null;
 		$required_str = $form_field->required == 1 ? "*" : "";
 		
 		$options = ORM::factory('formfieldoption')->
@@ -184,9 +184,9 @@ class Helper_Form
 		$html .= '</td><td>';
 		foreach($options as $option)
 		{
-			$checked = $
+			$checked = $default_value == $option->id;
 			$html .= '<span class="radio_wrapper"><abbr title="'.$option->description.'">'.$option->title.'</abbr>';
-			$html .= Form::radio('ff['.$form_field->id.']', $option->id, FALSE, array('id'=>'ff_'.$form_field->id.'_'.$option->id));
+			$html .= Form::radio('ff['.$form_field->id.']', $option->id, $checked, array('id'=>'ff_'.$form_field->id.'_'.$option->id));
 			$html .= '</span>';
 		}
 		$html .= '</td></tr>';
@@ -238,7 +238,7 @@ class Helper_Form
 	{
 		//check and see if there's already an answer to this question
 		$default_value = self::get_answer($form_field, $wish);
-		$default_value = is_array($default_value) ? $default_value[0] : null;
+		$default_value = (is_array($default_value) AND count($default_value) > 0) ? $default_value[0] : null;
 		$required_str = $form_field->required == 1 ? "*" : "";
 		
 		$options = ORM::factory('formfieldoption')->
@@ -274,7 +274,7 @@ class Helper_Form
 	{
 		//check and see if there's already an answer to this question
 		$default_value = self::get_answer($form_field, $wish);
-		$default_value = is_array($default_value) ? $default_value[0] : null;
+		$default_value = (is_array($default_value) AND count($default_value) > 0) ? $default_value[0] : null;
 		$required_str = $form_field->required == 1 ? "*" : "";
 		
 		$html = '<tr><td>';
