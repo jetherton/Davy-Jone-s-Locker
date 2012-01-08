@@ -176,12 +176,15 @@ class Controller_Admin_Formfields extends Controller_Admin {
 					}
 				}
 				
-			$data['title'] = $_POST['title'];
-			$data['description'] = $_POST['description'];
-			$data['order'] = $_POST['order'];
-			$data['type'] = $_POST['type'];
-			$data['required'] = isset($_POST['required']) ? $_POST['required'] : 0;
-			$this->template->content->data = $data;
+				if($_POST['action'] == 'edit')
+				{
+					$data['title'] = $_POST['title'];
+					$data['description'] = $_POST['description'];
+					$data['order'] = $_POST['order'];
+					$data['type'] = $_POST['type'];
+					$data['required'] = isset($_POST['required']) ? $_POST['required'] : 0;
+					$this->template->content->data = $data;
+				}
 			}	
 		}
 		

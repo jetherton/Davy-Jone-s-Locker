@@ -23,10 +23,6 @@ class Model_Formfieldoption extends ORM {
 			'formfield_id' => array(
 				array('not_empty'),
 				),
-				
-			'wish_id' => array(
-				array('not_empty'),
-				),
 			'title'=>array(
 				array('max_length', array(':value', 254)),
 				array('min_length', array(':value', 1))
