@@ -6,6 +6,7 @@
 
 class Helper_Form
 {
+	public static $na_str = '===na===';
 	/**
 	 * Use this to get a string of HTML for a form.
 	 * @param db_object $form the Form in question
@@ -211,6 +212,21 @@ class Helper_Form
 			$html .= '<abbr title="'.$option->description.'">'.$option->title.'</abbr>';			
 			$html .= '</span>';
 		}
+		
+		if(intval($form_field->required) != 1)
+		{
+			$checked = false;
+			if($default_value == self::$na_str)
+			{
+				$checked = true;
+			}
+			
+			$html .='<span class="radio_wrapper">';
+			$html .= Form::radio('ff['.$form_field->id.']', self::$na_str, $checked, array('id'=>'ff_'.$form_field->id.'_'.self::$na_str));			
+			$html .= '<abbr title="'.__('n/a explain').'">'.__('n/a').'</abbr>';
+			$html .= '</span>';
+		}
+		
 		$html .= '</td></tr>';
 		
 		return $html;
@@ -256,6 +272,21 @@ class Helper_Form
 			$html .= '<abbr title="'.$option->description.'">'.$option->title.'</abbr>';
 			$html .= '</span>';
 		}
+		
+		if(intval($form_field->required) != 1)
+		{
+			$checked = false;
+			if(isset($default_value[self::$na_str]))
+			{
+				$checked = true;
+			}
+			
+			$html .='<span class="radio_wrapper">';
+			$html .= Form::checkbox('ff['.$form_field->id.'][]', self::$na_str, $checked, array('id'=>'ff_'.$form_field->id.'_'.self::$na_str));			
+			$html .= '<abbr title="'.__('n/a explain').'">'.__('n/a').'</abbr>';
+			$html .= '</span>';
+		}
+		
 		$html .= '</td></tr>';
 		
 		return $html;
@@ -286,6 +317,11 @@ class Helper_Form
 		foreach($options as $option)
 		{
 			$selects[$option->id] = $option->title;
+		}
+		
+		if(intval($form_field->required) != 1)
+		{
+			$selects[self::$na_str] = __('n/a');
 		}
 		
 		$html = '<tr><td>';
@@ -429,7 +465,7 @@ class Helper_Form
 					->and_where('wish_id', '=', $wish->id)
 					->and_where('formfield_id', '=', $form_field->id)
 					->find();
-			if(!$response->loaded() OR strlen($response->response) == 0)
+			if(!$response->loaded() OR strlen($response->response) == 0 OR $response->response == self::$na_str)
 			{
 				continue;
 			}
