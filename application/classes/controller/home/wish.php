@@ -466,7 +466,7 @@ class Controller_Home_Wish extends Controller_Home {
 			return;
 		}
 		//make sure this user can mess with this wish
-		$wish = Model_Wish::validate_id_user($_GET['wish_id'], $this->user);
+		$wish = Model_Wish::validate_id_user($_GET['wish_id'], $this->user, true);
 		if(!$wish)
 		{
 			echo htmlspecialchars(json_encode(array('error'=>'invalid wish ID')), ENT_NOQUOTES);
