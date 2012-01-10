@@ -22,6 +22,8 @@
 					$("#images").append(imageHtml);
 				}
 				$(".qq-upload-list").delay(1000).fadeOut(500);
+				$("li.qq-upload-success").delay(1050).remove();
+				$("li.qq-upload-fail").delay(1050).remove();
 			  },
 		onSubmit:function(id, fileName){$(".qq-upload-list").fadeIn(100);}
       });           
