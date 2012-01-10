@@ -165,7 +165,16 @@ class Helper_Form
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
 		$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
 		$html .= '</td><td>';
-		$html .= ' date '.Form::input('ff['.$form_field->id.']', $default_value, array('id'=>'ff_'.$form_field->id, 'style'=>'width:300px;'));
+		$html .= Form::input('ff['.$form_field->id.']', $default_value, array('id'=>'ff_'.$form_field->id, 'style'=>'width:100px;'));
+		$html .= '<script type="text/javascript">
+							$().ready(function() {
+								$("#ff_'.$form_field->id.'").datepicker({ 
+									showOn: "both", 
+									buttonImage: "'.url::base(). 'media/img/icon-calendar.gif", 
+									buttonImageOnly: true 
+								});
+							});
+						</script>';
 		$html .= '</td></tr>';
 		
 		return $html;
