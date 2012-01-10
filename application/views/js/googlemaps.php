@@ -7,12 +7,13 @@
 	function initializeMap() 
 	{
 		geocoder = new google.maps.Geocoder();
-		var latlng = new google.maps.LatLng(39.2, -99.39);
+		var latlng = new google.maps.LatLng(<?php echo isset($location) ? $location->lat : '39.2'; ?>, 
+			<?php echo isset($location) ? $location->lon : '-99.39'; ?>);
 		var myOptions = {
-				zoom: 2,
+				zoom: <?php echo isset($location) ? $location->zoom : '2'; ?>,
 				center: latlng,
 				streetViewControl: false,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
+				mapTypeId: <?php echo isset($location) ? '"'.$location->map_type.'"' : 'google.maps.MapTypeId.ROADMAP'; ?>
 			};
 		map = new google.maps.Map(document.getElementById("<?php echo $element_id;?>"), myOptions);
 		marker = new google.maps.Marker({

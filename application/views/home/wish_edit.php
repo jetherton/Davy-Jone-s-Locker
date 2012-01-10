@@ -83,15 +83,11 @@
 						 	}?>
 						 </ul>
 					</div>
-					<h3><a href="#"><?php echo __('tags');?></a></h3>
-					<div>
-						 some tag stuff here
-					</div>
 					<h3><a href="#"><?php echo __('location');?></a></h3>
 					<div id="map_tab"  style="padding-top:0px;padding-bottom:0px;">
 						<?php
 						echo form::checkbox('use_location',
-										'use_location', false, 
+										'use_location', isset($location), 
 										array('id'=>'use_location', 
 											'onchange'=>"toggleUseLocation(); return false;"));
 						echo __('use location');
@@ -101,10 +97,11 @@
 							 <p></p>
 							 <input rel="writehere|<?php echo __('search map'); ?>|cssoff|csson" style="width:150px;"id="map_search_input" name="map_search" onkeypress="return searchKeyPress(event,this);">
 							 <input type="button" id="map_search_button" value="<?php echo __('search'); ?>" onclick="codeAddress(); return false;"/>
-							 <input type="hidden" id="lat"/>
-							 <input type="hidden" id="lon"/>
-							 <input type="hidden" id="zoom"/>
-							 <input type="hidden" id="map_type"/>
+							 <input type="hidden" name="lat" id="lat" value="<?php echo isset($location) ? $location->lat : ''; ?>"/>
+							 <input type="hidden" name="lon" id="lon" value="<?php echo isset($location) ? $location->lon : ''; ?>"/>
+							 <input type="hidden" name="zoom" id="zoom" value="<?php echo isset($location) ? $location->zoom : ''; ?>"/>
+							 <input type="hidden" name="map_type" id="map_type" value="<?php echo isset($location) ? $location->map_type : ''; ?>"/>
+							 <input type="hidden" name="location_id" id="location_id" value="<?php echo isset($location) ? $location->id : 0; ?>"/>
 						 </div>
 					</div>
 					<h3><a href="#"><?php echo __('pictures');?></a></h3>
@@ -161,7 +158,8 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<?php echo Form::label(__("wish"), '*'.__("wish") . ':');  ?>
+				<br/>
+				<?php echo Form::label(__("notes"), '*'.__("notes") . ':');  ?>
 				<br/>
 				<?php echo Form::textarea('html', isset($wish->html) ? $wish->html : null, array('id'=>'html', 'class'=>'tinymce', 'style'=>'width:650px; height:500px;'));?>
 			</td>

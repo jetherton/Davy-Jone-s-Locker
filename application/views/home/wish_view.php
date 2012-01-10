@@ -9,15 +9,17 @@
 <p style="margin-top:5px;"><?php echo __('by'). ' <a href="'.url::base().'home/friends/view?id='.$friend->id.'">' . $friend->first_name. ' ' . $friend->last_name. '</a>';?></p>
 
 <div class="wish_view_frame">
-<h2 ><?php echo __('wish'). ' - '. $wish->title; ?></h2>
+<h2 ><?php echo $wish->title; ?></h2>
 <div >
 	<?php echo Helper_Form::get_html($form, $wish); ?>
 	<br/>
+	<h3><?php echo __('notes');?>:</h3>
 	<?php echo $wish->html; ?>
 </div>
 <div style="clear:both;"></div>
 </div>
 
+<?php if(count($pictures) > 0) { ?>
 <div class="wish_view_frame ">
 	<h3><?php echo __('wishes pictures'); ?></h3>
 	<div class="scrollable">
@@ -39,7 +41,9 @@
 		</table>
 	</div>
 </div>
+<?php } ?>
 
+<?php if(count($files) > 0) { ?>
 <div class="wish_view_frame scrollable">
 	<h3><?php echo __('wishes files'); ?></h3>
 	<div class="scrollable">
@@ -54,4 +58,5 @@
 		</table>
 	</div>
 </div>
+<?php } ?>
 <?php echo __('last edited'). ': '. Helper_Dates::mysql_date_to_string_formal($wish->date_modified);?>

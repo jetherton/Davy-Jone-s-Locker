@@ -145,7 +145,7 @@ ALTER TABLE `wfiles`
 ADD CONSTRAINT `wfiles_wish_fk_1` FOREIGN KEY (`wish_id`) REFERENCES `wishes` (`id`) ON DELETE CASCADE;
 
 /*** create table for locations in wishes ***/
-CREATE TABLE IF NOT EXISTS `location` (
+CREATE TABLE IF NOT EXISTS `locations` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `wish_id` int(11) UNSIGNED NOT NULL,
   `zoom` tinyint(4) UNSIGNED NOT NULL,
@@ -154,8 +154,8 @@ CREATE TABLE IF NOT EXISTS `location` (
   `lon` double NOT NULL,
   PRIMARY KEY (`id`)  
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
-ALTER TABLE `location`
-ADD CONSTRAINT `location_wish_fk_1` FOREIGN KEY (`wish_id`) REFERENCES `wishes` (`id`) ON DELETE CASCADE;
+ALTER TABLE `locations`
+ADD CONSTRAINT `locations_wish_fk_1` FOREIGN KEY (`wish_id`) REFERENCES `wishes` (`id`) ON DELETE CASCADE;
 
 /****************************************************************************************************/
 /*   VERSION 0.2   */

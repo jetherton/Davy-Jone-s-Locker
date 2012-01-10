@@ -73,6 +73,7 @@
 	{
 		/* fix forms when ready */
 		setWriteHere("writehere");
+		toggleUseLocation();
     });
 
 </script>

@@ -65,9 +65,10 @@ class Helper_Form
 	 * answer
 	 * @param db_object $form_field form field in question
 	 * @param db_object $wish wish in question
+	 * @param boolean $index if true use the value as the index in the array, false and the indexs will be sequential
 	 * @return array the answer or null
 	 */
-	public static function get_answer($form_field, $wish)
+	public static function get_answer($form_field, $wish, $index = false)
 	{
 		
 		if($wish == null)
@@ -82,8 +83,15 @@ class Helper_Form
 			
 		$responses = array();
 		foreach($response as $r)
-		{		
-			$responses[] = $r->response;
+		{
+			if($index)
+			{		
+				$responses[$r->response] = $r->response;
+			}
+			else
+			{
+				$responses[] = $r->response;
+			}
 		}
 		
 		return $responses;
@@ -189,8 +197,9 @@ class Helper_Form
 		foreach($options as $option)
 		{
 			$checked = $default_value == $option->id;
-			$html .= '<span class="radio_wrapper"><abbr title="'.$option->description.'">'.$option->title.'</abbr>';
+			$html .= '<span class="radio_wrapper">';
 			$html .= Form::radio('ff['.$form_field->id.']', $option->id, $checked, array('id'=>'ff_'.$form_field->id.'_'.$option->id));
+			$html .= '<abbr title="'.$option->description.'">'.$option->title.'</abbr>';			
 			$html .= '</span>';
 		}
 		$html .= '</td></tr>';
@@ -208,13 +217,17 @@ class Helper_Form
 	 */
 	public static function check_box($form_field, $wish = null)
 	{
-		$default_value = null;
+		$default_value = self::get_answer($form_field, $wish, TRUE);
+		$default_value = (is_array($default_value) AND count($default_value) > 0) ? $default_value : array();
+		
 		$required_str = $form_field->required == 1 ? "*" : "";
 		
 		$options = ORM::factory('formfieldoption')->
 			where('formfield_id', '=', $form_field->id)->
 			order_by('order')->
 			find_all();
+		$options_array = array();
+		
 		
 		$html = '<tr><td>';
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
@@ -222,8 +235,16 @@ class Helper_Form
 		$html .= '</td><td>';
 		foreach($options as $option)
 		{
-			$html .= '<span class="radio_wrapper"><abbr title="'.$option->description.'">'.$option->title.'</abbr>';
-			$html .= Form::checkbox('ff['.$form_field->id.']', $option->id, FALSE, array('id'=>'ff_'.$form_field->id.'_'.$option->id));			
+			//test if the checkbox should be checked
+			$checked = false;
+			if(isset($default_value[$option->id]))
+			{
+				$checked = true;
+			}
+			
+			$html .='<span class="radio_wrapper">';
+			$html .= Form::checkbox('ff['.$form_field->id.'][]', $option->id, $checked, array('id'=>'ff_'.$form_field->id.'_'.$option->id));			
+			$html .= '<abbr title="'.$option->description.'">'.$option->title.'</abbr>';
 			$html .= '</span>';
 		}
 		$html .= '</td></tr>';
@@ -262,7 +283,7 @@ class Helper_Form
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
 		$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
 		$html .= '</td><td>';		
-		$html .= Form::checkbox('ff['.$form_field->id.']', $selects, null, array('id'=>'ff_'.$form_field->id));					
+		$html .= Form::select('ff['.$form_field->id.']', $selects, $default_value, array('id'=>'ff_'.$form_field->id));					
 		$html .= '</td></tr>';
 		
 		return $html;
@@ -344,15 +365,16 @@ class Helper_Form
 				{
 					$or->delete();
 				}
-				/*****************************
-				/*****************************
-				/*****************************
-				/*****************************
-				//JOHN FIGURE THIS OUT
-				******************************
-				******************************
-				******************************
-				******************************/
+				//now save all the new responses
+				foreach($values[$form_field->id] as $selected_option_id)
+				{
+					$new_response = ORM::factory('formfieldresponse');
+					$new_response->wish_id = $wish->id;
+					$new_response->formfield_id = $form_field->id;
+					$new_response->response = $selected_option_id;
+					$new_response->save();
+				}
+				
 				
 			}
 			else //not a multi value answer
@@ -384,7 +406,7 @@ class Helper_Form
 	 */
 	public static function get_html($form, $wish)
 	{
-		$html = '<table>';
+		$html = '<table class="wish_view">';
 		
 		//loop over the questions
 		$form_fields = ORM::factory('formfields')->
@@ -393,13 +415,59 @@ class Helper_Form
 			find_all();
 		foreach($form_fields as $form_field)
 		{
+			//no matter what, print the title and description
+			$html .= '<tr><td>';
+			$html .= Form::label('ff_'.$form_field->id, $form_field->title.": ");
+			$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
+			$html .= '</td>';
+
+			//if the info is a text value
 			if($form_field->type == 1 OR 
 				$form_field->type == 2 OR
 				$form_field->type == 3 OR
 				$form_field->type == 7) // straight up text
 			{
-				$html .= self::text_box($form_field, $wish);
+				//get the answer text
+				$response = ORM::factory('formfieldresponse')
+					->and_where('wish_id', '=', $wish->id)
+					->and_where('formfield_id', '=', $form_field->id)
+					->find();
+				$html .= '<td>'.$response->response.'</td>';
 			}
+			elseif($form_field->type == 4 OR $form_field->type == 6) //if the info is a single ID value
+			{
+				//get the answer text
+				$response = ORM::factory('formfieldresponse')
+					->and_where('wish_id', '=', $wish->id)
+					->and_where('formfield_id', '=', $form_field->id)
+					->find();
+				$option = ORM::factory('formfieldoption')
+					->and_where('id', '=', $response->response)
+					->find();
+				$html .= '<td><abbr title="'.$option->description.'">'.$option->title.'</abbr></td>';
+			}
+			else //if the info is a multi ID value
+			{
+				$html .= '<td>';
+				//get the answer text
+				$responses = ORM::factory('formfieldresponse')
+					->and_where('wish_id', '=', $wish->id)
+					->and_where('formfield_id', '=', $form_field->id)
+					->find_all();
+				$i = 0;
+				foreach($responses as $response)
+				{
+					$i++;
+					if($i > 1){$html .= '<br/>';}
+					$option = ORM::factory('formfieldoption')
+						->and_where('id', '=', $response->response)
+						->find();
+					$html .= '<abbr title="'.$option->description.'">'.$option->title.'</abbr>';
+				}
+				$html .= '</td>';
+			}
+			//close the table data and table row
+			$html .= '</tr>';
 			
 		}//end foreach
 		

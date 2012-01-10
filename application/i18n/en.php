@@ -90,6 +90,7 @@ return array
 	'wishes you shared with :friend'=>'Wishes you have shared with :friend',
 	'you have not shared any wishes with :friend'=>'You have not shared any wishes with :friend',
 	'by'=>'By',
+	'notes'=>'Notes',
 
 	//friends
 	'friend'=>'Friend',

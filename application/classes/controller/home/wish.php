@@ -162,7 +162,7 @@ class Controller_Home_Wish extends Controller_Home {
 			$this->template->content->explanation = __('add wish explanation');
 			$this->template->content->wish = $wish;
 			$this->template->content->submit_button = __('add wish');
-			
+
 			//delete any outstanding wishes
 			$day_ago = date('Y-m-d G:i:s', time()-(24*60*60));
 			$old_wishes = ORM::factory('wish')->
@@ -205,7 +205,7 @@ class Controller_Home_Wish extends Controller_Home {
 			$this->template->content->title = __('edit wish') . ' - '. $wish->title;
 			$this->template->content->explanation = __('edit wish explanation');
 			$this->template->content->wish = $wish;
-			$this->template->content->submit_button = __('edit wish');			
+			$this->template->content->submit_button = __('edit wish');		
 		}
 		$wish_id = $wish->id;
 		
@@ -245,6 +245,8 @@ class Controller_Home_Wish extends Controller_Home {
 					//or do they want to edit it?
 					$wish->update_wish($_POST, $this->user);
 					Helper_Form::save_form($wish, $_POST['ff']);
+					//what about saving a location?
+					$this->handle_location($wish);
 					$this->template->content->messages[] = __('wish edited successfully');
 				}
 
@@ -275,7 +277,18 @@ class Controller_Home_Wish extends Controller_Home {
 			$this->template->html_head->title = __("edit wish"). ' :: '. $wish->title;
 			$this->template->content->title = __('edit wish') . ' - '. $wish->title;
 			$this->template->content->wish = $wish;
+			
+			//check if there's a location
+			$location = ORM::factory('location')
+					->and_where('wish_id', '=', $wish->id)
+					->find();
+			if($location->loaded())
+			{
+				$this->template->content->location = $location;
+				$map_view->location = $location;
+			}			
 		}
+		
 	}//end function action_edit
 	
 	
@@ -659,6 +672,33 @@ class Controller_Home_Wish extends Controller_Home {
 	}
 	
 	
+	/**
+	 * Handles saving, updating, and deleting of locations
+	 * @param db_object $wish the wish the location is/will be/was associated with
+	 */
+	public function handle_location($wish)
+	{
+		//does the user want to include a location?
+		if(isset($_POST['use_location']))
+		{ //yes they do want to use a location
+			//does a location already exists
+			if(intval($_POST['location_id']) != 0)
+			{
+				$location = ORM::factory('location');
+				$location->update_location($_POST);
+			}
+			else
+			{
+				$location = ORM::factory('location');
+				$location->create_location($_POST, $wish);
+			}
+		}
+		else //no they don't want to use a location
+		{
+			Model_Location::delete_location($wish);
+		}
+			
+	}
 } // End class
 
 
