@@ -236,7 +236,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
   PRIMARY KEY (`id`)  
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
-INSERT INTO  `davyjones`.`settings` (`id` ,`db_version`)
+INSERT INTO  `settings` (`id` ,`db_version`)
 VALUES (NULL ,  '3');
 
 
