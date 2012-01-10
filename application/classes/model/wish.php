@@ -29,10 +29,6 @@ class Model_Wish extends ORM {
 				array('min_length', array(':value', 1))
 				),
 	
-			'html' => array(
-				array('not_empty'),
-				array('min_length', array(':value', 1)),
-				),
 			'form_id'=>array(array('not_empty')),		
 			);		
 	}

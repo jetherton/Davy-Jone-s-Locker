@@ -415,6 +415,16 @@ class Helper_Form
 			find_all();
 		foreach($form_fields as $form_field)
 		{
+			//make sure there's an answer for this question
+			$response = ORM::factory('formfieldresponse')
+					->and_where('wish_id', '=', $wish->id)
+					->and_where('formfield_id', '=', $form_field->id)
+					->find();
+			if(!$response->loaded() OR strlen($response->response) == 0)
+			{
+				continue;
+			}
+			
 			//no matter what, print the title and description
 			$html .= '<tr><td>';
 			$html .= Form::label('ff_'.$form_field->id, $form_field->title.": ");
