@@ -228,3 +228,18 @@ ALTER TABLE `formfieldresponses`
 ADD CONSTRAINT `formfieldresponses_formfields_id_fk_1` FOREIGN KEY (`formfield_id`) REFERENCES `formfields` (`id`) ON DELETE CASCADE;
 ALTER TABLE `formfieldresponses`
 ADD CONSTRAINT `formfieldresponses_wish_id_fk_1` FOREIGN KEY (`wish_id`) REFERENCES `wishes` (`id`) ON DELETE CASCADE;
+
+
+CREATE TABLE IF NOT EXISTS `settings` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `db_version` CHAR(255) NOT NULL,
+  PRIMARY KEY (`id`)  
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+
+INSERT INTO  `davyjones`.`settings` (`id` ,`db_version`)
+VALUES (NULL ,  '3');
+
+
+/****************************************************************************************************/
+/*   VERSION 0.3   */
+/****************************************************************************************************/
