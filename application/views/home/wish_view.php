@@ -19,6 +19,15 @@
 <div style="clear:both;"></div>
 </div>
 
+<?php if(isset($location)) { ?>
+<div class="wish_view_frame ">
+	<h3><?php echo __('location'); ?>:</h3>
+	<div id="map" style="height:250px;width:100%;border:solid 1px black;">
+	
+	</div>
+</div>
+<?php } ?>
+
 <?php if(count($pictures) > 0) { ?>
 <div class="wish_view_frame ">
 	<h3><?php echo __('wishes pictures'); ?></h3>

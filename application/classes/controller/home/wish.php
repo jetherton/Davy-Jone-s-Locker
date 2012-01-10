@@ -430,6 +430,21 @@ class Controller_Home_Wish extends Controller_Home {
 		$this->template->html_head->title = __("wish"). ' :: '. $wish->title;
 		//the name in the menu
 		$this->template->header->menu_page = "wish";
+		//if there's a location lets through it in there and turn on locations
+		$location = ORM::factory('location')
+				->and_where('wish_id', '=', $wish->id)
+				->find();
+		if($location->loaded())
+		{
+			//turn on the map
+			$map_view = view::factory('js/googlemaps');
+			$map_view->element_id = 'map';
+			$map_view->location = $location;
+			$map_view->view = TRUE;
+			$this->template->html_head->script_views[] =  $map_view;			
+			$this->template->content->location = TRUE;
+		}			
+		
 	}//end action_view()
 	
 	
@@ -684,7 +699,7 @@ class Controller_Home_Wish extends Controller_Home {
 			//does a location already exists
 			if(intval($_POST['location_id']) != 0)
 			{
-				$location = ORM::factory('location');
+				$location = ORM::factory('location', $_POST['location_id']);
 				$location->update_location($_POST);
 			}
 			else

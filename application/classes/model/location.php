@@ -76,7 +76,6 @@ class Model_Location extends ORM {
 	{
 		
 		$expected = array('zoom', 'map_type', 'lat', 'lon');
-	
 		$this->values($values, $expected);
 		$this->check();
 		$this->save();

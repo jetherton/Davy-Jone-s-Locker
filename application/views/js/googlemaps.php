@@ -19,9 +19,10 @@
 		marker = new google.maps.Marker({
 			position: latlng,
 			map: map,
-			draggable: true
+			draggable: <?php echo isset($view) ? 'false': 'true'; ?>
 			});
 			
+		<?php if(!isset($view)) { ?>
 		google.maps.event.addListener(marker, 'dragend', function() {
 				$("#lat").val(marker.getPosition().lat());
 				$("#lon").val(marker.getPosition().lng());
@@ -40,11 +41,11 @@
 		$("#lon").val(latlng.lng());
 		$("#zoom").val(map.getZoom());	
 		$("#map_type").val(map.getMapTypeId());				
-		
+		<?php } ?>
 		return  map;
 	};
 	
-	
+	<?php if(!isset($view)) { ?>
 	function codeAddress() 
 	{
 		var address = document.getElementById("map_search_input").value;
@@ -104,5 +105,13 @@
 			}
 		});
 	});
+	<?php } ?>
+	
+	<?php if(isset($view)) { ?>
+		$(document).ready(function() 
+		{	 	
+			map = initializeMap();
+		});
+	<?php } ?>
 
 </script>
