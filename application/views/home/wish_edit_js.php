@@ -74,6 +74,9 @@
 		/* fix forms when ready */
 		setWriteHere("writehere");
 		toggleUseLocation();
+		/*Turn on tool tips*/
+		$(".form_description").tooltip();	
     });
+
 
 </script>

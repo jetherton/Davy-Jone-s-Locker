@@ -430,6 +430,16 @@ span.radio_wrapper{
 span.form_description{
 	color:grey;
 	font-size:11px;
+	background-image: url('../img/moreInfo.png');
+	padding-left:10px;
+	padding-right:10px;
+	padding-top:9px;
+	padding-bottom:0px;	
+	position:relative;
+}
+
+table.formfields td.formfieldlabel{
+	width: 200px;
 }
 
 table.wish_view tbody tr td{
@@ -441,4 +451,15 @@ table.wish_view tbody tr td{
 div.blockOverlay{
 	background: black;
 	opacity: 0.6;
+}
+
+.tooltip{
+	display:none;
+	background:#444;
+	border:solid 2px black;
+	color:#aaa;
+	padding:10px;
+	border:2px solid;
+	border-radius:25px;
+	-moz-border-radius:25px; /* Firefox 3.6 and earlier */
 }

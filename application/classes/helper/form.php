@@ -15,7 +15,7 @@ class Helper_Form
 	 */
 	public static function get_html_form($form, $wish = null)
 	{
-		$html = '<table>';
+		$html = '<table class="formfields">';
 		
 		//loop over the questions
 		$form_fields = ORM::factory('formfields')->
@@ -113,9 +113,9 @@ class Helper_Form
 		$default_value = (is_array($default_value) AND count($default_value) > 0) ? $default_value[0] : null;
 				
 		$required_str = $form_field->required == 1 ? "*" : "";
-		$html = '<tr><td>';
+		$html = '<tr><td class="formfieldlabel">';
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
-		$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
+		$html .= self::render_toop_tip($form_field->description);
 		$html .= '</td><td>';
 		$html .= Form::input('ff['.$form_field->id.']', $default_value, array('id'=>'ff_'.$form_field->id, 'style'=>'width:300px;'));
 		$html .= '</td></tr>';
@@ -138,9 +138,9 @@ class Helper_Form
 				
 		$required_str = $form_field->required == 1 ? "*" : "";
 		
-		$html = '<tr><td>';
+		$html = '<tr><td class="formfieldlabel">';
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
-		$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
+		$html .= self::render_toop_tip($form_field->description);
 		$html .= '</td><td>';
 		$html .= Form::textarea('ff['.$form_field->id.']', $default_value, array('id'=>'ff_'.$form_field->id, 'style'=>'width:300px;'));
 		$html .= '</td></tr>';
@@ -162,9 +162,9 @@ class Helper_Form
 		$default_value = (is_array($default_value) AND count($default_value) > 0) ? $default_value[0] : null;
 		$required_str = $form_field->required == 1 ? "*" : "";
 		
-		$html = '<tr><td>';
+		$html = '<tr><td class="formfieldlabel">';
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
-		$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
+		$html .= self::render_toop_tip($form_field->description);
 		$html .= '</td><td>';
 		$html .= Form::input('ff['.$form_field->id.']', $default_value, array('id'=>'ff_'.$form_field->id, 'style'=>'width:100px;'));
 		$html .= '<script type="text/javascript">
@@ -200,9 +200,9 @@ class Helper_Form
 			order_by('order')->
 			find_all();
 		
-		$html = '<tr><td>';
+		$html = '<tr><td class="formfieldlabel">';
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
-		$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
+		$html .= self::render_toop_tip($form_field->description);
 		$html .= '</td><td>';
 		foreach($options as $option)
 		{
@@ -254,9 +254,9 @@ class Helper_Form
 		$options_array = array();
 		
 		
-		$html = '<tr><td>';
+		$html = '<tr><td class="formfieldlabel">';
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
-		$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
+		$html .= self::render_toop_tip($form_field->description);
 		$html .= '</td><td>';
 		foreach($options as $option)
 		{
@@ -324,9 +324,9 @@ class Helper_Form
 			$selects[self::$na_str] = __('n/a');
 		}
 		
-		$html = '<tr><td>';
+		$html = '<tr><td class="formfieldlabel">';
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
-		$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
+		$html .= self::render_toop_tip($form_field->description);
 		$html .= '</td><td>';		
 		$html .= Form::select('ff['.$form_field->id.']', $selects, $default_value, array('id'=>'ff_'.$form_field->id));					
 		$html .= '</td></tr>';
@@ -349,9 +349,9 @@ class Helper_Form
 		$default_value = (is_array($default_value) AND count($default_value) > 0) ? $default_value[0] : null;
 		$required_str = $form_field->required == 1 ? "*" : "";
 		
-		$html = '<tr><td>';
+		$html = '<tr><td class="formfieldlabel">';
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
-		$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
+		$html .= self::render_toop_tip($form_field->description);
 		$html .= '</td><td>';
 		$html .= Form::password('ff['.$form_field->id.']', $default_value, array('id'=>'ff_'.$form_field->id, 'style'=>'width:300px;'));
 		$html .= '</td></tr>';
@@ -529,6 +529,16 @@ class Helper_Form
 		$html .= '</table>';
 		return $html;
 	}//end get_html_form;
+	
+	
+	/**
+	 * This little helper is used to render the tool tip
+	 * descriptions
+	 **/
+	public static function render_toop_tip($description)
+	{
+		return '<span class="form_description" title="'.str_replace('"', '\"', $description).'">&nbsp;</span>';
+	}
 
 	
 }//end class

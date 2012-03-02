@@ -159,7 +159,7 @@
 		<tr>
 			<td colspan="2">
 				<br/>
-				<?php echo Form::label(__("notes"), '*'.__("notes") . ':');  ?>
+				<?php echo Form::label(__("notes"), ''.__("notes") . ':');  ?>
 				<br/>
 				<?php echo Form::textarea('html', isset($wish->html) ? $wish->html : null, array('id'=>'html', 'class'=>'tinymce', 'style'=>'width:650px; height:500px;'));?>
 			</td>

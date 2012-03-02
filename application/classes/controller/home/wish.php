@@ -97,10 +97,15 @@ class Controller_Home_Wish extends Controller_Home {
 		//turn on messages
 		$this->template->html_head->script_views[] = view::factory('js/messages');
 		
+		//turn on tooltips
+		$this->template->html_head->script_files[] = 'media/js/jquery.tools.min.js';
+		
 		//turn on accodion
 		$this->template->html_head->script_files[] = 'media/js/jquery-ui.min.js';
 		$this->template->html_head->styles['media/css/jquery-ui.css'] = 'screen';
 		$this->template->html_head->script_views[] = view::factory('js/accordion');
+		
+		
 		
 		//turn on picture upload
 		$this->template->html_head->script_files[] = 'media/js/fileuploader.js';
