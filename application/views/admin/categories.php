@@ -105,7 +105,7 @@
 	echo '</td></tr><tr><td>';
 	echo Form::label('description', __('description').": ");
 	echo '</td><td>';
-	echo Form::input('description', '', array('id'=>'description', 'style'=>'width:300px;'));
+	echo Form::textarea('description', '', array('id'=>'description', 'style'=>'width:600px;'));
 	echo '</td></tr><tr><td>';
 	echo Form::label('order', __('order').": ");
 	echo '</td><td>';

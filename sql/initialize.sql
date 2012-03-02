@@ -243,3 +243,9 @@ VALUES (NULL ,  '3');
 /****************************************************************************************************/
 /*   VERSION 0.3   */
 /****************************************************************************************************/
+
+/** Make description fields for forms longer*/
+ALTER TABLE  `forms` CHANGE  `description`  `description` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+ALTER TABLE  `categories` CHANGE  `description`  `description` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+ALTER TABLE  `formfields` CHANGE  `description`  `description` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+

@@ -25,7 +25,7 @@ class Model_Category extends Model_Auth_User {
 	
 			'description' => array(
 				array('not_empty'),
-				array('max_length', array(':value', 254)),
+				array('max_length', array(':value', 65533)),
 				array('min_length', array(':value', 1))
 				),
 			);		

@@ -62,7 +62,7 @@
 	echo '</td></tr><tr><td>';
 	echo Form::label('description', __('description').": ");
 	echo '</td><td>';
-	echo Form::input('description', $data['description'], array('id'=>'description', 'style'=>'width:300px;'));
+	echo Form::textarea('description', $data['description'], array('id'=>'description', 'style'=>'width:600px;'));
 	echo '</td></tr><tr><td>';
 	echo Form::label('category_id', __('category').": ");
 	echo '</td><td>';
