@@ -18,12 +18,21 @@ return array
 	'email address'=>'Email Address:',
 	'first name'=>'First Name:',
 	'last name'=>'Last Name:',
+	'middle name'=>'Middle Name:',
 	'password'=>'Password:',
 	'password again'=>'Password Again:',
 	'read terms of use'=>'I have read and agree to the terms of use.',
 	'register'=>"Register",
 	'register explanation'=>"Fill out the fields below and click submit to register",	
 	'user name'=>'User Name:',	
+	'gender'=>'Gender:',
+	'address'=>'Address:',
+	'city'=>'City:',
+	'state'=>'State:',
+	'zip'=>'Zip:',
+	'dob'=>'Date of Birth:',
+	'citizenship'=>'Citzenship',
+	
 	
 	//profiel page
 	'profile header'=>'Update Your Profile',
@@ -189,6 +198,8 @@ return array
 	'back to form'=>'Back to Form',
 	'is a required field'=>'is a required field.',
 	'cannot be longer than 255 characters'=>'cannot be longer than 255 characters.',
+	'is lockable' => 'Is Lockable',
+	'lock question'=>'This question is deemed as being especialy sensative. Click on the lock to determine who can view this question',
 	
 	//form field options
 	'Must save field before adding options'=>'Sorry, you must first save a new field before you can add options to it',

@@ -66,7 +66,7 @@ class Model_Formfields extends ORM {
 	public function update_formfield($values)
 	{
 
-		$expected = array('title', 'description', 'order', 'form_id', 'required', 'type', 'default_value');	
+		$expected = array('title', 'description', 'order', 'form_id', 'required', 'type', 'default_value', 'islockable');	
 
 		//update the order first decrease everything above the forms current position
 		//but only if the order is already known for this form
@@ -112,6 +112,15 @@ class Model_Formfields extends ORM {
 		else
 		{
 			$values['required'] = 1;
+		}
+		
+		if(!isset($values['islockable']))
+		{
+			$values['islockable'] = 0;
+		}
+		else
+		{
+			$values['islockable'] = 1;
 		}
 		
 		$this->values($values, $expected);

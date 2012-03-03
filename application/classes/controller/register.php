@@ -18,6 +18,10 @@ class Controller_Register extends Controller_Main {
 		//turn set focus to first UI form element
 		$this->template->html_head->script_views[] = '<script type="text/javascript">$(document).ready(function() {$("input:text:visible:first").focus();});</script>';
 		
+		//turn on jquery UI
+		$this->template->html_head->script_files[] = 'media/js/jquery-ui.min.js';
+		$this->template->html_head->styles['media/css/jquery-ui.css'] = 'screen';
+		
 		//if they're already logged in then take them to their profile
 		$auth = Auth::instance();		
 		if( $auth->logged_in() OR $auth->auto_login())
@@ -38,8 +42,10 @@ class Controller_Register extends Controller_Main {
 					$this->template->content->errors[] = __('must agree to terms of use');
 					return;
 				}
+				//conver the DOB to a format mysql recognizes
+				$_POST['dob'] = date('Y-m-d ', strtotime($_POST['dob'])). '00:00:00';
 				$user = ORM::factory("user");
-				$user->create_user($_POST, array('username','password','email', 'first_name', 'last_name'));
+				$user->create_user($_POST, array('username','password','email', 'first_name', 'middle_name', 'last_name', 'gender','address1','address2','city','state','zip','dob','citizenship'));
 				// Add the login role to the user (add a row to the db)
 				$login_role = new Model_Role(array('name' =>'login'));
             	$user->add('roles', $login_role);

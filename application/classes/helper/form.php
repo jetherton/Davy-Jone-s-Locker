@@ -114,8 +114,9 @@ class Helper_Form
 				
 		$required_str = $form_field->required == 1 ? "*" : "";
 		$html = '<tr><td class="formfieldlabel">';
+		$html .= self::render_lock($form_field);
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
-		$html .= self::render_toop_tip($form_field->description);
+		$html .= self::render_toop_tip($form_field->description);		
 		$html .= '</td><td>';
 		$html .= Form::input('ff['.$form_field->id.']', $default_value, array('id'=>'ff_'.$form_field->id, 'style'=>'width:300px;'));
 		$html .= '</td></tr>';
@@ -139,6 +140,7 @@ class Helper_Form
 		$required_str = $form_field->required == 1 ? "*" : "";
 		
 		$html = '<tr><td class="formfieldlabel">';
+		$html .= self::render_lock($form_field);
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
 		$html .= self::render_toop_tip($form_field->description);
 		$html .= '</td><td>';
@@ -163,6 +165,7 @@ class Helper_Form
 		$required_str = $form_field->required == 1 ? "*" : "";
 		
 		$html = '<tr><td class="formfieldlabel">';
+		$html .= self::render_lock($form_field);
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
 		$html .= self::render_toop_tip($form_field->description);
 		$html .= '</td><td>';
@@ -201,6 +204,7 @@ class Helper_Form
 			find_all();
 		
 		$html = '<tr><td class="formfieldlabel">';
+		$html .= self::render_lock($form_field);
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
 		$html .= self::render_toop_tip($form_field->description);
 		$html .= '</td><td>';
@@ -255,6 +259,7 @@ class Helper_Form
 		
 		
 		$html = '<tr><td class="formfieldlabel">';
+		$html .= self::render_lock($form_field);
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
 		$html .= self::render_toop_tip($form_field->description);
 		$html .= '</td><td>';
@@ -325,6 +330,7 @@ class Helper_Form
 		}
 		
 		$html = '<tr><td class="formfieldlabel">';
+		$html .= self::render_lock($form_field);
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
 		$html .= self::render_toop_tip($form_field->description);
 		$html .= '</td><td>';		
@@ -350,6 +356,7 @@ class Helper_Form
 		$required_str = $form_field->required == 1 ? "*" : "";
 		
 		$html = '<tr><td class="formfieldlabel">';
+		$html .= self::render_lock($form_field);
 		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
 		$html .= self::render_toop_tip($form_field->description);
 		$html .= '</td><td>';
@@ -538,6 +545,21 @@ class Helper_Form
 	public static function render_toop_tip($description)
 	{
 		return '<span class="form_description" title="'.str_replace('"', '\"', $description).'">&nbsp;</span>';
+	}
+	
+	/**
+	 * This little helper renders the lock if a question is lockable
+	 */
+	public static function render_lock($form_field)
+	{
+		if($form_field->islockable)
+		{
+			return '<a rel="#overlay" class="lockfield" "title="'.__('lock question').'" href="http://google.com" ><img src="'.url::base().'/media/img/lock.png"/></a>';
+		}
+		else
+		{
+			return '';
+		}
 	}
 
 	

@@ -249,3 +249,35 @@ ALTER TABLE  `forms` CHANGE  `description`  `description` TEXT CHARACTER SET utf
 ALTER TABLE  `categories` CHANGE  `description`  `description` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 ALTER TABLE  `formfields` CHANGE  `description`  `description` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 
+/**Add in middle name*/
+ALTER TABLE  `users` ADD  `middle_name` CHAR( 255 ) NULL DEFAULT NULL AFTER  `first_name`;
+
+/** Add other data for users*/
+ALTER TABLE  `users` ADD  `gender` TINYINT NOT NULL ,
+ADD  `address1` CHAR( 255 ) NOT NULL ,
+ADD  `address2` CHAR( 255 ) NOT NULL ,
+ADD  `city` CHAR( 255 ) NOT NULL ,
+ADD  `state` CHAR( 100 ) NOT NULL ,
+ADD  `zip` CHAR( 20 ) NOT NULL ,
+ADD  `dob` DATETIME NOT NULL ,
+ADD  `citizenship` CHAR( 255 ) NOT NULL;
+
+/** Add this is lockable field to questions, so we can lock them at some point later down the road*/
+ALTER TABLE  `formfields` ADD  `islockable` TINYINT( 4 ) NOT NULL DEFAULT  '0';
+
+/** now add a table that maps fields to friends**/
+CREATE TABLE IF NOT EXISTS `friends_fields` (
+  `friend_id` int(11) unsigned NOT NULL,
+  `wish_id` int(11) unsigned NOT NULL,
+  `formfield_id` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`friend_id`,`wish_id`,`formfield_id` )  
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+
+ALTER TABLE `friends_fields`
+  ADD CONSTRAINT `friends_fields_fk_1` FOREIGN KEY (`friend_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+ALTER TABLE `friends_fields`
+  ADD CONSTRAINT `friends_fields_fk_2` FOREIGN KEY (`wish_id`) REFERENCES `wishes` (`id`) ON DELETE CASCADE;
+ALTER TABLE `friends_fields`
+ADD CONSTRAINT `friends_fields_fk_3` FOREIGN KEY (`formfield_id`) REFERENCES `formfields` (`id`) ON DELETE CASCADE;
+
+

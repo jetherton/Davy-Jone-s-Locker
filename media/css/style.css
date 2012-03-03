@@ -436,6 +436,7 @@ span.form_description{
 	padding-top:9px;
 	padding-bottom:0px;	
 	position:relative;
+	top:4px;
 }
 
 table.formfields td.formfieldlabel{

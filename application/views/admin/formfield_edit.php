@@ -80,6 +80,10 @@
 	echo '</td><td>';
 	echo Form::select('type', Model_Formfields::get_human_readable_type(), $data['type'],  array('id'=>'type', 'onclick'=>'typeChange();'));
 	echo '</td></tr><tr><td>';	
+	echo Form::label('islockable', __('is lockable').": ");
+	echo '</td><td>';
+	echo Form::checkbox('islockable', 1, $data['islockable'] == 1,  array('id'=>'islockable'));
+	echo '</td></tr><tr><td>';	
 	echo Form::submit('edit', __('add edit'), array('id'=>'edit_button'));
 	echo '</td><td></td></tr></table>';
 	echo Form::close();

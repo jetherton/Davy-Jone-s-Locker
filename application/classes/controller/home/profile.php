@@ -22,6 +22,10 @@ class Controller_Home_Profile extends Controller_Home {
 		//turn set focus to first UI form element
 		$this->template->html_head->script_views[] = '<script type="text/javascript">$(document).ready(function() {$("input:text:visible:first").focus();});</script>';
 		
+		//turn on jquery UI
+		$this->template->html_head->script_files[] = 'media/js/jquery-ui.min.js';
+		$this->template->html_head->styles['media/css/jquery-ui.css'] = 'screen';
+		
 		//The title to show on the browser
 		$this->template->html_head->title = __("profile");
 		//the name in the menu
@@ -41,7 +45,8 @@ class Controller_Home_Profile extends Controller_Home {
 					$this->template->content->errors[] = __('incorrect login');
 					return;
 				}
-				
+				//conver the DOB to a format mysql recognizes
+				$_POST['dob'] = date('Y-m-d ', strtotime($_POST['dob'])). '00:00:00';
 				$user = $this->user;
 				$user->update_user($_POST);
 				 

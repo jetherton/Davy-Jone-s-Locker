@@ -75,7 +75,27 @@
 		setWriteHere("writehere");
 		toggleUseLocation();
 		/*Turn on tool tips*/
-		$(".form_description").tooltip();	
+		$(".form_description").tooltip({ effect: 'slide',position: "bottom right"});	
+		
+		/*enable lock tool tips*/
+		// if the function argument is given to overlay,
+	// it is assumed to be the onBeforeLoad event listener
+	
+	$("a[rel]").overlay({
+		mask: 'darkred',
+		effect: 'apple',
+		onBeforeLoad: function() {
+			// grab wrapper element inside content
+			var wrap = this.getOverlay().find(".contentWrap");
+			// load the page specified in the trigger
+			var url = "<?php echo url::base();?>/home/wish/getfriendfields?fieldid=" + this.getTrigger().attr("href") + "&wishid=<?php echo $wish->id;?>"
+			console.log(url);
+			// load the page specified in the trigger
+			wrap.load(this.getTrigger().attr("href"));
+			console.log("here too");
+			}
+	
+		});
     });
 
 

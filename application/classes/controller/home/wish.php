@@ -656,7 +656,17 @@ class Controller_Home_Wish extends Controller_Home {
 		return;
 	}
 	
-	
+	/**
+	 * gets the friends to fields mapping
+	 */
+	public function action_getfriendfields()
+	{
+		//this function isn't participating in the auto render side of things
+		$this->template = "";
+		$this->auto_render = FALSE;
+		
+		echo "<html>you made it here, congrats</html>";
+	}
 	
 	/**
 	 * Use this function to delete images
@@ -876,5 +886,7 @@ class qqFileUploader {
                 'The upload was cancelled, or server error encountered');
 		}
 
-	}
+	}//end method
+	
+	
 }//end of file upload class

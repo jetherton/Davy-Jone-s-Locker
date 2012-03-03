@@ -170,3 +170,11 @@
 	<?php echo Form::submit("wish_form",  $submit_button); ?> <?php if(isset($wish->title))echo Form::input("wish_form",  __('delete wish'), array('onclick'=>'deleteWish(); return false;', 'type'=>'BUTTON')); ?>
 			
 <?php echo Kohana_Form::close(); ?>
+
+<!-- overlayed element -->
+<div class="apple_overlay" id="overlay">
+
+	<!-- the external content is loaded inside this tag -->
+	<div class="contentWrap"></div>
+
+</div>

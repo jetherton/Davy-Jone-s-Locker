@@ -11,7 +11,7 @@ class Controller_Admin_Formfields extends Controller_Admin {
 
   	
 	/**
-	where users go to change their profiel
+	where admins go to change form fields
 	*/
 	public function action_index()
 	{		
@@ -23,7 +23,8 @@ class Controller_Admin_Formfields extends Controller_Admin {
 			'description'=>'',
 			'order'=>'0',
 			'type'=>0,			
-			'required'=>0);
+			'required'=>0,
+			'islockable'=>0);
 		
 		//make sure we have a valid form from which to make this field
 		$form_id = isset($_GET['form']) ? intval($_GET['form']) : 0;
@@ -64,6 +65,7 @@ class Controller_Admin_Formfields extends Controller_Admin {
 			$data['order'] = $form_field->order;
 			$data['type'] = $form_field->type;
 			$data['required'] = $form_field->required;
+			$data['islockable'] = $form_field->islockable;
 			
 		}
 		
@@ -183,6 +185,8 @@ class Controller_Admin_Formfields extends Controller_Admin {
 					$data['order'] = $_POST['order'];
 					$data['type'] = $_POST['type'];
 					$data['required'] = isset($_POST['required']) ? $_POST['required'] : 0;
+					$data['islockable'] = isset($_POST['islockable']) ? $_POST['islockable'] : 0;
+					
 					$this->template->content->data = $data;
 				}
 			}	
