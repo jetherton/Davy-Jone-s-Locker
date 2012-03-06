@@ -11,9 +11,10 @@
 	
 	function modifyFriend(friendId)
 	{
-		var checked = $("#friend_"+friendId).attr("checked");
+		var checked = $("#friend_"+friendId).is(":checked");
+		console.log("#friend_"+friendId + ' is ' + checked);
 		var add = 2; //2 means drop it
-		if(checked == "checked")
+		if(checked)
 		{
 			add = 1;
 		}
@@ -33,6 +34,40 @@
 					color = '#FFbbbb';
 				}
 				$("#friend_item_"+data.friend_id).effect("highlight", {color:color}, 1000);
+			}
+			else
+			{
+				alert('<?php echo __('error');?>: ' + data.message);
+			}
+		}, 'JSON');
+	}
+	
+	
+	
+	function modifyFriendField(friendId, fieldId)
+	{
+		var checked = $("#ffl_"+friendId+"_"+fieldId).is(":checked");
+		var add = 2; //2 means drop it
+		if(checked)
+		{
+			add = 1;
+		}
+
+		$.post('<?php echo url::base();?>home/wish/addfriendwishfield?wish_id=<?php echo $wish->id;?>&field_id='+fieldId+'&friend_id='+friendId +'&add='+add,
+				{
+				html: $("#html").val(),
+				title: $("#title").val(),
+				is_add:$("#is_add").val(),
+				action:$("#action").val()
+			},
+			function(data) {			
+			if (data.status == 'success'){
+				var color = '#bbffbb';				
+				if(data.response == 'removed')
+				{
+					color = '#FFbbbb';
+				}
+				$("#ffl_item_"+data.friend_id+"_"+data.field_id).effect("highlight", {color:color}, 1000);
 			}
 			else
 			{
@@ -82,17 +117,15 @@
 	// it is assumed to be the onBeforeLoad event listener
 	
 	$("a[rel]").overlay({
-		mask: 'darkred',
+		mask: 'grey',
 		effect: 'apple',
 		onBeforeLoad: function() {
 			// grab wrapper element inside content
 			var wrap = this.getOverlay().find(".contentWrap");
 			// load the page specified in the trigger
 			var url = "<?php echo url::base();?>/home/wish/getfriendfields?fieldid=" + this.getTrigger().attr("href") + "&wishid=<?php echo $wish->id;?>"
-			console.log(url);
 			// load the page specified in the trigger
-			wrap.load(this.getTrigger().attr("href"));
-			console.log("here too");
+			wrap.load(url);
 			}
 	
 		});

@@ -464,3 +464,47 @@ div.blockOverlay{
 	border-radius:25px;
 	-moz-border-radius:25px; /* Firefox 3.6 and earlier */
 }
+
+
+	/* the overlayed element */
+.apple_overlay {
+	
+	/* initially overlay is hidden */
+	display:none;
+	
+	/* growing background image */
+	background-image:url(../img/white.png);
+	
+	/* 
+		width after the growing animation finishes
+		height is automatically calculated
+	*/
+	width:640px;		
+	
+	/* some padding to layout nested elements nicely  */
+	padding:35px;
+
+	/* a little styling */	
+	font-size:11px;
+}
+
+/* default close button positioned on upper right corner */
+.apple_overlay .close {
+	background-image:url(../img/close.png);
+	position:absolute; right:5px; top:5px;
+	cursor:pointer;
+	height:35px;
+	width:35px;
+}
+
+	#overlay {
+		background-image:url(../img/transparent.png);
+		color:#efefef;
+		height:450px;
+	}
+	
+	/* container for external content. uses vertical scrollbar, if needed */
+	div.contentWrap {
+		height:441px;
+		overflow-y:auto;
+	}

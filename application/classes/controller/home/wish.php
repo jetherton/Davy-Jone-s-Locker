@@ -298,6 +298,103 @@ class Controller_Home_Wish extends Controller_Home {
 	
 	
 	
+	/**
+	 * This function will add friends to a wish field
+	 */
+	public function action_addfriendwishfield()
+	{
+		$this->template = "";
+		$this->auto_render = FALSE;
+		//make sure the requried get arguements are present
+		if(!isset($_GET['wish_id']))
+		{
+			echo json_encode(array("status"=>'error', "response"=>'wish_id not set'));
+			return;
+		}
+		if(!isset($_GET['friend_id']))
+		{
+			echo json_encode(array("status"=>'error', "response"=>'friend_id not set'));
+			return;
+		}
+		if(!isset($_GET['field_id']))
+		{
+			echo json_encode(array("status"=>'error', "response"=>'field_id not set'));
+			return;
+		}
+		if(!isset($_GET['add']))
+		{
+			echo json_encode(array("status"=>'error', "response"=>'add not set'));
+			return;
+		}
+		
+		//make sure the required data is of a valid format
+		$wish_id = intval($_GET['wish_id']);
+		$friend_id = intval($_GET['friend_id']);
+		$field_id = intval($_GET['field_id']);
+		$add = intval($_GET['add']);
+		if($wish_id < 1)
+		{
+			echo json_encode(array("status"=>'error', "response"=>'wish_id not properly formatted'));
+			return;
+		}
+		
+		if($friend_id < 1)
+		{
+			echo json_encode(array("status"=>'error', "response"=>'friend_id not properly formatted'));
+			return;
+		}
+		
+		if($field_id < 1)
+		{
+			echo json_encode(array("status"=>'error', "response"=>'field_id not properly formatted'));
+			return;
+		}
+		
+		if($add != 1 AND $add != 2)
+		{
+			echo json_encode(array("status"=>'error', "response"=>'add not properly formatted'));
+			return;
+		}
+		
+		//make sure the wish and the friend exists
+		$friend = ORM::factory('user', $friend_id);
+		$wish = ORM::factory('wish', $wish_id);		
+		$field = ORM::factory('formfields', $field_id);
+		
+		if(!$friend->loaded())
+		{
+			echo json_encode(array("status"=>'error', "response"=>'no such friend'));
+			return;
+		}
+		if(!$wish->loaded())
+		{
+			echo json_encode(array("status"=>'error', "response"=>'no such wish'));
+			return;
+		}
+		if(!$field->loaded())
+		{
+			echo json_encode(array("status"=>'error', "response"=>'no such field'));
+			return;
+		}
+		
+		//so finally we have valid input, lets do what we came here to do.
+		if($add == 1)
+		{
+						
+			Model_Wish::add_friend_to_wish_field($wish_id, $friend_id, $field_id);
+			
+			echo json_encode(array("status"=>'success', "response"=>'added', 'friend_id'=>$friend_id, 'field_id'=>$field_id));
+			return;
+		}
+		else
+		{
+			Model_Wish::remove_friend_from_wish_field($wish_id, $friend_id, $field_id);
+
+			echo json_encode(array("status"=>'success', "response"=>'removed','friend_id'=>$friend_id, 'field_id'=>$field_id));
+			return;
+		}
+		
+	}//end addfriendwishfield
 	
 	
 	/**
@@ -430,6 +527,8 @@ class Controller_Home_Wish extends Controller_Home {
 		$this->template->content->files = $wish->wfiles->find_all();
 		//get the friend
 		$this->template->content->friend = ORM::factory('user', $wish->user_id);
+		//get yourself
+		$this->template->content->user = $this->user;
 		
 		//The title to show on the browser
 		$this->template->html_head->title = __("wish"). ' :: '. $wish->title;
@@ -665,7 +764,52 @@ class Controller_Home_Wish extends Controller_Home {
 		$this->template = "";
 		$this->auto_render = FALSE;
 		
-		echo "<html>you made it here, congrats</html>";
+		//are there paramters
+		if(!isset($_GET['fieldid']) OR !isset($_GET['wishid']))
+		{
+			echo "<html>You're missing necessary arguements</html>";
+		}	
+		$field_id = $_GET['fieldid'];
+		$wish_id = $_GET['wishid'];
+		
+		//get the list of people you've already said could read this form
+		$wish_users = ORM::factory('user')
+			->join('friends_wishes')
+			->on('user.id', '=', 'friends_wishes.friend_id')
+			->and_where('friends_wishes.wish_id', '=', $wish_id)
+			->find_all();
+		
+		//get the users who can view this question
+		$field_users = ORM::factory('user')
+			->join('friends_fields')
+			->on('user.id', '=', 'friends_fields.friend_id')
+			->and_where('friends_fields.wish_id', '=', $wish_id)
+			->and_where('friends_fields.formfield_id', '=', $field_id)
+			->find_all();
+		//set the authorized users in an array
+		$field_users_array = array();
+		foreach($field_users as $field_user)
+		{
+			$field_users_array[$field_user->id] = true;
+		}
+			
+		echo '<html><h1>'.__('Which users can view this field').'</h1><ul><h2>';
+		if(count($wish_users) == 0)
+		{
+			echo '<li><h1>'.__('no friends for field').'</h1></li></ul></html>';
+			return;
+		}
+		foreach($wish_users as $friend)
+		{
+			echo '<li id="ffl_item_'.$friend->id.'_'.$field_id.'">';
+			echo form::checkbox('ffl_'.$friend->id.'_'.$field_id, 'ffl_'.$friend->id.'_'.$field_id, isset($field_users_array[$friend->id]), 
+				array('id'=>'ffl_'.$friend->id.'_'.$field_id, 'onchange'=>"modifyFriendField(".$friend->id.", ".$field_id."); return false;"));
+			echo $friend->first_name . ' ' . $friend->last_name;
+			echo '</li></h2>';
+
+		}
+		echo '</ul></html>';
+
 	}
 	
 	/**

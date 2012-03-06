@@ -231,6 +231,41 @@ class Model_Wish extends ORM {
 				':user-id'=>$user->id));
 			ORM::factory('update')->create_update($message, $friend_id);
 		}
-	}
+	}//end method
+	
+	/**
+	 * This function will link a wish field to a friend
+	 * It will also issue the requisite updates
+	 * @param int $wish_id
+	 * @param int $field_id
+	 * @param int $friend_id
+	 */
+	public static function add_friend_to_wish_field($wish_id, $friend_id, $field_id)
+	{
+
+		$friends_field = ORM::factory('friendsfields');
+		$friends_field->friend_id = $friend_id;
+		$friends_field->wish_id = $wish_id;
+		$friends_field->formfield_id = $field_id;
+		$friends_field->save();
+
+	}//end method
+	
+	
+	/**
+	 * This function will remove a wish to a friend
+	 * It will also issue the requisite updates
+	 * @param int $wish_id
+	 * @param int $field_id
+	 * @param int $friend_id
+	 */
+	public static function remove_friend_from_wish_field($wish_id, $friend_id, $field_id)
+	{
+			
+		db::delete('friends_fields')->and_where('friend_id', '=', $friend_id)
+			->and_where('wish_id', '=', $wish_id)
+			->and_where('formfield_id', '=', $field_id)
+			->execute();
+	}//end method
 		
 }//end class

@@ -3,5 +3,4 @@
 class Model_Friendsfields extends ORM {
 
 	protected $_table_name = "friends_fields";
-	
 } // End User Model

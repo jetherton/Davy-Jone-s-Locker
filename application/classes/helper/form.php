@@ -456,7 +456,7 @@ class Helper_Form
 	 * @param db_object $wish the wish from which to pull data from, if no wish leave empty or null
 	 * @return a string of html
 	 */
-	public static function get_html($form, $wish)
+	public static function get_html($form, $wish, $user)
 	{
 		$html = '<table class="wish_view">';
 		
@@ -467,6 +467,23 @@ class Helper_Form
 			find_all();
 		foreach($form_fields as $form_field)
 		{
+			//check if the user has permissions to view this field
+			//is it lockable
+			if($form_field->islockable == 1)
+			{
+				//now check and see if the user is on the approved list
+				//get the users who can view this question
+				$field_user = ORM::factory('friendsfields')
+					->and_where('friendsfields.wish_id', '=', $wish->id)
+					->and_where('friendsfields.formfield_id', '=', $form_field->id)
+					->and_where('friendsfields.friend_id', '=', $user->id)
+					->find_all();
+
+				if(count($field_user) == 0)
+				{
+					continue;
+				}
+			}
 			//make sure there's an answer for this question
 			$response = ORM::factory('formfieldresponse')
 					->and_where('wish_id', '=', $wish->id)
@@ -480,7 +497,7 @@ class Helper_Form
 			//no matter what, print the title and description
 			$html .= '<tr><td>';
 			$html .= Form::label('ff_'.$form_field->id, $form_field->title.": ");
-			$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
+			//$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
 			$html .= '</td>';
 
 			//if the info is a text value
@@ -554,7 +571,7 @@ class Helper_Form
 	{
 		if($form_field->islockable)
 		{
-			return '<a rel="#overlay" class="lockfield" "title="'.__('lock question').'" href="http://google.com" ><img src="'.url::base().'/media/img/lock.png"/></a>';
+			return '<a rel="#overlay" class="lockfield" "title="'.__('lock question').'" href="'.$form_field->id.'" ><img src="'.url::base().'/media/img/lock.png"/></a>';
 		}
 		else
 		{

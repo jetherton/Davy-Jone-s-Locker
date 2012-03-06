@@ -200,6 +200,8 @@ return array
 	'cannot be longer than 255 characters'=>'cannot be longer than 255 characters.',
 	'is lockable' => 'Is Lockable',
 	'lock question'=>'This question is deemed as being especialy sensative. Click on the lock to determine who can view this question',
+	'no friends for field'=>'Sorry, but you haven\'t selected any friends to share this wish with. First pick some friends from the menu on the right, then choose who can view this sensative question.',
+	'Which users can view this field'=>'Which of your friends can view this field?',
 	
 	//form field options
 	'Must save field before adding options'=>'Sorry, you must first save a new field before you can add options to it',
