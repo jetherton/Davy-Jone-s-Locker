@@ -5,7 +5,7 @@
     </head>
     <body>
 	<div id="page">
-		<div id="header"><?php echo $header; ?></div>
+		<?php echo $header; ?>
 		
 		<div id="content"><?php echo $content; ?></div>
 		

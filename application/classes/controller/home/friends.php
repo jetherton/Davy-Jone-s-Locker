@@ -29,6 +29,7 @@ class Controller_Home_Friends extends Controller_Home {
 		$this->template->header->menu_page = "friend";
 		$this->template->content = view::factory("home/friends");
 		$this->template->content->friends = Model_Friend::get_friends($this->user);
+
 				
 	}//end action_index
 	

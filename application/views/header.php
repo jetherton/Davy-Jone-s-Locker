@@ -1,4 +1,4 @@
-
+<div id="header">
 	<div id="login_logout">
 		<?php
 			$auth = Auth::instance();
@@ -7,7 +7,7 @@
 			{
 				$user = ORM::factory('user',$auth->get_user());
 				$user_name = $user->first_name. ' ' . $user->last_name;
-				echo '<span class="user_info"><a href="'.url::base().'home">'.__('welcome')." ".$user_name .'</a></span>';
+				echo '<span class="user_info"><a href="'.url::base().'home">'.__('welcome')." ".$user_name .'</a></span> &gt;&gt;';
 				echo '<span class="user_info"><a href="'.url::base().'home/profile">'.__('profile') .'</a></span>';
 				echo '<span class="user_action"><a href="'.url::base().'logout">'.__('logout').'</a></span>';
 			}
@@ -21,14 +21,17 @@
 			}
 		?>
 	</div>
+	<!--
 	<h1>
-		<a href="<?php echo url::base(); ?>">
-			<?php echo __('site name'); ?>
+		<a href="<?php //echo url::base(); ?>">
+			<?php //echo __('site name'); ?>
 		</a>
 	</h1>
 	<p>
-		<a href="<?php echo url::base(); ?>">
-			<?php echo __('tagline'); ?>
+		<a href="<?php //echo url::base(); ?>">
+			<?php //echo __('tagline'); ?>
 		</a>
 	</p>
+	-->
+</div>
 <div id="mainMenu"><?php echo Helper_Mainmenu::make_menu($menu_page, $user);?></div>

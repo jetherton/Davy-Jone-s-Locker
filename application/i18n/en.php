@@ -102,6 +102,8 @@ return array
 	'you have not shared any wishes with :friend'=>'You have not shared any wishes with :friend',
 	'by'=>'By',
 	'notes'=>'Notes',
+	'title explanation'=>'Put a title here. This is a way to differentiate wishes and peices of information.',
+	'notes explanation'=>'If you feel that the above fields didn\'t let you fully express what you wanted to please add some notes.',
 
 	//friends
 	'friend'=>'Friend',

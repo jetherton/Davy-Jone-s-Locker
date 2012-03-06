@@ -1,4 +1,6 @@
-
+body{
+background: #1f0617;
+}
 
 /************Page **********/
 div#page{
@@ -9,22 +11,29 @@ div#page{
 	font-family:"Arial";
 	font-size:14px;
 	font-weight:normal;
+	color:white;
+	background:#202020;
 }
 
 ul{
 	list-style-type:none;
 	padding-left:0px;
 }
-
+a{
+	color:#aaaaaa;
+}
 a:visited{
-	color:blue;
+	color:#aaaaaa;
 }
 
 /************ Header **********/
 div#header{
 	border: solid 2px black;
 	padding:10px;
-	background: grey;
+	background: url('../img/header.png');
+	color: white;
+	height:184px;
+	border-bottom:none;
 }
 
 div#header h1 a, div#header p a{
@@ -32,72 +41,80 @@ div#header h1 a, div#header p a{
 	text-decoration:none;
 	}
 
-div#header div#mainMenu{
-	border: solid 2px black;
-	padding:10px;
+div#mainMenu{
+	padding:0px;
 	color:white;
-	background: #aaa;
-
+	background: #000;
+	height:40px;
+	background: url('../img/menu_background.png');
 }
 
-div#header div#mainMenu ul{
+div#mainMenu ul{
 	list-style: none;
 	padding: 0;
 	margin: 0;
 }
 
-div#header div#mainMenu ul li
+div#mainMenu ul li
 {
 	float: left;
-	margin: 0 0.15em;
 }
 
-div#header div#mainMenu ul li a
+div#mainMenu ul li.adminmenu
 {
-	background: #fff;
-	height: 2em;
-	line-height: 2em;
-	float: left;
-	padding:0 10px;
-	display: block;
-	border: 0.1em solid #dcdce9;
-	color: #0d2474;
-	text-decoration: none;
-	text-align: center;
+	float: right;
 }
 
-div#header div#mainMenu ul li.selected a
+div#mainMenu ul li a
 {
-	background: #bbf;
-	height: 2em;
-	line-height: 2em;
+	
+	height: 40px;
+	line-height: 40px;
 	float: left;
 	padding:0 10px;
 	display: block;
-	border: 0.1em solid #dcdce9;
-	color: #0d2474;
+	border-right: 1px #444 solid;
+	color: white;
 	text-decoration: none;
 	text-align: center;
+	font-size:16px;
+	
 }
 
-div#header div#mainMenu ul li a:hover
+div#mainMenu ul li.selected a
 {
-	background: #aaf;
-	color: #6d84c4;
+	color: #666;
 }
 
-div#header div#login_logout
+div#mainMenu ul li a:hover
+{
+	background: url('../img/menu_background_hover.png');
+	color: #666;
+}
+
+div#login_logout
 {
 	font-size:14px;
-	background-color: #AAAAAA;
-	border: black 1px solid;
-	width:235px;
+	background: url('../img/transparent_small.png');
+	border: none;
+	width:335px;
 	float:right;
-	padding:2px;
+	padding:6px;
+	padding-top:12px;
+	height:22px;
 }
-div#header div#login_logout span.user_action
+div#login_logout a{
+	color:white;
+	text-decoration:none;
+}
+div#login_logout a:hover{
+	color:#ccc;
+	text-decoration:underline;
+}
+div#login_logout span.user_action
 {
 	float:right;
+	padding-right:10px;
 }
 span.user_info
 {
@@ -106,6 +123,7 @@ span.user_info
 
 /************ Errors **********/
 div.errors{
+	color:black;
 	border: 1px solid red;
 	background-color:#ffcccc;
 	padding: 5px;
@@ -148,12 +166,13 @@ div.messages ul li{
 	padding: 3px 3px 3px 10px;
 	border: 1px solid green;
 	width: auto;
+	color:black;
 	}			
 
 /************ Content **********/
 div#content{
 	min-height: 400px;
-	background: white;
+	background:#202020;
 	padding: 15px;
 }
 
@@ -162,7 +181,7 @@ div#content{
 div#footer{
 	border: solid 2px black;
 	padding:10px;
-	background: grey;
+	background: url('../img/footer.png');
 }
 
 /************ Right Menu **********/
@@ -220,6 +239,7 @@ iv.wish_view_frame img{
 
 table.list_table{
 	width:700px;
+	border: solid 2px #555;
 }
 
 table.list_table thead tr.header{
@@ -233,6 +253,7 @@ table.list_table th{
 	padding:5px;
 	height:20px;
 	width:500px;
+	color:black;
 }
 
 table.list_table tbody{
@@ -243,6 +264,12 @@ table.list_table tbody{
 }
 table.list_table tr.odd_row{
 	background: #eee;
+	color:black;
+}
+
+table.list_table tr.odd_row td a{
+	background: #eee;
+	color:#333;
 }
 
 table.list_table tbody td{
@@ -262,7 +289,10 @@ td.wish_accordion{
 	padding-left:10px;	
 }
 div.wish_accordion{
-	height:550px;	
+	height:550px;
+	position: absolute;
+	top: 400px;
+	width: 300px;
 }
 
 div.wish_accordion div.ui-accordion-content{
@@ -283,6 +313,11 @@ table.home_table tfoot td{
 	width: 300px;
 	text-align: left;
 	padding: 5px;
+	color:black;
+}
+
+table.home_table tfoot td a{
+	color:black;
 }
 
 table.home_table td{
@@ -306,6 +341,7 @@ table.home_table ul li{
 	background:#ccc;	
 	padding:5px;
 	text-align:center;
+	color:black;
 }
 
 #friend_search_results span{
@@ -378,19 +414,19 @@ input.cssoff{
 	color: grey;
 }
 /** Admin Menu stuff **/
-div#header div#mainMenu div.admin_menu ul li a {
+div#mainMenu div.admin_menu ul li a {
 	background: #aaffaa;
 	border: solid 1px #448844;
 	color: #050;	
 }
 
-div#header div#mainMenu div.admin_menu ul li.selected a {
+div#mainMenu div.admin_menu ul li.selected a {
 	background: #292;
 	border: solid 1px #9e9;
 	color: #9e9;	
 }
 
-div#header div#mainMenu div.admin_menu ul li a:hover {
+div#mainMenu div.admin_menu ul li a:hover {
 	background: #88dd88;
 	border: solid 1px #448844;
 	color: #050;	
@@ -433,14 +469,15 @@ span.form_description{
 	background-image: url('../img/moreInfo.png');
 	padding-left:10px;
 	padding-right:10px;
-	padding-top:9px;
+	padding-top:7px;
 	padding-bottom:0px;	
 	position:relative;
 	top:4px;
 }
 
 table.formfields td.formfieldlabel{
-	width: 200px;
+	width: 300px;
+	padding-bottom:20px;
 }
 
 table.wish_view tbody tr td{
@@ -508,3 +545,11 @@ div.blockOverlay{
 		height:441px;
 		overflow-y:auto;
 	}
+
+.hasDatepicker{
+	margin-right:10px;
+}
+.ui-datepicker-trigger{
+	top:5px;
+	position:relative;
+}

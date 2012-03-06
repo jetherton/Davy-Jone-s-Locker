@@ -1,6 +1,6 @@
 
 
-<table class="list_table tooltip">
+<table class="list_table">
 	<thead>
 		<tr class="header">
 			<th style="width:200px;">

@@ -56,8 +56,7 @@ class Helper_Mainmenu
 				}
 				echo '<a href="'.url::base().'home/friends">'.__("friends").'</a></li>';
 				
-				//spacer
-					echo '<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>';
+				
 				
 				//categories
 				$cats = ORM::factory('category')->find_all();
@@ -83,19 +82,19 @@ class Helper_Mainmenu
 			$admin_role = ORM::factory('role')->where("name", "=", "admin")->find();
 			if($user->has('roles', $admin_role))
 			{
-				$end_div = true;
-				echo '</ul>';				
-				echo '<p style="clear:both; height:1px;"></p>';
-				echo '<div class="admin_menu">';
-				echo '<ul>';
+				$end_div = false;
+				//echo '</ul>';				
+				//echo '<p style="clear:both; height:1px;"></p>';
+				//echo '<div class="admin_menu">';
+				//echo '<ul>';
 				//page for making/editing categories
 				if($page == "categories")
 				{
-					echo '<li class="selected">';
+					echo '<li class="adminmenu selected">';
 				}
 				else
 				{
-					echo '<li>';
+					echo '<li class="adminmenu">';
 				}
 				echo '<a href="'.url::base().'admin/categories">'.__("categories").'</a></li>';
 					
@@ -103,17 +102,13 @@ class Helper_Mainmenu
 				//page for making/editing categories
 				if($page == "forms")
 				{
-					echo '<li class="selected">';
+					echo '<li class="adminmenu selected">';
 				}
 				else
 				{
-					echo '<li>';
+					echo '<li class="adminmenu">';
 				}
 				echo '<a href="'.url::base().'admin/forms">'.__("forms").'</a></li>';
-			
-				
-			
-			
 				
 			}
 		}//end is logged in

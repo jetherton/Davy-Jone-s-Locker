@@ -51,13 +51,14 @@
 <form method="POST" action="<?php echo url::base().'home/wish/edit?id='. $wish->id;?>" id="wish_edit_form" accept-charset="utf-8">
 	<table class="wish_edit">
 		<tr>
-			<td>			
+			<td style="width:300px;">			
 				<?php echo Form::hidden('action', 'none', array('id'=>'action'));?>
 				<?php echo Form::hidden('is_add', $is_add ? '1' : '0', array('id'=>'is_add'));?>	
-				<?php echo Form::label("title", '*'.__("title"). ':');  ?>
+				*<?php echo Form::label("title", __("title"). ':');  ?>
+				<span class="form_description" title="<?php echo __('title explanation');?>">&nbsp;</span>
 			</td>
 			<td>
-				<?php echo Form::input('title', isset($wish->title) ? $wish->title : null, array('id'=>'title'));?>
+				<?php echo Form::input('title', isset($wish->title) ? $wish->title : null, array('id'=>'title', 'style'=>'width:300px;'));?>
 			</td>
 			<td rowspan="3" class="wish_accordion">
 				<div id="accordion" class="wish_accordion">
@@ -160,6 +161,8 @@
 			<td colspan="2">
 				<br/>
 				<?php echo Form::label(__("notes"), ''.__("notes") . ':');  ?>
+				<span class="form_description" title="<?php echo __('notes explanation');?>">&nbsp;</span>
+				<br/>
 				<br/>
 				<?php echo Form::textarea('html', isset($wish->html) ? $wish->html : null, array('id'=>'html', 'class'=>'tinymce', 'style'=>'width:650px; height:500px;'));?>
 			</td>

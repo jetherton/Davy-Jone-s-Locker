@@ -52,7 +52,6 @@ class Model_Friend extends ORM {
 		{
 			$return_friends[$friend['friend']->id] = $friend;
 		}
-						
 		return $return_friends;
 	}
 	

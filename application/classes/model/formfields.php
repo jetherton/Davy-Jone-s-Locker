@@ -44,7 +44,6 @@ class Model_Formfields extends ORM {
 
 	
 			'description' => array(
-				array('not_empty'),
 				array('max_length', array(':value', 65533)),
 				array('min_length', array(':value', 1))
 				),

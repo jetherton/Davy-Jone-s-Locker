@@ -561,7 +561,11 @@ class Helper_Form
 	 **/
 	public static function render_toop_tip($description)
 	{
-		return '<span class="form_description" title="'.str_replace('"', '\"', $description).'">&nbsp;</span>';
+		if($description != null && $description != "")
+		{
+			return '<span class="form_description" title="'.htmlspecialchars($description).'">&nbsp;</span>';
+		}
+		return '';
 	}
 	
 	/**
