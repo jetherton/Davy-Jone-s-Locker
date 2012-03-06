@@ -203,7 +203,7 @@ class Controller_Admin_Formfields extends Controller_Admin {
 			->count_all() + $increment;
 			
 		$orders = array();
-		for($i = 1; $i <= $count; $i++)
+		for($i = $count; $i >= 1; $i--)
 		{
 			$orders[$i] = $i;
 		}

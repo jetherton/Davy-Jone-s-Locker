@@ -805,10 +805,10 @@ class Controller_Home_Wish extends Controller_Home {
 			echo form::checkbox('ffl_'.$friend->id.'_'.$field_id, 'ffl_'.$friend->id.'_'.$field_id, isset($field_users_array[$friend->id]), 
 				array('id'=>'ffl_'.$friend->id.'_'.$field_id, 'onchange'=>"modifyFriendField(".$friend->id.", ".$field_id."); return false;"));
 			echo $friend->first_name . ' ' . $friend->last_name;
-			echo '</li></h2>';
+			echo '</li>';
 
-		}
-		echo '</ul></html>';
+		}		
+		echo '</h2></ul></html>';
 
 	}
 	

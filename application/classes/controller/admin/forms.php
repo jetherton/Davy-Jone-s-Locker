@@ -171,6 +171,11 @@ class Controller_Admin_Forms extends Controller_Admin {
 					Model_Form::delete_form($_POST['form_id']);
 				}
 				
+				else if($_POST['action'] == 'delete_field')
+				{
+					Model_Formfields::delete_formfield($_POST['form_id']);
+				}
+				
 				$this->request->redirect('admin/forms/edit?id='.$form->id.'&status=saved');
 			}
 			catch (ORM_Validation_Exception $e)

@@ -140,8 +140,8 @@ class Model_Formfields extends ORM {
 		$formfield = ORM::factory('formfields', $id);
 		//update the order, this only affects categories with orders > than the current
 		$formfields = ORM::factory('formfields')->
-			and_where('order', '>', $category->order)->
-			and_where('form_id', '=', $category->form_id)->
+			and_where('order', '>', $formfield->order)->
+			and_where('form_id', '=', $formfield->form_id)->
 			find_all();
 		
 		foreach($formfields as $ff)

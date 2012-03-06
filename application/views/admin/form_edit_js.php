@@ -43,12 +43,12 @@
 			}
 	}
 	
-	function deleteForm(id)
+	function deleteFormField(id)
 	{
-		if (confirm("<?php echo __('are you sure you want to delete form');?>"))
+		if (confirm("<?php echo __('are you sure you want to delete form field');?>"))
 		{
 			$("#form_id").val(id);
-			$("#action").val('delete');
+			$("#action").val('delete_field');
 			$("#edit_form_form").submit();
 		}
 	}

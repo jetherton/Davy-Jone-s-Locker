@@ -12,7 +12,6 @@
 	function modifyFriend(friendId)
 	{
 		var checked = $("#friend_"+friendId).is(":checked");
-		console.log("#friend_"+friendId + ' is ' + checked);
 		var add = 2; //2 means drop it
 		if(checked)
 		{
@@ -123,7 +122,7 @@
 			// grab wrapper element inside content
 			var wrap = this.getOverlay().find(".contentWrap");
 			// load the page specified in the trigger
-			var url = "<?php echo url::base();?>/home/wish/getfriendfields?fieldid=" + this.getTrigger().attr("href") + "&wishid=<?php echo $wish->id;?>"
+			var url = "<?php echo url::base();?>home/wish/getfriendfields?fieldid=" + this.getTrigger().attr("href") + "&wishid=<?php echo $wish->id;?>"
 			// load the page specified in the trigger
 			wrap.load(url);
 			}
