@@ -521,8 +521,6 @@ div.blockOverlay{
 	/* some padding to layout nested elements nicely  */
 	padding:35px;
 
-	/* a little styling */	
-	font-size:11px;
 }
 
 /* default close button positioned on upper right corner */
@@ -553,3 +551,5 @@ div.blockOverlay{
 	top:5px;
 	position:relative;
 }
+
+

@@ -793,10 +793,10 @@ class Controller_Home_Wish extends Controller_Home {
 			$field_users_array[$field_user->id] = true;
 		}
 			
-		echo '<html><h1>'.__('Which users can view this field').'</h1><ul><h2>';
+		echo '<html><h2>'.__('Which users can view this field').'</h2><ul>';
 		if(count($wish_users) == 0)
 		{
-			echo '<li><h1>'.__('no friends for field').'</h1></li></ul></html>';
+			echo '<li>'.__('no friends for field').'</li></ul></html>';
 			return;
 		}
 		foreach($wish_users as $friend)
@@ -808,7 +808,7 @@ class Controller_Home_Wish extends Controller_Home {
 			echo '</li>';
 
 		}		
-		echo '</h2></ul></html>';
+		echo '</ul></html>';
 
 	}
 	

@@ -47,6 +47,11 @@ return array
 	'login'=>"Login",
 	'login explanation'=>"Enter your user name and password to login",
 	'incorrect login'=>"I'm sorry, that user name and password combination is not recognized",
+	'forgot password'=>"Forgot password",
+	'reset instructions'=>'Enter tell us your email address and we will send you an email with a link to reset your password',
+	'email null'=>'Sorry, but you must give us your email address to reset your password. Please try again.',
+	'no user found with email'=>'Sorry, but we cannot find a user with that email address. Please try again.',
+	'reset email sent'=>'We sent an email to the email address you have on file with us. This email contains a link to reset your password.',
 
 	//logout Page
 	'logout'=>"Logout",

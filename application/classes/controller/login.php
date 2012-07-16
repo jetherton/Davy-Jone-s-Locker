@@ -30,6 +30,10 @@ class Controller_Login extends Controller_Main {
 		//set the focus on the username input box
 		$this->template->html_head->script_views[] = '<script type="text/javascript">$(document).ready(function() {  $("#username").focus();});</script>';
 		
+		$this->template->html_head->script_files[] = 'media/js/jquery.tools.min.js';		
+		//main JS view
+		$this->template->html_head->script_views[] = view::factory('login_js');
+		
 		if(!empty($_POST)) // They've submitted their registration form
 		{
 			$auth->login($_POST['username'], $_POST['password']);
@@ -47,6 +51,71 @@ class Controller_Login extends Controller_Main {
 		{	//They're visiting for the first time		
 		
 		}
+	}//end index action
+	
+	/**
+	 * Called when a user wants to reset their password
+	 */
+	 public function action_reset()
+	 {
+		 //this function isn't participating in the auto render side of things
+		$this->template = "";
+		$this->auto_render = FALSE;
+		
+		//get the email.
+		$email = null;
+		if(isset($_GET['email']))
+		{
+			$email = urldecode($_GET['email']);
+		}
+		//if there's no email:
+		if($email == null)
+		{
+			echo __('email null');
+			return;
+		}
+		//get the user that corresponds to this email
+		$user = ORM::factory('user')->and_where('email', '=', $email)->find();
+		if(!$user->loaded())
+		{
+			echo __('no user found with email');
+			return;
+		}
+		
+		$this->_email_resetlink($email, $user->first_name, $user->last_name);
+		echo __('reset email sent');
+		
+	 }//end action reset
+	 
+	 
+	private function _email_resetlink( $email, $first_name, $last_name )
+	{
+		
+		
+		/*
+		$secret = $auth->hash_password($user->email.$user->last_login);
+		$secret_link = url::site('login/index/'.$user->id.'/'.$secret.'?reset');		
+		*/
+		$secret_link = "http://dfdfdfdfddf.com";
+						
+		$to = $email;
+		$from = __('ui_admin.password_reset_from');
+		$subject = __('ui_admin.password_reset_subject');		
+		$message = "$first_name reset your password by following this link: " . $secret_link;
+		email::send( $to, $from, $subject, $message, FALSE );
+
+		//email details
+		/*
+		if( email::send( $to, $from, $subject, $message, FALSE ) == 1 )
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+		*/
+
 	}
 	
 	
