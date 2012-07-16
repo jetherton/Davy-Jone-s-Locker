@@ -136,6 +136,7 @@ return array
 	//updates
 	'update :user added you as a friend :id'=>'<a href="'.url::base().'home/friends/view?id=:id">:user</a> added you as a friend.',
 	'update :user sent you :wish :wish-id :user-id :user'=>'<a href="'.url::base().'home/friends/view?id=:user-id">:user</a> shared wish <a href="'.url::base().'home/wish/view?id=:wish-id">:wish</a> with you.',
+	'update :user added you as a passer :id'=>'<a href="'.url::base().'home/friends/view?id=:id">:user</a> added you as a passer.',
 
 	//dates
 	'a few seconds ago'=>'A few seconds ago',
@@ -227,7 +228,9 @@ return array
 	'name'=>'Name',
 	'you have no passers'=>'You have not selected anyone to act as your passer',
 	'add passers'=>'Add Passer',
-	'Passing settings edited successfully'=>'Passing settings added successfully'
+	'Passing settings edited successfully'=>'Passing settings added successfully',
+	'Add a friend as a passer' => 'Add a friend as a passer',
+	'no friends to pass' => 'You do not have any friends left.',
 );
 
 

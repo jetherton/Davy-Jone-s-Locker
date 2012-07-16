@@ -575,7 +575,7 @@ class Helper_Form
 	{
 		if($form_field->islockable)
 		{
-			return '<a rel="#overlay" class="lockfield" "title="'.__('lock question').'" href="'.$form_field->id.'" ><img src="'.url::base().'media/img/lock.png"/></a>';
+			return '<a rel="#overlay" class="lockfield" title="'.__('lock question').'" href="'.$form_field->id.'" ><img src="'.url::base().'media/img/lock.png"/></a>';
 		}
 		else
 		{

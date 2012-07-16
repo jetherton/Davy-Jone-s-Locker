@@ -74,6 +74,7 @@
 	
 <br/>
 <br/>
+<div id="passer_table">
 <?php
 //the passer list
 	$passer_list = new View('home/passers_list');
@@ -81,6 +82,15 @@
 	echo $passer_list;
 
 ?>
-	
+</div>
 			
 <?php echo Kohana_Form::close(); ?>
+
+<!-- overlayed element -->
+<div class="apple_overlay" id="overlay">
+
+	<!-- the external content is loaded inside this tag -->
+	<div class="contentWrap"></div>
+
+</div>
+

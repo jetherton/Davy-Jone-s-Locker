@@ -7,7 +7,7 @@
 				<?php echo __('name');?>
 			</th>
 			<th>
-				<?php echo __('username') . ' / ' . __('email');?>
+				<?php echo __('delete');?>
 			</th>		
 		</tr>
 	</thead>
@@ -23,17 +23,20 @@
 			$odd_row = ($i % 2) == 0 ? 'class="odd_row"' : '';
 		?>
 
-	<tr <?php echo $odd_row; ?>>
-		<td>
-			passer name
-		</td>
-		<td>
-			email or user name 
-		</td>
-		
-	</tr>
+			<tr <?php echo $odd_row; ?>>
+				<td>
+					<a href="<?php echo url::base();?>home/friends/view?id=<?php echo $passer->id;?>"> <?php echo $passer->full_name(); ?></a>
+				</td>
+				<td>
+					<a href="#" onclick="deletePasser(<?php echo $passer->id; ?>); return false;"><?php echo __('delete'); ?></a>
+				</td>
+				
+			</tr>
 	<?php }
-		echo '<tr><td colspan="2"><a href="#" onclick="return false;">'.__('add passers').'</a></td></tr>';
+	
+		echo '<tr><td colspan="2" >';
+		echo '<a class="button" style="float:right;" rel="#overlay"  title="'.__('add passers').'" href="'. url::base(). 'home/passing/addpasserfield" >'.__('add passers').'</a>';		
+		echo '</td></tr>';
 	?>
 	</tbody>
 </table>
