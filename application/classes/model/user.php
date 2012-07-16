@@ -14,6 +14,10 @@ class Model_User extends Model_Auth_User {
 		'friends'     => array('model' => 'user', 'through' => 'friends', 'far_key'=>'friend_id', 'foreign_key'=>'user_id'),
 	    'friends_wishes'     => array('model' => 'wish', 'through' => 'friends_wishes', 'far_key'=>'wish_id', 'foreign_key'=>'friend_id'),
 	);
+	
+	protected $_has_one = array(
+		'passing_setting' => array('model'=>'passingsetting', 'foreign_key'=>'user_id'),
+			);
 
 
 	/**

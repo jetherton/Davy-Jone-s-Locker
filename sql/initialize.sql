@@ -281,3 +281,34 @@ ALTER TABLE `friends_fields`
 ADD CONSTRAINT `friends_fields_fk_3` FOREIGN KEY (`formfield_id`) REFERENCES `formfields` (`id`) ON DELETE CASCADE;
 
 
+
+/****************************************************************************************************/
+/*   VERSION 0.4   */
+/****************************************************************************************************/
+
+/** add a table for passing setters and passers*/
+/** now add a table that maps fields to friends**/
+CREATE TABLE IF NOT EXISTS `passingsettings` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned NOT NULL,
+  `min_passers` int(11) unsigned NOT NULL,
+  `timeframe` int(11) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)  
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+
+ALTER TABLE `passingsettings`
+  ADD CONSTRAINT `passing_settings_fk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+/** now add a table for mapping friends as passers*/
+CREATE TABLE IF NOT EXISTS `userpassers` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned NOT NULL,
+  `passer_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`)  
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+
+ALTER TABLE `userpassers`
+  ADD CONSTRAINT `user_passer_fk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+ALTER TABLE `userpassers`
+  ADD CONSTRAINT `user_passer_fk_2` FOREIGN KEY (`passer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+

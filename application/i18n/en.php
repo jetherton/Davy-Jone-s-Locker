@@ -141,6 +141,7 @@ return array
 	'a few seconds ago'=>'A few seconds ago',
 	':hours hours ago'=>':hours hours ago',
 	':minutes minutes ago'=>':minutes minutes ago',
+	'hours'=>'Hours',
 	
 	//pictures
 	'delete picture'=>'Delete',
@@ -213,7 +214,20 @@ return array
 	//form field options
 	'Must save field before adding options'=>'Sorry, you must first save a new field before you can add options to it',
 	'option deleted'=>'Option Deleted',
-	
+		
+	//passing page
+	'passing'=>'Passing',
+	'passing settings'=>'Passing Settings',
+	'passing header'=>'Passing',
+	'passing explanation'=>'This page is used to determine how the Ekphora will know when you have passed. You will choose a group of friends and family, that will let Ekphora know that you have passed. When a minimum number of people have let us know that you\'ve passed in a given time frame, we will consider you passed and allow those who have been set to see your information when you\' passed to do so.',
+	'min number of passers'=>'Out of the group you\'ve selected to declared that you have passed, how many of them must confirm this for Ekphora to know it is true?',
+	'min number of passers detail'=>'Most likely you will want this number to be at least 2 or more people so that no one person could accidentally tell us that you have passed. On the other hand you probably do not want to select more than 6 people beacuse it reduces the chance that all of those people will be ready to mark your passing in a timely fashion. If you do use a higher number of people, then make sure the time window is big enough for all of these people to check their email and respond.',
+	'passing time frame'=>'In what period of time should those you\'ve selected report that you have indeed passed',
+	'passing time frame detail'=>'This is used to make sure that people respond quickly in the event that you have passed, and if there is an accidnetal triggering, that you will have time to act and stop it.',
+	'name'=>'Name',
+	'you have no passers'=>'You have not selected anyone to act as your passer',
+	'add passers'=>'Add Passer',
+	'Passing settings edited successfully'=>'Passing settings added successfully'
 );
 
 

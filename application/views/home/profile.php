@@ -1,3 +1,7 @@
+<div id="right_menu">
+	<a href="<?php echo url::base(). 'home/passing'; ?>"><?php  echo __("passing settings"); ?></a>
+</div>
+
 <h2><?php echo __("profile header"); ?></h2>
 <p><?php echo __("profile explanation");?></p>
 <h4 class="whats_required"><?php echo __("whats required");?></h4>
