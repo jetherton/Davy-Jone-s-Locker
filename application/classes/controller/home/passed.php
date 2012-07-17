@@ -75,6 +75,8 @@ class Controller_Home_Passed extends Controller_Home {
 				$_POST['confirm'] = 1;
 				//set the id of the user that passed
 				$_POST['passed_id'] = $passed_id;
+				//this person is the initiator
+				$_POST['initiator'] = 1;
 				//save the passing
 				Model_Userpassed::set_as_passed($this->user, $_POST);
 				

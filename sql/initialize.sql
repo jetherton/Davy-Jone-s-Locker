@@ -320,6 +320,7 @@ CREATE TABLE IF NOT EXISTS `userpassed` (
   `time` DATETIME NOT NULL,
   `note` TEXT NULL,
   `confirm` tinyint(4) NOT NULL DEFAULT '0',
+  `initiator` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)  
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 

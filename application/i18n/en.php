@@ -235,8 +235,8 @@ return array
 	'no friends to pass' => 'You do not have any friends left.',
 		
 	//passed pages and related
-	':user has marked your passing :passed_id :user_id'=>'User <a href="'.url::base().'home/friends/view?id=:user_id">:user</a> has marked you as passed. If this is incorrect click <a href="'.url::base().'home/passed/detail?id=passed_id">here</a> to correct this.',
-	':user has marked the passing of :passed :passed_id :user_id'=>'<a href="'.url::base().'home/friends/view?id=:user_id">:user</a> has marked the passing of <a href="'.url::base().'/home/friends/view?id=:passed_id">:passed</a>. Click <a href="'.url::base().'home/passed/detail?id=passed_id">here</a> to view the details.',		
+	':user has marked your passing :passed_id :user_id'=>'<a href="'.url::base().'home/friends/view?id=:user_id">:user</a> has marked you as passed. If this is incorrect click <a href="'.url::base().'home/passed/detail?id=:passed_id">here</a> to change this.',
+	':user has marked the passing of :passed :passed_id :user_id'=>'<a href="'.url::base().'home/friends/view?id=:user_id">:user</a> has marked the passing of <a href="'.url::base().'/home/friends/view?id=:passed_id">:passed</a>. Click <a href="'.url::base().'home/passed/detail?id=:passed_id">here</a> to view the details.',		
 	'init passed'=>'Mark as Passed',
 	'note'=>'Note',
 	'marking the passing of :passed'=>'Marking the passing of :passed',
