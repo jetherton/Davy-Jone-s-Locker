@@ -1,13 +1,22 @@
-<?php if ($is_my_friend){?>
+
 <div id="right_menu">
-		<?php
+	<?php
+	
 		echo form::open(null, array('id'=>'action_form'));
-		echo form::input('delete_friend', __('remove your friend'), array('type'=>'BUTTON', 'id'=>'delete_friend', 'onclick'=>'deleteYourFriend(); return false;'));
+		if ($is_my_friend)
+		{
+			echo form::input('delete_friend', __('remove your friend'), array('type'=>'BUTTON', 'id'=>'delete_friend', 'onclick'=>'deleteYourFriend(); return false;'));
+		}		
+		if(isset($passer))
+		{
+			echo form::input('mark_passing', __('mark the passing passing of :friend', array(':friend'=>$friend->first_name)), array('type'=>'BUTTON', 'id'=>'mark_passing', 'onclick'=>'markPassing(); return false;'));
+		}
 		echo form::hidden('action', '', array('id'=>'action'));
-		echo form::close(); 
+		echo form::close();
+ 
 	?>
 </div>
-<?php }?>
+
 		
 <h2><?php echo $friend->first_name. ' '. $friend->last_name; ?></h2>
 

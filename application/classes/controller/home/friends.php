@@ -126,6 +126,7 @@ class Controller_Home_Friends extends Controller_Home {
 	public function action_view()
 	{
 
+
 		//get the friend id
 		$friend_id = isset($_GET['id']) ? $_GET['id'] : 0;
 		//is it a valid friend number
@@ -133,6 +134,7 @@ class Controller_Home_Friends extends Controller_Home {
 		{
 			$this->request->redirect('home/friends');
 		}
+		
 		//Does this person exist?
 		$friend = ORM::factory('user', $friend_id);
 		if(!$friend->loaded())
@@ -140,18 +142,21 @@ class Controller_Home_Friends extends Controller_Home {
 			$this->request->redirect('home/friends');
 		}
 		
+		
 		//are we really friends with them, or are they friends with us, or what?
 		$is_my_friend = $this->user->has('friends', $friend_id);
 		if(!$is_my_friend AND !$friend->has('friends', $this->user->id))
 		{
 			$this->request->redirect('home/friends');
 		}
-
+		
+		
 		//did it load
 		if(!$friend->loaded())
 		{
 			$this->request->redirect('home/friends');
 		}
+		
 		
 		if(!empty($_POST)) // They want to perform an action, probably deleting this friend
 		{
@@ -162,17 +167,37 @@ class Controller_Home_Friends extends Controller_Home {
 					
 				$this->request->redirect('home/friends');
 			}
+			if(isset($_POST['action']) AND $_POST['action'] == 'passed')
+			{
+				//go to the passed initiated screen
+				$this->request->redirect('home/passed/init?id='.$friend_id);
+			}
 		}
 		
 		
+		
 		//make sure the JS works
-		$this->template->html_head->script_views[] = view::factory('home/friend_view_js');
+		$js = view::factory('home/friend_view_js');
+		$js->friend = $friend;
+		$this->template->html_head->script_views[] = $js;
 		
 		//setup the view		
 		$this->template->content = view::factory('home/friend_view');
+
+
+		//can you say that this person has passed?	
+		$passer = Model_Userpasser::get_one_passer($friend, $this->user->id);
+		if($passer->loaded())
+		{
+			$this->template->content->passer = true;		
+		}
+		
+
+	
 		$this->template->content->friend = $friend;
 		$this->template->content->wishes = Model_Wish::get_wishes_between_friends($this->user, $friend);
 		$this->template->content->is_my_friend = $is_my_friend;
+
 		 
 		
 	}//end action_view()

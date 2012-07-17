@@ -312,3 +312,18 @@ ALTER TABLE `userpassers`
 ALTER TABLE `userpassers`
   ADD CONSTRAINT `user_passer_fk_2` FOREIGN KEY (`passer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
+/** setup a table to keep track of who has said who has passed*/
+CREATE TABLE IF NOT EXISTS `userpassed` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `passer_id` int(11) unsigned NOT NULL,
+  `passed_id` int(11) unsigned NOT NULL,
+  `time` DATETIME NOT NULL,
+  `note` TEXT NULL,
+  `confirm` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)  
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+
+/** updates are about to get long, so make them out of text*/
+ALTER TABLE  `updates` CHANGE  `html`  `html` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+
+

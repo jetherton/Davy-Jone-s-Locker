@@ -129,6 +129,8 @@ return array
 	'remove your friend' => 'Remove Your Friendship',
 	'are you sure delete your friend' => 'Are you sure you want to delete this friend? If you delete this friend they will not be able to see any of your wishes. Friendships are not easily disolved.',
 	'add :friend as friend'=>'Add :friend as friend.',
+	'mark the passing passing of :friend'=>'Mark the passing of :friend',
+	'Are you sure  mark  passing of :friend?'=>'Are you sure you want to mark the passing of :friend? This is very serious and should not be done lightly or in jest.',
 
 	//groups
 	'groups'=>'Groups',
@@ -231,6 +233,18 @@ return array
 	'Passing settings edited successfully'=>'Passing settings added successfully',
 	'Add a friend as a passer' => 'Add a friend as a passer',
 	'no friends to pass' => 'You do not have any friends left.',
+		
+	//passed pages and related
+	':user has marked your passing :passed_id :user_id'=>'User <a href="'.url::base().'home/friends/view?id=:user_id">:user</a> has marked you as passed. If this is incorrect click <a href="'.url::base().'home/passed/detail?id=passed_id">here</a> to correct this.',
+	':user has marked the passing of :passed :passed_id :user_id'=>'<a href="'.url::base().'home/friends/view?id=:user_id">:user</a> has marked the passing of <a href="'.url::base().'/home/friends/view?id=:passed_id">:passed</a>. Click <a href="'.url::base().'home/passed/detail?id=passed_id">here</a> to view the details.',		
+	'init passed'=>'Mark as Passed',
+	'note'=>'Note',
+	'marking the passing of :passed'=>'Marking the passing of :passed',
+	'passed init explanation :passed'=>'Please take a moment and write a note explaning your decision to mark :passed as passed. This will be sent to the other passers and to the passed\'s account as well',
+	'submit'=>'Submit',
+	'submitted'=>'Submitted',
+	'sorry for your loss'=>'We are deeply sorry for your loss',
+		
 );
 
 

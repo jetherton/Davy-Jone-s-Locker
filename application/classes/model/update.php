@@ -20,7 +20,7 @@ class Model_Update extends ORM {
 			'html' => array(
 				array('not_empty'),
 				array('min_length', array(':value', 1)),
-				array('max_length', array(':value', 254)),
+				array('max_length', array(':value', 65000)),
 				)		
 			);		
 	}

@@ -12,6 +12,15 @@ class Model_Userpasser extends ORM {
 		return $user->passers->find_all();
 	}
 	
+	public static function get_one_passer($user, $passer_id)
+	{
+		return ORM::factory('user')
+			->join('userpassers', 'left')
+			->on('user.id', '=', 'userpassers.user_id')
+			->where('userpassers.passer_id', '=', $passer_id)
+			->find();
+		//return $user->passers->where('passer_id', '=', $passer_id)->find();
+	}
 	
 	/**
 	 * Add a passer

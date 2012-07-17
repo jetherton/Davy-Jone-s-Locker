@@ -9,4 +9,14 @@
 		}
 	}
 
+
+	function markPassing()
+	{
+		if(confirm("<?php echo __('Are you sure  mark  passing of :friend?', array(':friend'=>$friend->full_name())); ?>"))
+		{
+			$("#action").val('passed');
+			$("#action_form").submit();
+		}
+	}
+
 </script>
