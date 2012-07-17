@@ -249,7 +249,11 @@ class Controller_Home_Wish extends Controller_Home {
 				{
 					//or do they want to edit it?
 					$wish->update_wish($_POST, $this->user);
-					Helper_Form::save_form($wish, $_POST['ff']);
+					//dont' assume there's a custom form field
+					if(isset($_POST['ff']))
+					{
+						Helper_Form::save_form($wish, $_POST['ff']);
+					}
 					//what about saving a location?
 					$this->handle_location($wish);
 					$this->template->content->messages[] = __('wish edited successfully');

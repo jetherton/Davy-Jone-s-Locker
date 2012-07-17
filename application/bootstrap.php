@@ -82,12 +82,14 @@ if (isset($_SERVER['KOHANA_ENV']))
  */
 Kohana::init(array(
 	'base_url'   => '/Davy-Jone-s-Locker/',
+	'index_file' => '',
 ));
 
 /**
  * Attach the file write to logging. Multiple writers are supported.
  */
 Kohana::$log->attach(new Log_File(APPPATH.'logs'));
+
 
 /**
  * Attach a file reader to config. Multiple readers are supported.

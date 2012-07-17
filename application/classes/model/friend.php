@@ -34,7 +34,7 @@ class Model_Friend extends ORM {
 		//now put their friends into the array
 		foreach($their_friends as $f)
 		{
-			if(!isset($friends[$f->full_name()]))
+			if(!isset($friends[$f->id]))
 			{
 				//$friends[$f->full_name()] = array('friend'=>$f, 'relationship'=>self::$THEIR_FRIEND);
 				$friends[$f->id] = array('friend'=>$f, 'relationship'=>self::$THEIR_FRIEND);
