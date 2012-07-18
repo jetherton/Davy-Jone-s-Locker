@@ -208,6 +208,7 @@ class Controller_Admin_Forms extends Controller_Admin {
 		{
 			$category[$cat->id] = $cat;
 		}
+		$category = Model_Category::get_categories_dropdown_array(Model_Category::get_all_categories());
 		$this->template->content->categories = $category;
 		
 		//form fields

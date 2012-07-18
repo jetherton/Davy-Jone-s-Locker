@@ -31,7 +31,7 @@ return array
 	'state'=>'State:',
 	'zip'=>'Zip:',
 	'dob'=>'Date of Birth:',
-	'citizenship'=>'Citzenship',
+	'citizenship'=>'Citizenship',
 	
 	
 	//profiel page
@@ -175,6 +175,7 @@ return array
 	'edit'=>'Edit',
 	'delete'=>'Delete',
 	'you can not delete that category'=>'You cannot delete that category, it is being used by one or more forms. You must change those forms to not use this category first.',
+	'parent cat'=>'Parent Category',
 	
 	//forms
 	'forms'=>'Forms',
@@ -188,6 +189,7 @@ return array
 	'you have no form fields'=>'You have no form fields',
 	'changes saved'=>'Changes Saved.',
 	'form deleted'=>'Form Deleted.',
+	'back to forms'=>'Back to Forms',
 	
 	//form fields
 	'text input'=>'Text Box',

@@ -107,6 +107,10 @@
 	echo '</td><td>';
 	echo Form::textarea('description', '', array('id'=>'description', 'style'=>'width:600px;'));
 	echo '</td></tr><tr><td>';
+	echo Form::label('parent_id', __('parent cat').": ");
+	echo '</td><td>';
+	echo Form::select('parent_id', $cat_dropdown, null);
+	echo '</td></tr><tr><td>';
 	echo Form::label('order', __('order').": ");
 	echo '</td><td>';
 	$orders = array();

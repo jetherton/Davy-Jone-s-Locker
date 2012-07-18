@@ -10,6 +10,7 @@
 <h2><?php echo $header ?></h2>
 <p><?php echo __("form edit explanation");?></p>
 
+<a class="button" id="add_back_to_forms" href="<?php echo url::base(); ?>admin/forms"><?php echo __('back to forms');?></a>
 
 <?php if(count($errors) > 0 )
 {

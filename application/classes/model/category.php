@@ -54,7 +54,7 @@ class Model_Category extends Model_Auth_User {
 	public function update_category($values)
 	{
 
-		$expected = array('title', 'description', 'order');	
+		$expected = array('title', 'description', 'order', 'parent_id');	
 
 		//update the order first decrease everything above the cats current position
 		//but only if the order is already known for this cat
@@ -120,6 +120,83 @@ class Model_Category extends Model_Auth_User {
 		
 		$category->delete();
 	}//end function
+	
+	/**
+	 * Return an array of arrays of categories,
+	 * The array will represent the hiearchy of categories
+	 */
+	public static function get_all_categories()
+	{
+		$retVal = array();
+		
+		//get top levels and then will loop over them
+		$top_levels = ORM::factory('category')->where('parent_id', '=', 0)->order_by('order', 'ASC')->find_all();
+		
+		foreach($top_levels as $top_level)
+		{
+			//do this recursivley
+			$retVal[$top_level->id] = self::_get_all_categories_helper($top_level);			
+		}
+				
+		return $retVal;
+	}
+	
+	/**
+	 * Help method to recurse through the categories
+	 */
+	private static function _get_all_categories_helper($cat)
+	{
+		
+		$retVal = array('cat'=>$cat, 'kids'=>array());
+		//loop over kids
+		$kids_db = ORM::factory('category')->where('parent_id', '=', $cat->id)->order_by('order', 'ASC')->find_all();
+		foreach($kids_db as $kid)
+		{
+			$retVal['kids'][$kid->id] = self::_get_all_categories_helper($kid);
+		}
+		
+		
+		return $retVal;
+	}
+	
+	/**
+	 * Use this to retrieve thet top level categories
+	 */
+	public static function get_top_level_cats()
+	{
+		return ORM::factory('category')->where('parent_id', '=', 0)->order_by('order', 'ASC')->find_all();
+	}
+	
+	/**
+	 * Creates a array that's compatible with drop downs for categories
+	 * based on the category array you put in here
+	 * @param unknown_type $cat_array the cat array to use to build the drop down array
+	 * @param int the indent level, should start at 0
+	 */
+	public static function get_categories_dropdown_array($cat_array, $indent_level = 0)
+	{
+		$ret_val = array();
+		
+		//loop over the current categories
+		foreach($cat_array as $cat_id => $cat_data)
+		{
+			$name = '';
+			for($i = 0; $i < $indent_level; $i++)
+			{
+				$name .= '---->';
+			}
+			$ret_val[$cat_id] = $name . $cat_data['cat']->title;
+			//recursive call
+			$recurse_array = self::get_categories_dropdown_array($cat_data['kids'], $indent_level + 1);
+			//combine the two arrays
+			foreach($recurse_array as $id=>$item)
+			{
+				$ret_val[$id] = $item;
+			}
+		}
+		
+		return $ret_val;
+	}
 
 	
 } // End Category Model

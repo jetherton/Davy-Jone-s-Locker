@@ -59,7 +59,7 @@ class Helper_Mainmenu
 				
 				
 				//categories
-				$cats = ORM::factory('category')->find_all();
+				$cats = Model_Category::get_top_level_cats();
 				foreach($cats as $cat)
 				{
 					if($page == "cat_".$cat->title)

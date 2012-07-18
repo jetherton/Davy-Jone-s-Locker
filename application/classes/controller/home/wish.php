@@ -50,15 +50,43 @@ class Controller_Home_Wish extends Controller_Home {
 		
 		$this->template->content->wishes = $wishes;
 		
-		//get the forms that correspond to this category
-		$forms = ORM::factory('form')
-			->and_where('category_id', '=', $cat_id)
-			->order_by('order')
-			->find_all();
-		$this->template->content->forms = $forms;
+		//build list of forms based on cats and sub-cats
+		$form_list = $this->_build_form_list($cat);
+		
+		$this->template->content->form_list = $form_list;
 		
 	}//end action_index
 	
+	
+	/**
+	 * 
+	 * @param unknown_type $cat_id
+	 */
+	private function _build_form_list($cat)
+	{
+		$ret_val = "<ul>";
+		$ret_val .= '<li class="cat_header">'. $cat->title .'</li><li class="cat_contents"><ul class="cat_contents">';
+		
+		//get kid categories
+		$kid_cats = ORM::factory('category')->where('parent_id', '=', $cat->id)->order_by('order', 'ASC')->find_all();
+		foreach($kid_cats as $kid_cat)
+		{
+			$ret_val .= $this->_build_form_list($kid_cat);	
+		}
+		//get the forms
+		//get the forms that correspond to this category
+		$forms = ORM::factory('form')
+		->and_where('category_id', '=', $cat->id)
+		->order_by('order')
+		->find_all();
+		foreach($forms as $form)
+		{
+			$ret_val .= '<li><a href="'.url::base().'home/wish/add?form='.$form->id.'">'.$form->title.'</a></li>';
+		}
+		$ret_val .= '</ul></li></ul>';
+		return $ret_val;
+	}
+
 	
 	/**
 	 * Used for adding new wishes, just calls edit where all the real work is done

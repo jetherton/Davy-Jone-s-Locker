@@ -84,12 +84,24 @@ class Controller_Admin_Categories extends Controller_Admin {
 		
 		/*****Render the categories****/
 		
-		//get the wishes that belong to this user
+		//get the categories so far
 		$categories = ORM::factory("category")
 			->order_by('order', 'ASC')
 			->find_all();
 		
-		$this->template->content->categories = $categories;
+		
+		//get cats for drop down
+		$cat_dropdown_t = Model_Category::get_categories_dropdown_array(Model_Category::get_all_categories());
+		//add the top level
+		$cat_dropdown = array();
+		$cat_dropdown[0] = 'Top Level';
+		foreach($cat_dropdown_t as $id=>$cdt)
+		{
+			$cat_dropdown[$id] = $cdt;
+		}
+		
+		$this->template->content->cat_dropdown = $cat_dropdown;
+		$this->template->content->categories = $categories;		
 		$js->number_of_cats = count($categories);
 		
 	}//end action_index

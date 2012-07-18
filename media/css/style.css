@@ -196,14 +196,27 @@ div#right_menu ul{
 	list-style-type: none;
 	margin: 0px;
 	padding: 0px;
+	margin-left:10px;
 }
+
+div#right_menu ul.cat_contents{
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+	margin-left:0px;
+}
+
 
 div#right_menu li{
 	border: 1px solid black;
-	text-align: center;  
+	text-align: left;  
 	margin-top:5px;
 	margin-bottom:5px;
+	padding-left:5px;
+	padding-right:5px;
 }
+
+
 
 div#right_menu li a{
 	text-decoration:none;	
@@ -213,6 +226,26 @@ div#right_menu li:hover{
 	color:white;
 	background-color:grey;
 }
+
+div#right_menu li.cat_header, iv#right_menu li:hover.cat_header{
+	border: 1px solid black;
+	text-align: left;  
+	margin-top:5px;
+	margin-bottom:5px;
+	padding-left:5px;
+	padding-right:5px;
+	background-color: #444;
+}
+div#right_menu li.cat_contents, iv#right_menu li:hover.cat_contents{
+	border: none;
+	text-align: left;  
+	margin-top:0px;
+	margin-bottom:0px;
+	padding-left:0px;
+	padding-right:0px;
+	background-color: #202020;
+}
+
 
 div#right_menu div#search_wait{
 	width:30px;

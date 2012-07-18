@@ -328,3 +328,6 @@ CREATE TABLE IF NOT EXISTS `userpassed` (
 ALTER TABLE  `updates` CHANGE  `html`  `html` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 
 
+/** Alter the categories table so that there can be sub levels*/
+ALTER TABLE  `categories` ADD  `parent_id` INT( 11 ) UNSIGNED NOT NULL AFTER  `id` , ADD INDEX (  `parent_id` );
+

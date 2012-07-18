@@ -1,14 +1,5 @@
 <div id="right_menu">
-	<ul>
-		<?php 
-			foreach($forms as $form)
-			{
-		?>
-		<li>
-			<a href="<?php echo url::base().'home/wish/add?form='.$form->id; ?>"><?php echo __('add') . ' '. $form->title;?></a>
-		</li>
-		<?php } ?>
-	</ul>
+	<?php echo $form_list;?>
 </div>
 		
 <h2><?php echo $cat->title; ?></h2>
