@@ -301,7 +301,8 @@ class Controller_Home_Wish extends Controller_Home {
 					}
 					//what about saving a location?
 					$this->handle_location($wish);
-					$this->template->content->messages[] = __(':title edited successfully', array(':title'=>$wish->title));
+					$wish_title = $wish->get_title();
+					$this->template->content->messages[] = __(':title edited successfully', array(':title'=>$wish_title));
 				}
 
 			}

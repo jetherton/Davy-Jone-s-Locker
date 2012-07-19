@@ -3,7 +3,7 @@
 	$view = new View('home/block');
 	$field_data = $item->get_block_fields();
 	
-	$content = '<a href="'.url::base().'home/wish/view?id='.$item->id.'"><div style="width:90px;height:90px;">';
+	$content = '<a href="'.url::base().'home/wish/view?id='.$item->id.'"><div style="width:90px;min-height:90px;max-height:200px;">';
 	$i = 0;
 	foreach($field_data as $fd)
 	{

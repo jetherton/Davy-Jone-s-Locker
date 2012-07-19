@@ -24,12 +24,7 @@ class Model_Wish extends ORM {
 	public function rules()
 	{
 		return array(
-			'title' => array(
-				array('not_empty'),
-				array('max_length', array(':value', 254)),
-				array('min_length', array(':value', 1))
-				),
-	
+				
 			'form_id'=>array(array('not_empty')),		
 			);		
 	}
