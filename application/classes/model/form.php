@@ -122,5 +122,16 @@ class Model_Form extends ORM {
 		$form->delete();
 	}//end function
 
+	/**
+	 * Returns the forms that go with a given category
+	 * @param unknown_type $cat_id
+	 */
+	public static function get_forms_for_cat($cat_id)
+	{
+		return ORM::factory('form')
+			->where('category_id', '=', $cat_id)
+			->order_by('order', 'ASC')
+			->find_all();
+	}
 	
 } // End Category Model

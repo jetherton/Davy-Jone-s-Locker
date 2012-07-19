@@ -195,6 +195,7 @@ div#footer{
 	border: solid 2px black;
 	padding:10px;
 	background: url('../img/footer.png');
+	margin-top:50px;
 }
 
 /************ Right Menu **********/
@@ -203,6 +204,7 @@ div#right_menu{
 	border: 2px solid grey;
 	width: 200px;
 	padding: 10px;
+
 }
 
 div#right_menu ul{
@@ -597,6 +599,70 @@ div.blockOverlay{
 .ui-datepicker-trigger{
 	top:5px;
 	position:relative;
+}
+
+h2.sub_cat_title {
+	border-bottom: 1px solid white;	
+	width:900px;
+	margin-top: 50px;
+}
+
+h2.sub_cat_title a{
+	color: white;
+	text-decoration:none;		
+}
+
+h2.sub_cat_title a:hover{
+	color: #aaa;	
+}
+
+div.block{
+  width: 90px;
+  margin: 10px;
+  float: left;
+  min-height:90px;
+  max-height:200px;
+  padding:10px;
+  overflow:hidden;
+    -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+}
+
+div.block h3
+{
+	margin-top: 0px;
+}
+
+div.block a{
+  color: white;
+  text-decoration:none;
+}
+
+div.block a:hover{
+  color: #aaa;
+}
+
+div.form_block{
+  width: 90px;
+  margin: 10px;
+  float: left;
+  height:90px;
+  padding:10px;
+  overflow:hide;
+    -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+  background-color:#7FA37F;
+}
+
+div.form_block a{
+  color: white;
+  text-decoration:none;
+}
+
+div.form_block a:hover{
+  color: #aaa;
 }
 
 

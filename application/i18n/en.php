@@ -190,6 +190,8 @@ return array
 	'changes saved'=>'Changes Saved.',
 	'form deleted'=>'Form Deleted.',
 	'back to forms'=>'Back to Forms',
+	'Add information about'=>'Add information about',
+	'add something about :category_name by clicking here :category_id'=>'Add something about :category_name by clicking <a href="'.url::base().'home/wish?cat=:category_id">here.</a>',
 	
 	//form fields
 	'text input'=>'Text Box',

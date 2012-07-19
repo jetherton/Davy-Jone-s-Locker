@@ -38,22 +38,35 @@ class Controller_Home_Wish extends Controller_Home {
 		$this->template->content = view::factory("home/wish");
 		$this->template->content->cat = $cat;
 		
+		//turn on bricking
+		$this->template->html_head->script_files[] = 'media/js/jquery.masonry.min.js';
+		
+		$js_view = view::factory('home/wish_js');
+		$this->template->html_head->script_views[] = $js_view;
+		
 		//get the wishes that belong to this user
-		$wishes = ORM::factory("wish")
-			->join('forms')
-			->on('wish.form_id', '=', 'forms.id')
-			->and_where('user_id', '=', $this->user->id)
-			->and_where('is_live', '=', 1)
-			->and_where('forms.category_id', '=', $cat_id)
-			->order_by('title', 'ASC')
+		$this->template->content->wishes_for_cats = Model_wish::find_your_wishes_for_all_sub_cats_flat($cat_id, $this->user->id);
+		
+		$sub_cats = ORM::factory('category')
+			->where('parent_id', '=', $cat_id)
+			->order_by('order', 'ASC')
 			->find_all();
+		$this->template->content->sub_cats = $sub_cats;
+		$js_view->sub_cats = $sub_cats; 
 		
-		$this->template->content->wishes = $wishes;
+		if($cat->parent_id != 0)
+		{
+			$this->template->content->parent_cat = ORM::factory('category', $cat->parent_id);
+		}
 		
-		//build list of forms based on cats and sub-cats
-		$form_list = $this->_build_form_list($cat);
+		//wishes for the current cat
+		$this->template->content->current_wishes = Model_Wish::get_my_wishes_for_cat($cat_id, $this->user->id);
 		
-		$this->template->content->form_list = $form_list;
+		
+		
+		$this->template->content->make_form_list = Model_Form::get_forms_for_cat($cat_id);
+		
+		
 		
 	}//end action_index
 	

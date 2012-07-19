@@ -267,5 +267,98 @@ class Model_Wish extends ORM {
 			->and_where('formfield_id', '=', $field_id)
 			->execute();
 	}//end method
+	
+	
+	/**
+	 * Gets the wishes that belong to a user under a given category
+	 * returns a DB array
+	 * @param unknown_type $cat_id given category id
+	 * @param unknown_type $user_id given user ID
+	 */
+	public static function get_my_wishes_for_cat($cat_id, $user_id)
+	{
+		return ORM::factory('wish')
+			->join('forms', 'LEFT')			
+			->on('forms.id', '=', 'wish.form_id')
+			->and_where('user_id', '=', $user_id)
+			->and_where('forms.category_id', '=', $cat_id)
+			->and_where('is_live', '=', 1)
+			->order_by('forms.order','ASC')
+			->find_all();
+	}
+	
+	/**
+	 * This will return all the wishes you have under a given parent category
+	 * return an array
+	 * @param int $parent_cat_id the given parent category
+	 * @param int $parent_cat_id user id of the user we're gettin these wishes for
+	 */
+	public static function find_your_wishes_for_all_sub_cats($parent_cat_id, $user_id)
+	{
+		$ret_val = array('id'=>$parent_cat_id, 'wishes'=>array(), 'kids'=>array());
+		//get wishes for this level
+		$wishes = self::get_my_wishes_for_cat($parent_cat_id, $user_id);
+		foreach($wishes as $wish)
+		{
+			$ret_val['wishes'][$wish->id] = $wish;
+		}
+		
+		//get the sub cats
+		$kid_cats = ORM::factory('category')
+			->where('parent_id', '=', $parent_cat_id)
+			->order_by('order', 'ASC')
+			->find_all();
+		
+		
+		foreach($kid_cats as $kid_cat)
+		{
+			$ret_val['kids'][$kid_cat->id] = self::find_your_wishes_for_all_sub_cats($kid_cat->id, $user_id);
+		}
+		
+		return $ret_val;
+	}
+	
+	/**
+	 * This will return all the wishes you have under a given parent category
+	 * return an array
+	 * @param int $parent_cat_id the given parent category
+	 * @param int $parent_cat_id user id of the user we're gettin these wishes for
+	 */
+	public static function find_your_wishes_for_all_sub_cats_flat($parent_cat_id, $user_id)
+	{
+		$ret_val = array();
+		
+	
+		//get the sub cats
+		$kid_cats = ORM::factory('category')
+		->where('parent_id', '=', $parent_cat_id)
+		->order_by('order', 'ASC')
+		->find_all();
+	
+	
+		foreach($kid_cats as $kid_cat)
+		{
+			$ret_val[$kid_cat->id] = array();
+			
+			//get wishes for this level
+			$wishes = self::get_my_wishes_for_cat($kid_cat->id, $user_id);
+			foreach($wishes as $wish)
+			{
+				$ret_val[$kid_cat->id][$wish->id] = $wish;
+				$kid_kid_wishes = self::find_your_wishes_for_all_sub_cats_flat($kid_cat->id, $user_id);
+				//put those into this array to make things flat
+				foreach($kid_kid_wishes as $kk_cat_id=>$kk_wishes)
+				{
+					foreach($kk_wishes as $kk_wish_id=>$kk_wish)
+					{
+						$ret_val[$kid_cat->id][$kk_wish_id] = $kk_wish;
+					}					
+				}
+				unset($kid_kid_wishes);
+			}
+		}
+	
+		return $ret_val;
+	}
 		
 }//end class

@@ -6,7 +6,11 @@
 ?>
 
 
+<?php if($user->id == $wish-> user_id) { ?>
+<p style="margin-top:5px;"><?php echo ' <a href="'.url::base().'home/wish/edit?id='.$wish->id.'">' .__('edit'). '</a>';?></p>
+<?php } else {?>
 <p style="margin-top:5px;"><?php echo __('by'). ' <a href="'.url::base().'home/friends/view?id='.$friend->id.'">' . $friend->first_name. ' ' . $friend->last_name. '</a>';?></p>
+<?php }?>
 
 <div class="wish_view_frame">
 <h2 ><?php echo $wish->title; ?></h2>
