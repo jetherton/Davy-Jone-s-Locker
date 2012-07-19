@@ -13,6 +13,7 @@ class Model_Wish extends ORM {
 	protected $_has_many =  array(
 			'wpics' => array('model' => 'wpic'),
 			'wfiles' => array('model' => 'wfile'),
+			'formfieldresponse'=> array('model' => 'formfieldresponse'),
 	);
 	
 	
@@ -83,6 +84,85 @@ class Model_Wish extends ORM {
 		$this->values($values, $expected);
 		$this->check();
 		$this->save();
+	}
+	
+	/**
+	 * Gets the data for this wish that will show up in the block
+	 */
+	public function get_block_fields()
+	{
+	
+		$sql = 'SELECT ffr.id AS response_id, ffr.response AS response_value, ffr.formfield_id AS form_id, `formfields`.`type` AS'. 
+			' `type` FROM  `formfieldresponses` AS ffr'.
+			' LEFT JOIN formfields ON ffr.formfield_id = formfields.id'.		
+			' WHERE ffr.wish_id = '.$this->id.
+			' AND formfields.show_in_block = 1'.
+			' ORDER BY formfields.order';
+		
+		
+
+		$query = DB::query(Database::SELECT, $sql);
+		$data = $query->execute();
+		$ret_val = array();
+		
+		
+		
+		foreach($data as $d)
+		{
+			if($d['type'] == '4' OR $d['type'] == '5' OR $d['type'] == '6')
+			{
+				$option = ORM::factory('formfieldoption', $d['response_value']);
+				$ret_val[$d['response_id']] = $option->title;
+			}
+			else
+			{
+				//just grab the value
+				$ret_val[$d['response_id']] = $d['response_value'];
+			}
+			
+		}
+	
+		return $ret_val;
+		
+	}
+	
+	/**
+	 * Gets the title
+	 */
+	public function get_title()
+	{
+	
+		$sql = 'SELECT ffr.id AS response_id, ffr.response AS response_value, ffr.formfield_id AS form_id, `formfields`.`type` AS'.
+				' `type` FROM  `formfieldresponses` AS ffr'.
+				' LEFT JOIN formfields ON ffr.formfield_id = formfields.id'.
+				' WHERE ffr.wish_id = '.$this->id.
+				' AND formfields.show_in_block = 1'.
+				' ORDER BY formfields.order LIMIT 1';
+	
+	
+	
+		$query = DB::query(Database::SELECT, $sql);
+		$data = $query->execute();
+	
+	
+	
+		foreach($data as $d)
+		{
+			if($d['type'] == '4' OR $d['type'] == '5' OR $d['type'] == '6')
+			{
+				$option = ORM::factory('formfieldoption', $d['response_value']);
+				return $option->title;
+			}
+			else
+			{
+				//just grab the value
+				return $d['response_value'];
+			}
+				
+		}
+	
+		return ORM::factory('form', $this->form_id)->title;
+	
 	}
 	
 	/**

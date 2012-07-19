@@ -84,7 +84,7 @@
 			<?php echo $cat->description; ?>
 		</td>
 		<td style="width:200px;">
-			<a href="#" onclick="editCat(<?php echo $cat->id?>,<?php echo $cat->order;?>,'<?php echo $cat->title;?>','<?php echo $cat->description;?>'); return false;"> <?php echo __('edit');?></a>
+			<a href="#" onclick="editCat(<?php echo $cat->id?>,<?php echo $cat->order;?>,'<?php echo $cat->title;?>','<?php echo str_replace("'", "\\'", $cat->description);?>'); return false;"> <?php echo __('edit');?></a>
 			<a href="#" onclick="deleteCategory(<?php echo $cat->id?>);"> <?php echo __('delete');?></a>
 		</td>
 	</tr>

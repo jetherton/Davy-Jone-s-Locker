@@ -341,4 +341,14 @@ CREATE TABLE IF NOT EXISTS `reminders` (
   PRIMARY KEY (`id`)  
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
+/**2012-07-19 - add a primary field title field in the Db*/
+ALTER TABLE  `forms` ADD  `primary_field_title` CHAR( 255 ) NOT NULL DEFAULT  'Primary Field Title' AFTER  `title`;
+ALTER TABLE  `forms` ADD  `primary_field_description` CHAR( 255 ) NOT NULL DEFAULT  'Primary Field Description' AFTER  `primary_field_title`;
+
+/**2012-07-19 - drop the title field from wishes, then add show_in_block to formfields*/
+ALTER TABLE `wishes` DROP `title`;
+
+ALTER TABLE  `formfields` ADD  `show_in_block` TINYINT( 4 ) NOT NULL DEFAULT  '0';
+
+
 

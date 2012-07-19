@@ -27,9 +27,17 @@ class Model_Form extends ORM {
 				array('max_length', array(':value', 254)),
 				array('min_length', array(':value', 1))
 				),
+			'primary_field_title' => array(
+						array('not_empty'),
+						array('max_length', array(':value', 254)),
+						array('min_length', array(':value', 1))
+				),
+			'primary_field_description' => array(
+						array('max_length', array(':value', 254)),
+						array('min_length', array(':value', 1))
+				),
 	
 			'description' => array(
-				array('not_empty'),
 				array('max_length', array(':value', 65533)),
 				array('min_length', array(':value', 1))
 				),
@@ -51,7 +59,7 @@ class Model_Form extends ORM {
 	public function update_form($values)
 	{
 
-		$expected = array('title', 'description', 'order', 'category_id');	
+		$expected = array('title', 'description', 'order', 'category_id', 'primary_field_title', 'primary_field_description');	
 
 		//update the order, first decrease everything above the cats current position
 		//but only if the order is already known for this cat

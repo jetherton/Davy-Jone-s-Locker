@@ -217,8 +217,10 @@ class Helper_Form
 			$html .= '</span>';
 		}
 		
+		/* turning off N/A right now
 		if(intval($form_field->required) != 1)
 		{
+			
 			$checked = false;
 			if($default_value == self::$na_str)
 			{
@@ -229,7 +231,9 @@ class Helper_Form
 			$html .= Form::radio('ff['.$form_field->id.']', self::$na_str, $checked, array('id'=>'ff_'.$form_field->id.'_'.self::$na_str));			
 			$html .= '<abbr title="'.__('n/a explain').'">'.__('n/a').'</abbr>';
 			$html .= '</span>';
+		
 		}
+		*/
 		
 		$html .= '</td></tr>';
 		
@@ -277,7 +281,7 @@ class Helper_Form
 			$html .= '<abbr title="'.$option->description.'">'.$option->title.'</abbr>';
 			$html .= '</span>';
 		}
-		
+		/* turning off N/A for the moment
 		if(intval($form_field->required) != 1)
 		{
 			$checked = false;
@@ -291,6 +295,7 @@ class Helper_Form
 			$html .= '<abbr title="'.__('n/a explain').'">'.__('n/a').'</abbr>';
 			$html .= '</span>';
 		}
+		*/
 		
 		$html .= '</td></tr>';
 		
@@ -324,10 +329,12 @@ class Helper_Form
 			$selects[$option->id] = $option->title;
 		}
 		
+		/*Turning off N/A right now
 		if(intval($form_field->required) != 1)
 		{
 			$selects[self::$na_str] = __('n/a');
 		}
+		*/
 		
 		$html = '<tr><td class="formfieldlabel">';
 		$html .= self::render_lock($form_field);

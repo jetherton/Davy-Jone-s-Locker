@@ -146,6 +146,8 @@ class Controller_Home_Wish extends Controller_Home {
 		$this->template->html_head->styles['media/css/jquery-ui.css'] = 'screen';
 		$this->template->html_head->script_views[] = view::factory('js/accordion');
 		
+		//turn on special form formats
+		$this->template->html_head->styles['media/css/formedit.css'] = 'screen';
 		
 		
 		//turn on picture upload
@@ -204,10 +206,10 @@ class Controller_Home_Wish extends Controller_Home {
 			//the name in the menu
 			$this->template->header->menu_page = "wish";
 			//setup view			
-			$this->template->content->title = __('add wish');
+			$this->template->content->title = __('edit') . ' '. $form->title;
 			$this->template->content->explanation = __('add wish explanation');
 			$this->template->content->wish = $wish;
-			$this->template->content->submit_button = __('add wish');
+			$this->template->content->submit_button = __('save');
 
 			//delete any outstanding wishes
 			$day_ago = date('Y-m-d G:i:s', time()-(24*60*60));
@@ -243,15 +245,17 @@ class Controller_Home_Wish extends Controller_Home {
 				$this->request->redirect("home");
 			}
 			
+			$title = $wish->get_title();
+			
 			//The title to show on the browser
-			$this->template->html_head->title = __("edit wish"). ' :: '. $wish->title;
+			$this->template->html_head->title = __("edit wish"). ' :: '. $title;
 			//the name in the menu
 			$this->template->header->menu_page = "wish";
 			//setup view
-			$this->template->content->title = __('edit wish') . ' - '. $wish->title;
+			$this->template->content->title = __('edit wish') . ' - '. $title;
 			$this->template->content->explanation = __('edit wish explanation');
 			$this->template->content->wish = $wish;
-			$this->template->content->submit_button = __('edit wish');		
+			$this->template->content->submit_button = __('save');		
 		}
 		$wish_id = $wish->id;
 		
@@ -297,7 +301,7 @@ class Controller_Home_Wish extends Controller_Home {
 					}
 					//what about saving a location?
 					$this->handle_location($wish);
-					$this->template->content->messages[] = __('wish edited successfully');
+					$this->template->content->messages[] = __(':title edited successfully', array(':title'=>$wish->title));
 				}
 
 			}
@@ -324,8 +328,15 @@ class Controller_Home_Wish extends Controller_Home {
 		if($wish_id != 0)
 		{
 			//setup view
-			$this->template->html_head->title = __("edit wish"). ' :: '. $wish->title;
-			$this->template->content->title = __('edit wish') . ' - '. $wish->title;
+			$this->template->html_head->title = __("add"). ' :: '. $form->title;
+			if(isset($wish->title) AND  strlen($wish->title) > 0)
+			{
+				$this->template->content->title = __('Edit') . ' '. $form->title . ' - '. $wish->title;
+			}
+			else
+			{
+				$this->template->content->title = __('add') . ' '. $form->title;
+			}
 			$this->template->content->wish = $wish;
 			
 			//check if there's a location
@@ -575,8 +586,10 @@ class Controller_Home_Wish extends Controller_Home {
 		//get yourself
 		$this->template->content->user = $this->user;
 		
+		$wish_title = $wish->get_title();
+		
 		//The title to show on the browser
-		$this->template->html_head->title = __("wish"). ' :: '. $wish->title;
+		$this->template->html_head->title = __("wish"). ' :: '. $wish_title;
 		//the name in the menu
 		$this->template->header->menu_page = "wish";
 		//if there's a location lets through it in there and turn on locations

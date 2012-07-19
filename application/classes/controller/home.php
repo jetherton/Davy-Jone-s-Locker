@@ -40,6 +40,9 @@ class Controller_Home extends Controller_Main {
 	public function action_index()
 	{
 		
+		//turn on bricking
+		$this->template->html_head->script_files[] = 'media/js/jquery.masonry.min.js';
+		
 		$this->template->html_head->title = __("home");
 		$this->template->content = View::factory('home');		
 		$this->template->header->menu_page = "home";
@@ -56,11 +59,15 @@ class Controller_Home extends Controller_Main {
 		$updates = ORM::factory('update')->
 			where('user_id', '=', $this->user->id)->
 			order_by('date_created', 'DESC')->
+			limit(20)->
 			find_all();
 		$this->template->content->updates = $updates;
 		
 		//get all your friends
 		$this->template->content->friends = Model_Friend::get_friends($this->user);
+		
+		$js_view = view::factory('home_js');
+		$this->template->html_head->script_views[] = $js_view;
 	}
 	
 	

@@ -13,7 +13,7 @@
 <?php }?>
 
 <div class="wish_view_frame">
-<h2 ><?php echo $wish->title; ?></h2>
+<h2 ><?php $wish_title = $wish->get_title(); echo $wish_title; ?></h2>
 <div >
 	<?php echo Helper_Form::get_html($form, $wish, $user); ?>
 	<br/>

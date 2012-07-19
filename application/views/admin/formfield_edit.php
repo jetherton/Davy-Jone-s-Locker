@@ -83,6 +83,10 @@
 	echo Form::label('islockable', __('is lockable').": ");
 	echo '</td><td>';
 	echo Form::checkbox('islockable', 1, $data['islockable'] == 1,  array('id'=>'islockable'));
+	echo '</td></tr><tr><td>';
+	echo Form::label('show_in_block', __('show in block').": ");
+	echo '</td><td>';
+	echo Form::checkbox('show_in_block', 1, $data['show_in_block'] == 1,  array('id'=>'show_in_block'));
 	echo '</td></tr><tr><td>';	
 	echo Form::submit('edit', __('add edit'), array('id'=>'edit_button'));
 	echo '</td><td></td></tr></table>';

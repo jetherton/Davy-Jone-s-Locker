@@ -61,6 +61,14 @@
 	echo '</td><td>';
 	echo Form::input('title', $data['title'], array('id'=>'title', 'style'=>'width:300px;'));
 	echo '</td></tr><tr><td>';
+	echo Form::label('primary_field_title', __('primary field title').": ");
+	echo '</td><td>';
+	echo Form::input('primary_field_title', $data['primary_field_title'], array('id'=>'primary_field_title', 'style'=>'width:300px;'));
+	echo '</td></tr><tr><td>';
+	echo Form::label('primary_field_description', __('primary field description').": ");
+	echo '</td><td>';
+	echo Form::input('primary_field_description', $data['primary_field_description'], array('id'=>'primary_field_description', 'style'=>'width:300px;'));
+	echo '</td></tr><tr><td>';
 	echo Form::label('description', __('description').": ");
 	echo '</td><td>';
 	echo Form::textarea('description', $data['description'], array('id'=>'description', 'style'=>'width:600px;'));

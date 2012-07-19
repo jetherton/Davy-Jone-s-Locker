@@ -328,8 +328,8 @@ table.list_table tbody td{
 }
 
 table.wish_edit{
-	width:970px;
-	height:583px;
+	width:990px;
+	
 }
 
 /**Accordion stuff**/
@@ -405,9 +405,17 @@ input.ui-autocomplete-loading {
 
 /** updates **/
 .update_time{
-	color:grey;
-	margin-left:20px;
+	color:black;
+	background:white;
+	float:right;
+	padding:2px;
+	    -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+    margin-top:10px;
 }
+
+
 
 li.update{
 	border-bottom: solid 1px grey;
@@ -616,7 +624,7 @@ h2.sub_cat_title a:hover{
 	color: #aaa;	
 }
 
-div.block{
+div.block, div.update_block{
   width: 90px;
   margin: 10px;
   float: left;
@@ -666,3 +674,6 @@ div.form_block a:hover{
 }
 
 
+div.update_html {
+	color:#ccc
+}

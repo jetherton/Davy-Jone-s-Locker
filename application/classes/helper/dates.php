@@ -43,7 +43,8 @@ class Helper_Dates
 		}
 		else
 		{
-			return date('n/j/Y g:ia', $time);
+			//return date('n/j/Y g:ia', $time);
+			return date('n/j/Y', $time);
 		}
 	}
 }//end class

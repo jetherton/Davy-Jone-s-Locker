@@ -7,24 +7,33 @@ echo '<div id="right_menu"><a href="'.url::base(). 'home/wish?cat='.$parent_cat-
 <p><?php echo $cat->description;?></p>
 
 <div id="forms">
-	<?php foreach($make_form_list as $form) {
-		echo '<div class="block form_block">';
-		echo '<a href="'.url::base().'home/wish/add?form='.$form->id.'">'.__('Add information about'). ' '. $form->title.'</a>';
-		echo '</div>';
+	<?php 
+	
+	//just do this to make things faster
+	$form_to_wish = array();
+	foreach($current_wishes as $wish)
+	{
+		$form_to_wish[$wish->form_id] = $wish;
+	}
+	
+	foreach($make_form_list as $form) {
+		
+		//don't render this, if they've already entered this form type
+		if(isset($form_to_wish[$form->id]))
+		{
+			continue;
+		}
+		
+		$view = new View('home/block/form_block');
+		$view->item = $form;
+		echo $view;
+		
 	}?>
 	<?php 
 	foreach($current_wishes as $wish)
 		{
-			$color = rand(75,150);
-			$color = dechex($color);
-			$color = strlen($color) == 1 ? '0'.$color : $color;
-			$color = '#'.$color.$color.$color;
-			
-			$view = new View('home/block');
-			
-			$view->wish = $wish;			
-			$view->color = $color;
-			
+			$view = new View('home/block/wish_block');
+			$view->item = $wish;
 			echo $view;
 		}?>
 	
@@ -39,6 +48,7 @@ echo '<div id="right_menu"><a href="'.url::base(). 'home/wish?cat='.$parent_cat-
 	?>
 	
 		<h2 class="sub_cat_title"><a href="<?php echo url::base();?>home/wish?cat=<?php echo $sub_cat->id;?>"><?php echo $sub_cat->title; ?></a></h2>
+		<p><?php echo $sub_cat->description;?></p>
 		<div class="block_holder" id="block_container_<?php echo $sub_cat->id?>" >
 		
 		<?php
@@ -48,16 +58,8 @@ echo '<div id="right_menu"><a href="'.url::base(). 'home/wish?cat='.$parent_cat-
 		}
 		foreach($wishes_for_cats[$sub_cat->id] as $wish_id=>$wish)
 		{
-			$color = rand(75,150);
-			$color = dechex($color);
-			$color = strlen($color) == 1 ? '0'.$color : $color;
-			$color = '#'.$color.$color.$color;
-			
-			$view = new View('home/block');
-			
-			$view->wish = $wish;			
-			$view->color = $color;
-			
+			$view = new View('home/block/wish_block');
+			$view->item = $wish;
 			echo $view;
 		}?>
 		</div>

@@ -8,6 +8,19 @@
 		}
 	}
 
+	function toggleNotes()
+	{
+		var checked = $("#show_notes").is(":checked");
+		if(checked)
+		{
+			$("#notes_area").show('slow');
+		}
+		else
+		{
+			$("#notes_area").hide('slow');
+		}
+	}
+
 	
 	function modifyFriend(friendId)
 	{
