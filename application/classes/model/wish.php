@@ -169,6 +169,51 @@ class Model_Wish extends ORM {
 	
 	}
 	
+	
+	
+	
+	/**
+	 * Gets the title based on the wish ID and the form ID
+	 * @param unknown_type $wish_id wish whose title we want
+	 * @param unknown_type $form_id the form id 
+	 * @return string
+	 */
+	public static function get_title_static($wish_id, $form_id)
+	{
+	
+		$sql = 'SELECT ffr.id AS response_id, ffr.response AS response_value, ffr.formfield_id AS form_id, `formfields`.`type` AS'.
+				' `type` FROM  `formfieldresponses` AS ffr'.
+				' LEFT JOIN formfields ON ffr.formfield_id = formfields.id'.
+				' WHERE ffr.wish_id = '.$wish_id.
+				' AND formfields.show_in_block = 1'.
+				' ORDER BY formfields.order LIMIT 1';
+	
+	
+	
+		$query = DB::query(Database::SELECT, $sql);
+		$data = $query->execute();
+	
+	
+	
+		foreach($data as $d)
+		{
+			if($d['type'] == '4' OR $d['type'] == '5' OR $d['type'] == '6')
+			{
+				$option = ORM::factory('formfieldoption', $d['response_value']);
+				return $option->title;
+			}
+			else
+			{
+				//just grab the value
+				return $d['response_value'];
+			}
+	
+		}
+	
+		return ORM::factory('form', $form_id)->title;
+	
+	}
+	
 	/**
 	 * This will return an array of wishes
 	 * that two friends have shared with one another
@@ -178,16 +223,28 @@ class Model_Wish extends ORM {
 	 */
 	public static function get_wishes_between_friends($user, $friend)
 	{
-		$wishes_from_friend = ORM::factory('wish')
-			->join('friends_wishes')
-			->on( 'friends_wishes.wish_id', '=', 'wish.id')
-			->join('forms')
-			->on('wish.form_id', '=', 'forms.id')
-			->and_where('friends_wishes.friend_id', '=', $user->id)
-			->and_where('wish.user_id', '=', $friend->id)
-			->and_where('wish.is_live', '=', 1)
-			->order_by('forms.title', 'ASC')
-			->find_all();
+
+		
+		$passed = $friend->date_passed != null ? '(`friends_wishes`.`timing_type` = 1 ) OR' : '';
+		
+		$sql = "SELECT  `wish`. * , `friends_wishes`.`timing_type` as `timing_type`, `friends_wishes`.`dead_line` as `dead_line`, 
+			`friends_wishes`.`user_can_know` as `user_can_know`,
+			`forms`.`title` as `form_title` 
+			FROM  `wishes` AS  `wish` 
+			JOIN  `friends_wishes` ON (`friends_wishes`.`wish_id` =  `wish`.`id`) 
+			JOIN  `forms` ON (  `wish`.`form_id` =  `forms`.`id` ) 
+			WHERE  `friends_wishes`.`friend_id` =  '".$user->id."'
+			AND  (`friends_wishes`.`user_can_know` = 1 OR 
+				".$passed."
+				(`friends_wishes`.`timing_type` = 2 AND `friends_wishes`.`dead_line` <=  CURDATE()) OR
+				(`friends_wishes`.`timing_type` = 3) )
+			AND  `wish`.`user_id` =  '".$friend->id."'
+			AND  `wish`.`is_live` =1
+			ORDER BY  `forms`.`title` ASC ";
+
+		$query = DB::query(Database::SELECT, $sql);
+		$wishes_from_friend = $query->execute();
+		
 		
 		$wishes_from_me = ORM::factory('wish')
 			->join('friends_wishes')

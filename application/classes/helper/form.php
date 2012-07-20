@@ -115,7 +115,7 @@ class Helper_Form
 		$required_str = $form_field->required == 1 ? "*" : "";
 		$html = '<tr><td class="formfieldlabel">';
 		$html .= self::render_lock($form_field);
-		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
+		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title." ");
 		$html .= self::render_toop_tip($form_field->description);		
 		$html .= '</td><td>';
 		$html .= Form::input('ff['.$form_field->id.']', $default_value, array('id'=>'ff_'.$form_field->id, 'style'=>'width:300px;'));
@@ -141,7 +141,7 @@ class Helper_Form
 		
 		$html = '<tr><td class="formfieldlabel">';
 		$html .= self::render_lock($form_field);
-		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
+		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title." ");
 		$html .= self::render_toop_tip($form_field->description);
 		$html .= '</td><td>';
 		$html .= Form::textarea('ff['.$form_field->id.']', $default_value, array('id'=>'ff_'.$form_field->id, 'style'=>'width:300px;'));
@@ -166,7 +166,7 @@ class Helper_Form
 		
 		$html = '<tr><td class="formfieldlabel">';
 		$html .= self::render_lock($form_field);
-		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
+		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title." ");
 		$html .= self::render_toop_tip($form_field->description);
 		$html .= '</td><td>';
 		$html .= Form::input('ff['.$form_field->id.']', $default_value, array('id'=>'ff_'.$form_field->id, 'style'=>'width:100px;'));
@@ -205,7 +205,7 @@ class Helper_Form
 		
 		$html = '<tr><td class="formfieldlabel">';
 		$html .= self::render_lock($form_field);
-		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
+		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title." ");
 		$html .= self::render_toop_tip($form_field->description);
 		$html .= '</td><td>';
 		foreach($options as $option)
@@ -264,7 +264,7 @@ class Helper_Form
 		
 		$html = '<tr><td class="formfieldlabel">';
 		$html .= self::render_lock($form_field);
-		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
+		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title." ");
 		$html .= self::render_toop_tip($form_field->description);
 		$html .= '</td><td>';
 		foreach($options as $option)
@@ -338,7 +338,7 @@ class Helper_Form
 		
 		$html = '<tr><td class="formfieldlabel">';
 		$html .= self::render_lock($form_field);
-		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
+		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title." ");
 		$html .= self::render_toop_tip($form_field->description);
 		$html .= '</td><td>';		
 		$html .= Form::select('ff['.$form_field->id.']', $selects, $default_value, array('id'=>'ff_'.$form_field->id));					
@@ -364,7 +364,7 @@ class Helper_Form
 		
 		$html = '<tr><td class="formfieldlabel">';
 		$html .= self::render_lock($form_field);
-		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title.": ");
+		$html .= $required_str.Form::label('ff_'.$form_field->id, $form_field->title." ");
 		$html .= self::render_toop_tip($form_field->description);
 		$html .= '</td><td>';
 		$html .= Form::password('ff['.$form_field->id.']', $default_value, array('id'=>'ff_'.$form_field->id, 'style'=>'width:300px;'));
@@ -505,7 +505,7 @@ class Helper_Form
 			
 			//no matter what, print the title and description
 			$html .= '<tr><td>';
-			$html .= Form::label('ff_'.$form_field->id, $form_field->title.": ");
+			$html .= Form::label('ff_'.$form_field->id, $form_field->title." ");
 			//$html .= '<br/><span class="form_description">'.$form_field->description.'</span>';
 			$html .= '</td>';
 

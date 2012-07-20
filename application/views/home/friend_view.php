@@ -50,10 +50,10 @@
 
 	<tr <?php echo $odd_row; ?>>
 		<td>
-			<a href="<?php echo url::base(). 'home/wish/view?id='.$wish->id?>"> <?php echo $wish->get_title();?></a>
+			<a href="<?php echo url::base(). 'home/wish/view?id='.$wish['id']?>"> <?php echo Model_Wish::get_title_static($wish['id'], $wish['form_id']); ?></a>
 		</td>
 		<td>
-			<?php echo $wish->form->title;?>
+			<?php echo $wish['form_title'];?>
 		</td>
 	</tr>
 	<?php }?>

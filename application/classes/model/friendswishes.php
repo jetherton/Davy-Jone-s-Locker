@@ -21,6 +21,10 @@ class Model_Friendswishes extends ORM {
 		{
 			$values['dead_line'] = null;
 		}
+		if($values['timing_type'] == '3')
+		{
+			$values['user_can_know'] = '1';
+		}
 	
 		$this->values($values, $expected);
 		$this->check();
