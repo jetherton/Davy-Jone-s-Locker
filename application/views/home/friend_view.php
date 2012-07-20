@@ -50,7 +50,37 @@
 
 	<tr <?php echo $odd_row; ?>>
 		<td>
+			<?php //figure out why you're seeing this
+				$can_view = false;
+				switch($wish['timing_type'])
+				{
+					case '1':
+						//has the user passed
+						if($friend->date_passed != null)
+						{
+							$can_view = true;
+						}
+						break;
+					case '2':
+						//after certain date
+						if(strtotime($wish['dead_line']) <= time())
+						{
+							$can_view = true;
+						}
+						break;
+					case '3':
+						//they can see it now
+						$can_view = true;
+						break;
+				}
+				
+				if($can_view)
+				{
+			?>
 			<a href="<?php echo url::base(). 'home/wish/view?id='.$wish['id']?>"> <?php echo Model_Wish::get_title_static($wish['id'], $wish['form_id']); ?></a>
+			<?php }else{?>
+			<span class="look_dont_touch"> <?php echo Model_Wish::get_title_static($wish['id'], $wish['form_id']); ?></span>
+			<?php }?>
 		</td>
 		<td>
 			<?php echo $wish['form_title'];?>
