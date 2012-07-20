@@ -339,8 +339,6 @@ td.wish_accordion{
 }
 div.wish_accordion{
 	height:550px;
-	position: absolute;
-	top: 400px;
 	width: 300px;
 }
 

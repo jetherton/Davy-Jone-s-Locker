@@ -621,6 +621,7 @@ class Controller_Home_Wish extends Controller_Home {
 		//try to update the wish, if possible
 		try
 		{
+			$_POST['dead_line'] = date('Y-m-d 00:00:00', strtotime($_POST['dead_line']));
 			$timing_data->update_timing($_POST, $this->user);
 		}
 		catch(Exception $e)
@@ -654,7 +655,9 @@ class Controller_Home_Wish extends Controller_Home {
 		if($wish->user_id != $this->user->id)
 		{
 			//is it a friends wish that I'm allowed to see?
-			$wish = Model_Wish::get_friends_wish($wish->id, $this->user->id);
+			$wish = Model_Wish::get_friends_wish($wish, $this->user);
+			
+			
 			if(!$wish)
 			{
 				$this->request->redirect("home/wish");

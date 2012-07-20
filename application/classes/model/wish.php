@@ -223,19 +223,16 @@ class Model_Wish extends ORM {
 	 */
 	public static function get_wishes_between_friends($user, $friend)
 	{
-
-		
-		$passed = $friend->date_passed != null ? '(`friends_wishes`.`timing_type` = 1 ) OR' : '';
-		
 		$sql = "SELECT  `wish`. * , `friends_wishes`.`timing_type` as `timing_type`, `friends_wishes`.`dead_line` as `dead_line`, 
 			`friends_wishes`.`user_can_know` as `user_can_know`,
 			`forms`.`title` as `form_title` 
 			FROM  `wishes` AS  `wish` 
 			JOIN  `friends_wishes` ON (`friends_wishes`.`wish_id` =  `wish`.`id`) 
-			JOIN  `forms` ON (  `wish`.`form_id` =  `forms`.`id` ) 
+			JOIN  `forms` ON (  `wish`.`form_id` =  `forms`.`id` )
+			JOIN  `users` ON (  `users`.`id` =  `wish`.`user_id` ) 
 			WHERE  `friends_wishes`.`friend_id` =  '".$user->id."'
 			AND  (`friends_wishes`.`user_can_know` = 1 OR 
-				".$passed."
+				(`friends_wishes`.`timing_type` = 1 AND `users`.`date_passed` IS NOT NULL) OR
 				(`friends_wishes`.`timing_type` = 2 AND `friends_wishes`.`dead_line` <=  CURDATE()) OR
 				(`friends_wishes`.`timing_type` = 3) )
 			AND  `wish`.`user_id` =  '".$friend->id."'
@@ -264,25 +261,31 @@ class Model_Wish extends ORM {
 	/**
 	 * 
 	 * Gets a wish from a friend, or false if I'm not allowed
-	 * @param int $wish_id
-	 * @param int $user_id
+	 * @param obj $wish
+	 * @param obj $user
 	 * @return obj or bool if not allowed
 	 */
-	public static function get_friends_wish($wish_id, $user_id)
+	public static function get_friends_wish($wish, $user)
 	{
-		$wish = ORM::factory('wish')
-		->join('friends_wishes')
-		->on( 'friends_wishes.wish_id', '=', 'wish.id')
-		->and_where('friends_wishes.friend_id', '=', $user_id)
-		->and_where('wish.id', '=', $wish_id)
-		->and_where('wish.is_live', '=', 1)
-		->find();
 		
-		if($wish->loaded())
+		$sql = "SELECT  `wish` . * 
+			FROM  `wishes` AS  `wish` 
+			JOIN  `friends_wishes` ON (  `friends_wishes`.`wish_id` =  `wish`.`id` )
+			JOIN  `users` ON (`users`.`id` = `wish`.`user_id`) 
+			WHERE  `friends_wishes`.`friend_id` =  '".$user->id."'
+			AND ( (`friends_wishes`.`timing_type` = 2 AND `friends_wishes`.`dead_line` <=  CURDATE()) OR
+			(`friends_wishes`.`timing_type` = 1 AND `users`.`date_passed` IS NOT NULL) OR
+			(`friends_wishes`.`timing_type` = 3) ) 
+			AND  `wish`.`id` =  '".$wish->id."' 
+			AND  `wish`.`is_live` = 1 
+			LIMIT 1";
+		
+		$query = DB::query(database::SELECT, $sql);
+		$result = $query->execute();
+		foreach($result as $r)
 		{
 			return $wish;
-		}
-		
+		}	
 		return false;
 	}
 	
@@ -369,12 +372,15 @@ class Model_Wish extends ORM {
 		
 		if($wish->loaded() && ($wish_title = $wish->get_title()) != '')
 		{
+			//etherton fix this later so it only fires when it is supposed to
+			/*
 			//make an update	
 			$message = __('update :user sent you :wish :wish-id :user-id :user', array(':user'=>$user->full_name(), 
 				':wish'=>$wish_title,			
 				':wish-id'=>$wish_id,
 				':user-id'=>$user->id));
 			ORM::factory('update')->create_update($message, $friend_id);
+			*/
 		}
 	}//end method
 	
