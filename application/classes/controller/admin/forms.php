@@ -88,7 +88,8 @@ class Controller_Admin_Forms extends Controller_Admin {
 			'title'=>'',
 			'description'=>'',
 			'category_id'=>null,
-			'order'=>null);
+			'order'=>null,
+			'more_than_one'=>1);
 			
 		
 		
@@ -119,6 +120,7 @@ class Controller_Admin_Forms extends Controller_Admin {
 			$data['description'] = $form->description;
 			$data['category_id'] = $form->category_id;
 			$data['order'] = $form->order;
+			$data['more_than_one'] = $form->more_than_one;
 		}
 		
 		/***Now that we have the form, lets initialize the UI***/

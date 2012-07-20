@@ -113,6 +113,10 @@ return array
 	'title explanation'=>'Put a title here. This is a way to differentiate wishes and peices of information.',
 	'notes explanation'=>'If you feel that the above fields didn\'t let you fully express what you wanted to please add some notes.',
 	'add another :form'=>'Add another :form',
+	'timing'=>'Timing',
+	'when do you want :firstname to see this information'=>'When do you want :firstname to see this information?',
+	'date when :firstname can see this'=>'Date when :firstname can see this',
+	'check if :firstname can know'=>'Check if :firstname can know that you have shared this',
 
 	//friends
 	'friend'=>'Person',
@@ -199,6 +203,7 @@ return array
 	'primary field title'=>'Primary field title',
 	'primary field description'=>'Primary field description',
 	'show in block'=>'Show in block',
+	'more than one'=>'Can the user create more than one of these forms',
 	
 	//form fields
 	'text input'=>'Text Box',

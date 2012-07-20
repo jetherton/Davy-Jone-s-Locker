@@ -4,9 +4,11 @@
  * @copyright Etherton Technologies, Ltd. 2011
  */ 
 ?>
+<?php if($form->more_than_one == '1'){?>
 <div id="right_menu">
 <a href="<?php echo url::base();?>home/wish/add?form=<?php echo $form->id;?>"><?php echo __('add another :form', array(':form'=>$form->title));?></a>
 </div>
+<?php }?>
 <h2><?php echo $title; ?></h2>
 <p><?php echo $form->description;?></p>
 
@@ -77,6 +79,12 @@
 										array('id'=>'friend_'.$friend->id, 
 											'onchange'=>"modifyFriend(".$friend->id."); return false;"));
 						 			echo $friend->first_name . ' ' . $friend->last_name;
+						 			$link_style = $friend->has('friends_wishes', $wish->id) ? '' : 'style="display:none;"';
+						 			echo '- <a '.$link_style.' id="timing_link_'.$friend->id.'" href="#" onclick="showTiming('.$friend->id.'); return false;">'.__('timing').'</a>';
+						 			$timing_view = new View('home/wish_timing');
+						 			$timing_view->friend = $friend;
+						 			$timing_view->wish = $wish;
+						 			echo $timing_view;
 						 			echo '</li>';
 						 		}
 						 	}?>

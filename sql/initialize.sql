@@ -93,9 +93,13 @@ ALTER TABLE `friends` ADD CONSTRAINT `friends_user_id_FK_2` FOREIGN KEY (`friend
 
 /*** create table so we can map wishes to users ***/
 CREATE TABLE IF NOT EXISTS `friends_wishes` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `friend_id` int(11) unsigned NOT NULL,
   `wish_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`friend_id`,`wish_id` )  
+  `timing_type` TINYINT( 4 ) NOT NULL DEFAULT  '1',
+  `dead_line` DATETIME NULL ,
+  `user_can_know` TINYINT( 4 ) NOT NULL DEFAULT  '1',
+  PRIMARY KEY (`id`)    
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 
 ALTER TABLE `friends_wishes`
@@ -349,6 +353,9 @@ ALTER TABLE  `forms` ADD  `primary_field_description` CHAR( 255 ) NOT NULL DEFAU
 ALTER TABLE `wishes` DROP `title`;
 
 ALTER TABLE  `formfields` ADD  `show_in_block` TINYINT( 4 ) NOT NULL DEFAULT  '0';
+/**2012-07-20 - Add a more than one field to forms so we can know if some forms are plural or not*/
+ALTER TABLE  `forms` ADD  `more_than_one` TINYINT( 4 ) NOT NULL DEFAULT  '1';
+
 
 
 

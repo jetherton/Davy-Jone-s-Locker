@@ -50,7 +50,7 @@
 
 	<tr <?php echo $odd_row; ?>>
 		<td>
-			<a href="<?php echo url::base(). 'home/wish/view?id='.$wish->id?>"> <?php echo $wish->title;?></a>
+			<a href="<?php echo url::base(). 'home/wish/view?id='.$wish->id?>"> <?php echo $wish->get_title();?></a>
 		</td>
 		<td>
 			<?php echo $wish->form->title;?>
@@ -88,7 +88,7 @@
 
 		<tr <?php echo $odd_row; ?>>
 			<td>
-				<a href="<?php echo url::base(). 'home/wish/edit?id='.$wish->id?>"> <?php echo $wish->title;?></a>
+				<a href="<?php echo url::base(). 'home/wish/edit?id='.$wish->id?>"> <?php echo $wish->get_title();?></a>
 			</td>
 			<td>
 				blank for now

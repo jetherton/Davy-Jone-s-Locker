@@ -1,4 +1,70 @@
 <script type="text/javascript">
+
+	function setTiming(friendId)
+	{
+		var timingType = $("#timing_type_"+friendId).val();
+		var deadLine = $("#dead_line_"+friendId).val();
+		var userCanKnow = $("#user_can_know_"+friendId).is(":checked") ? 1 : 0;
+		var wishId = <?php echo $wish->id;?>;
+
+		$("#timing_spinner_"+friendId).html('<img src="<?php echo url::base(); ?>media/img/wait16trans.gif"/>');
+
+		$.post('<?php echo url::base();?>home/wish/setTiming',
+				{
+				timing_type: timingType,
+				dead_line: deadLine,
+				user_can_know:userCanKnow,
+				wish_id:wishId,
+				friend_id:friendId
+			},
+			function(data) {			
+			$("#timing_spinner_"+friendId).html('');
+			if (data.status == 'success'){
+				$("#timing_"+friendId).hide('slow');
+			}
+			else
+			{
+				alert('<?php echo __('error');?>: ' + data.message);
+			}
+		}, 'JSON');
+	}
+
+
+	function showTiming(friendId)
+	{
+		if($("#timing_"+friendId).is(":visible"))
+		{
+			$("#timing_"+friendId).hide('slow');
+		}
+		else
+		{
+			$("#timing_"+friendId).show('slow');
+		}
+	}
+
+	function timingTypeChange(friendId)
+	{
+		var timingType = $("#timing_type_"+friendId).val();
+		if(timingType == '2')
+		{
+			$("#timing_date_"+friendId).show('slow');
+		}
+		else
+		{
+			$("#timing_date_"+friendId).hide('slow');
+		}
+
+		if(timingType == '3')
+		{
+			$("#timing_user_can_know_"+friendId).hide('slow');
+		}
+		else
+		{
+			$("#timing_user_can_know_"+friendId).show('slow');
+		}
+	}
+
+	
 	function deleteWish()
 	{
 		if (confirm("<?php echo __('Are you sure you want to delete wish');?>"))
@@ -44,6 +110,12 @@
 				if(data.response == 'removed')
 				{
 					color = '#FFbbbb';
+					$("#timing_link_"+friendId).hide('slow');
+					$("#timing_"+friendId).hide('slow');
+				}
+				else
+				{
+					$("#timing_link_"+friendId).show('slow');
 				}
 				$("#friend_item_"+data.friend_id).effect("highlight", {color:color}, 1000);
 			}

@@ -515,6 +515,12 @@ class Controller_Home_Wish extends Controller_Home {
 			echo json_encode(array("status"=>'error', "response"=>'no such wish'));
 			return;
 		}
+		//make sure this is your wish
+		if($this->user->id != $wish->user_id)
+		{
+			echo json_encode(array("status"=>'error', "response"=>'You do not haver permission'));
+			return;
+		}
 		
 		//so finally we have valid input, lets do what we came here to do.
 		if($add == 1)
@@ -541,6 +547,91 @@ class Controller_Home_Wish extends Controller_Home {
 		}
 		
 	}//end addfriendwish
+	
+	/**
+	 * Used to set the timing of a friend
+	 */
+	public function action_setTiming()
+	{
+		
+		$this->template = "";
+		$this->auto_render = FALSE;
+		//make sure the requried get arguements are present
+		if(!isset($_POST['wish_id']))
+		{
+			echo json_encode(array("status"=>'error', "response"=>'wish_id not set'));
+			return;
+		}
+		if(!isset($_POST['friend_id']))
+		{
+			echo json_encode(array("status"=>'error', "response"=>'friend_id not set'));
+			return;
+		}
+		
+		//make sure the required data is of a valid format
+		$wish_id = intval($_POST['wish_id']);
+		$friend_id = intval($_POST['friend_id']);
+		if($wish_id < 1)
+		{
+			echo json_encode(array("status"=>'error', "response"=>'wish_id not properly formatted'));
+			return;
+		}
+		
+		if($friend_id < 1)
+		{
+			echo json_encode(array("status"=>'error', "response"=>'friend_id not properly formatted'));
+			return;
+		}
+		
+			
+		//make sure the wish and the friend exists
+		$friend = ORM::factory('user', $friend_id);
+		$wish = ORM::factory('wish', $wish_id);
+		
+		if(!$friend->loaded())
+		{
+			echo json_encode(array("status"=>'error', "response"=>'no such friend'));
+			return;
+		}
+		if(!$wish->loaded())
+		{
+			echo json_encode(array("status"=>'error', "response"=>'no such wish'));
+			return;
+		}
+		
+		//make sure this is your wish
+		if($this->user->id != $wish->user_id)
+		{
+			echo json_encode(array("status"=>'error', "response"=>'You do not haver permission'));
+			return;
+		}
+		
+		$timing_data = ORM::factory('friendswishes')
+			->where('friend_id', '=', $friend_id)
+			->where('wish_id', '=', $wish_id)
+			->find();
+		
+		if(!$timing_data->loaded())
+		{
+			echo json_encode(array("status"=>'error', "response"=>'Couldn\'t find any timing info'));
+			return;
+		}
+
+		//so finally we have valid input, lets do what we came here to do.
+		//try to update the wish, if possible
+		try
+		{
+			$timing_data->update_timing($_POST, $this->user);
+		}
+		catch(Exception $e)
+		{
+			echo json_encode(array("status"=>'error', "response"=>$e));
+		}
+			
+		echo json_encode(array("status"=>'success', "response"=>'updated', 'friend_id'=>$friend_id));
+		return;
+		
+	}//end setTiming()
 	
 	/**
 	 * Render the page for viewing someone else's wish
@@ -1091,6 +1182,8 @@ class qqFileUploader {
 		}
 
 	}//end method
+	
+
 	
 	
 }//end of file upload class

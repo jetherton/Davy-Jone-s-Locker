@@ -17,8 +17,10 @@
 <div >
 	<?php echo Helper_Form::get_html($form, $wish, $user); ?>
 	<br/>
-	<h3><?php echo __('notes');?>:</h3>
-	<?php echo $wish->html; ?>
+	<?php if(strlen($wish->html) > 0) {?>
+		<h3><?php echo __('notes');?>:</h3>
+		<?php echo $wish->html; ?>
+	<?php }?>
 </div>
 <div style="clear:both;"></div>
 </div>

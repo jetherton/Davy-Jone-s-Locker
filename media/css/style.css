@@ -683,3 +683,9 @@ div.inner_wish_block{
 	min-height:90px;
 	max-height:200px;
 }
+
+div.wish_timing{
+	border: solid 1px black;
+	margin:10px;
+	padding:10px;
+}

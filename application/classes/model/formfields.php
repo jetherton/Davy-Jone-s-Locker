@@ -122,6 +122,16 @@ class Model_Formfields extends ORM {
 			$values['islockable'] = 1;
 		}
 		
+		//make sure show in block is handled properly
+		if(isset($values['show_in_block']))
+		{
+			$values['show_in_block'] = 1;
+		}
+		else
+		{
+			$values['show_in_block'] = 0;
+		}
+		
 		$this->values($values, $expected);
 		$this->check();
 		$this->save();

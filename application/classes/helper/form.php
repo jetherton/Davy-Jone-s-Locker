@@ -466,7 +466,6 @@ class Helper_Form
 	public static function get_html($form, $wish, $user)
 	{
 		$html = '<table class="wish_view">';
-		
 		//loop over the questions
 		$form_fields = ORM::factory('formfields')->
 			where('form_id','=', $form->id)->
@@ -476,8 +475,10 @@ class Helper_Form
 		{
 			//check if the user has permissions to view this field
 			//is it lockable
-			if($form_field->islockable == 1)
+			if($form_field->islockable == 1 AND $wish->user_id != $user->id)
 			{
+				
+				
 				//now check and see if the user is on the approved list
 				//get the users who can view this question
 				$field_user = ORM::factory('friendsfields')
@@ -498,6 +499,7 @@ class Helper_Form
 					->find();
 			if(!$response->loaded() OR strlen($response->response) == 0 OR $response->response == self::$na_str)
 			{
+				echo "<br/>".$response->response;
 				continue;
 			}
 			
@@ -519,6 +521,7 @@ class Helper_Form
 					->and_where('formfield_id', '=', $form_field->id)
 					->find();
 				$html .= '<td>'.$response->response.'</td>';
+				
 			}
 			elseif($form_field->type == 4 OR $form_field->type == 6) //if the info is a single ID value
 			{

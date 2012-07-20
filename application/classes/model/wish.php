@@ -7,6 +7,10 @@
 *************************************************************/
 class Model_Wish extends ORM {
 
+	public static $timing_types = array(1=>'After I pass',
+			2=>'After a set time',
+			3=>'Now');
+	
 	//belongs to a user
 	protected $_belongs_to = array('user' => array(), 'form'=>array());
 	
@@ -177,19 +181,23 @@ class Model_Wish extends ORM {
 		$wishes_from_friend = ORM::factory('wish')
 			->join('friends_wishes')
 			->on( 'friends_wishes.wish_id', '=', 'wish.id')
+			->join('forms')
+			->on('wish.form_id', '=', 'forms.id')
 			->and_where('friends_wishes.friend_id', '=', $user->id)
 			->and_where('wish.user_id', '=', $friend->id)
 			->and_where('wish.is_live', '=', 1)
-			->order_by('title', 'ASC')
+			->order_by('forms.title', 'ASC')
 			->find_all();
 		
 		$wishes_from_me = ORM::factory('wish')
 			->join('friends_wishes')
 			->on( 'friends_wishes.wish_id', '=', 'wish.id')
+			->join('forms')
+			->on('wish.form_id', '=', 'forms.id')
 			->and_where('friends_wishes.friend_id', '=', $friend->id)
 			->and_where('wish.user_id', '=', $user->id)
 			->and_where('wish.is_live', '=', 1)
-			->order_by('title', 'ASC')
+			->order_by('forms.title', 'ASC')
 			->find_all();
 		
 		return array('from_friend'=>$wishes_from_friend, 'from_me'=>$wishes_from_me);

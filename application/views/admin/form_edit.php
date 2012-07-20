@@ -74,6 +74,10 @@
 	$orders = array();	
 	echo Form::select('order', $orders, count($categories) + 1,  array('id'=>'order'));
 	echo '</td></tr><tr><td>';
+	echo Form::label('more_than_one', __('more than one').": ");
+	echo '</td><td>';
+	echo Form::checkbox('more_than_one', 'more_than_one' , $data['more_than_one'] == '1', array('id'=>'more_than_one'));
+	echo '</td></tr><tr><td>';
 	echo Form::submit('edit', __('add edit'), array('id'=>'edit_button'));
 	echo '</td><td></td></tr></table>';
 	echo Form::close();

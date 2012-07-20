@@ -50,7 +50,7 @@ class Model_Form extends ORM {
 	public function update_form($values)
 	{
 
-		$expected = array('title', 'description', 'order', 'category_id', 'primary_field_title', 'primary_field_description');	
+		$expected = array('title', 'description', 'order', 'category_id', 'primary_field_title', 'primary_field_description', 'more_than_one');	
 
 		//update the order, first decrease everything above the cats current position
 		//but only if the order is already known for this cat
@@ -87,7 +87,16 @@ class Model_Form extends ORM {
 		$offset = $this->order ? 0 : 1;
 		if($values['order'] > $num_forms + $offset)
 		{
-			$values['order'] == $num_forms + $offset;
+			$values['order'] == $num_forms + $offset;			
+		}
+		
+		if(isset($values['more_than_one']))
+		{
+			$values['more_than_one'] = 1;
+		}
+		else
+		{
+			$values['more_than_one'] = 0;
 		}
 		
 		$this->values($values, $expected);
