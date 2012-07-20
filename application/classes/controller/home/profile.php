@@ -35,6 +35,16 @@ class Controller_Home_Profile extends Controller_Home {
 		$this->template->content->errors = array();
 		$this->template->content->messages = array();
 		
+		//turn on picture upload
+		$this->template->html_head->script_files[] = 'media/js/fileuploader.js';
+		$this->template->html_head->styles['media/css/fileuploader.css'] = 'screen';
+		$picture_uploader_view = view::factory('js/pictureuploader');
+		$picture_uploader_view->element_id = 'image_uploader';
+		$picture_uploader_view->extension = array('jpg', 'png', 'gif', 'bmp', 'jpeg');
+		//nail down that mysterious wish ID
+		$picture_uploader_view->wish_id = $this->user->id;
+		$this->template->html_head->script_views[] = $picture_uploader_view;
+		
 		if(!empty($_POST)) // They've submitted the form to update their profile
 		{
 			try

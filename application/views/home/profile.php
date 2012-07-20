@@ -418,7 +418,29 @@ $countries_array = array('Afghanistan'=>'Afghanistan',
 				<?php echo Form::select('citizenship', $countries_array, $user->citizenship);?>
 			</td>
 		</tr>
+		<tr>
+			<td>
+				<?php echo Form::label('profile_picture', __("profile picture"));  ?>
+			</td>
+			<td>
+				<div id="image_uploader">		
+					<noscript>			
+						<p>Please enable JavaScript to use file uploader.</p>
+						<!-- or put a simple form for upload here -->
+					</noscript>         
+				</div>
+			</td>
+			<td>
+				
+			</td>
+			<td>
+				
+			</td>
+		</tr>
 	</table>
+	
+	
+	
 	<br/>
 	<br/>
 	<?php echo Form::submit("profile_form",  __("update profile")); ?>

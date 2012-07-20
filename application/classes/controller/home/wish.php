@@ -199,7 +199,6 @@ class Controller_Home_Wish extends Controller_Home {
 			$values = array('title'=>' ', 'html'=>' ', 'form_id'=>$form_id);
 			$wish = ORM::factory('wish');		
 			$wish->create_wish($values, $this->user);
-			$wish->title = '';
 			$wish->html = '';
 			//The title to show on the browser
 			$this->template->html_head->title = __("add wish");
@@ -328,11 +327,13 @@ class Controller_Home_Wish extends Controller_Home {
 		
 		if($wish_id != 0)
 		{
+			$wish_title = $wish->get_title();
 			//setup view
 			$this->template->html_head->title = __("add"). ' :: '. $form->title;
-			if(isset($wish->title) AND  strlen($wish->title) > 0)
+			
+			if(isset($wish_title) AND  strlen($wish_title) > 0)
 			{
-				$this->template->content->title = __('Edit') . ' '. $form->title . ' - '. $wish->title;
+				$this->template->content->title = __('Edit') . ' '. $form->title . ' - '. $wish_title;
 			}
 			else
 			{

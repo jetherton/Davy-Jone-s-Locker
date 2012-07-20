@@ -3,7 +3,7 @@
 	$view = new View('home/block');
 	$field_data = $item->get_block_fields();
 	
-	$content = '<a href="'.url::base().'home/wish/view?id='.$item->id.'"><div style="width:90px;min-height:90px;max-height:200px;">';
+	$content = '<a href="'.url::base().'home/wish/view?id='.$item->id.'"><div class="inner_wish_block">';
 	$i = 0;
 	foreach($field_data as $fd)
 	{
@@ -14,10 +14,29 @@
 		}
 		else
 		{
-			$content .= '<p>'.$fd.'</p>';
+			$color = $i % 4;
+			$color = dechex($color * 50);
+			$color = strlen($color) == 1 ? '0'.$color : $color;
+			$color = 'cccc'.$color;
+			
+			$style = "";
+			switch($i % 4)
+			{
+				case 0:
+					$style='font-weight:bold;';
+					break;
+				case 1:					
+					$style='font-size:120%;';
+				case 2:
+					$style='font-style:italic;';
+				case 3:
+					$style='font-size:75%;';
+			}	
+				
+			$content .= '<span style="color:#'.$color.';'.$style.'"> '.$fd.'</span><br/>';
 		}
 	}
-	$content .= $item->form->title.'</div></a>';
+	$content .= /*$item->form->title.*/'</div></a>';
 	
 	$view->content = $content;
 	echo $view;

@@ -51,7 +51,9 @@ class Controller_Home extends Controller_Main {
 		//get top 5 last edited wishes
 		$wishes = ORM::factory('wish')
 			->where('user_id', '=', $this->user->id)
+			->where('is_live', '=', '1')
 			->order_by('date_modified')
+			->limit(30)
 			->find_all();
 		$this->template->content->wishes = $wishes;
 		

@@ -86,8 +86,6 @@ class Controller_Admin_Forms extends Controller_Admin {
 		$data = array(
 			'id'=>'0',
 			'title'=>'',
-			'primary_field_title'=>'',
-			'primary_field_description'=>'',
 			'description'=>'',
 			'category_id'=>null,
 			'order'=>null);
@@ -118,8 +116,6 @@ class Controller_Admin_Forms extends Controller_Admin {
 			}
 			$data['id'] = $form->id;
 			$data['title'] = $form->title;
-			$data['primary_field_title'] = $form->primary_field_title;
-			$data['primary_field_description'] = $form->primary_field_description;
 			$data['description'] = $form->description;
 			$data['category_id'] = $form->category_id;
 			$data['order'] = $form->order;

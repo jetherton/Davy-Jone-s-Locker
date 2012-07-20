@@ -26,16 +26,7 @@ class Model_Form extends ORM {
 				array('not_empty'),
 				array('max_length', array(':value', 254)),
 				array('min_length', array(':value', 1))
-				),
-			'primary_field_title' => array(
-						array('not_empty'),
-						array('max_length', array(':value', 254)),
-						array('min_length', array(':value', 1))
-				),
-			'primary_field_description' => array(
-						array('max_length', array(':value', 254)),
-						array('min_length', array(':value', 1))
-				),
+				),		
 	
 			'description' => array(
 				array('max_length', array(':value', 65533)),

@@ -34,7 +34,7 @@ return array
 	'citizenship'=>'Citizenship',
 	
 	
-	//profiel page
+	//profile page
 	'profile header'=>'Update Your Profile',
 	'profile explanation'=>'Use the fields below to update your profile information. <br/> You must re-type your password to confirm the changes you want to make.<br/>Leave the "New Password" field blank if you do not wish to change your current password',
 	'current password'=>'Current Password*:',
@@ -42,6 +42,7 @@ return array
 	'new password again'=>'New Password Again:',
 	'update profile'=>'Update',
 	'profile update successful'=>'Profile Updated Successfully',
+	'profile picture'=>'Profile Picture',
 
 	//Login Page
 	'login'=>"Login",

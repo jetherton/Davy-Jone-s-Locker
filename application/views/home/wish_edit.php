@@ -51,12 +51,10 @@
 }
 ?>
 <form method="POST" action="<?php echo url::base().'home/wish/edit?id='. $wish->id;?>" id="wish_edit_form" accept-charset="utf-8">
+<?php echo Form::hidden('action', 'none', array('id'=>'action'));?>
+<?php echo Form::hidden('is_add', $is_add ? '1' : '0', array('id'=>'is_add'));?>
 	<table class="wish_edit">
-		<tr>
-			<td style="width:300px;">			
-				<?php echo Form::hidden('action', 'none', array('id'=>'action'));?>
-				<?php echo Form::hidden('is_add', $is_add ? '1' : '0', array('id'=>'is_add'));?>					
-			</td>
+		<tr>			
 			<td>
 				
 			</td>
@@ -153,12 +151,12 @@
 			<td>
 		</tr>
 		<tr>
-			<td colspan="2">
+			<td>
 				<?php echo Helper_Form::get_html_form($form, $wish); ?>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2">
+			<td>
 				<br/>
 				<?php print Form::checkbox('show_notes','show_notes',strlen($wish->html)>0, array('id'=>'show_notes', 'onchange'=>'toggleNotes(); return false;')); ?>				
 				<?php echo Form::label(__("notes"), ''.__("notes") . ':');  ?>
@@ -173,7 +171,8 @@
 	</table>
 	<br/>
 	<br/>
-	<?php echo Form::submit("wish_form",  $submit_button); ?> <?php if(isset($wish->title))echo Form::input("wish_form",  __('delete wish'), array('onclick'=>'deleteWish(); return false;', 'type'=>'BUTTON')); ?>
+	<?php echo Form::submit("wish_form",  $submit_button); ?> 
+	<?php if($wish->is_live == '1')echo Form::input("wish_form",  __('delete wish'), array('onclick'=>'deleteWish(); return false;', 'type'=>'BUTTON')); ?>
 			
 <?php echo Kohana_Form::close(); ?>
 

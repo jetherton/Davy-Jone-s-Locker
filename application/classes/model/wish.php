@@ -43,7 +43,7 @@ class Model_Wish extends ORM {
 	*/
 	public function create_wish($values, $user)
 	{
-		$expected = array('title', 'html', 'date_created', 'date_modified', 'user_id', 'is_live', 'form_id');
+		$expected = array('html', 'date_created', 'date_modified', 'user_id', 'is_live', 'form_id');
 		$now = date('Y-m-d G:i:s');
 		$values['date_created'] = $now;
 		$values['date_modified'] = $now;
@@ -115,6 +115,11 @@ class Model_Wish extends ORM {
 				$ret_val[$d['response_id']] = $d['response_value'];
 			}
 			
+		}
+		
+		if(count($ret_val) == 0)
+		{
+			$ret_val[0] = $this->form->title;
 		}
 	
 		return $ret_val;
@@ -296,12 +301,12 @@ class Model_Wish extends ORM {
 		
 		$wish = ORM::factory('wish', $wish_id);
 		
-	
-		if($wish->loaded() && $wish->title != '')
+		
+		if($wish->loaded() && ($wish_title = $wish->get_title()) != '')
 		{
 			//make an update	
 			$message = __('update :user sent you :wish :wish-id :user-id :user', array(':user'=>$user->full_name(), 
-				':wish'=>$wish->title,			
+				':wish'=>$wish_title,			
 				':wish-id'=>$wish_id,
 				':user-id'=>$user->id));
 			ORM::factory('update')->create_update($message, $friend_id);

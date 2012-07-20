@@ -74,6 +74,8 @@
 		foreach($categories as $cat){
 			$i++;
 			$odd_row = ($i % 2) == 0 ? 'class="odd_row"' : '';
+			
+			$cat_description = str_replace("\n", '<br/>',str_replace("\r", '<br/>',str_replace("'", "\\'", $cat->description)));
 		?>
 
 	<tr <?php echo $odd_row; ?>>
@@ -84,7 +86,7 @@
 			<?php echo $cat->description; ?>
 		</td>
 		<td style="width:200px;">
-			<a href="#" onclick="editCat(<?php echo $cat->id?>,<?php echo $cat->order;?>,'<?php echo $cat->title;?>','<?php echo str_replace("'", "\\'", $cat->description);?>'); return false;"> <?php echo __('edit');?></a>
+			<a href="#" onclick="editCat(<?php echo $cat->id?>,<?php echo $cat->order;?>,'<?php echo $cat->title;?>','<?php echo $cat_description;?>'); return false;"> <?php echo __('edit');?></a>
 			<a href="#" onclick="deleteCategory(<?php echo $cat->id?>);"> <?php echo __('delete');?></a>
 		</td>
 	</tr>
