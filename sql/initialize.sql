@@ -356,6 +356,16 @@ ALTER TABLE  `formfields` ADD  `show_in_block` TINYINT( 4 ) NOT NULL DEFAULT  '0
 /**2012-07-20 - Add a more than one field to forms so we can know if some forms are plural or not*/
 ALTER TABLE  `forms` ADD  `more_than_one` TINYINT( 4 ) NOT NULL DEFAULT  '1';
 
+/**2012-07-21 - Add another descrition field to forms for the reader*/
+ALTER TABLE  `forms` ADD  `description_reader` TEXT NOT NULL AFTER  `description`;
+
+/** 2012-07-21 - let us control the names and what's shown in the side bar*/
+ALTER TABLE  `forms` ADD  `show_location` TINYINT( 4 ) NOT NULL DEFAULT  '1',
+ADD  `location_name` CHAR( 255 ) NULL DEFAULT NULL ,
+ADD  `show_pictures` TINYINT( 4 ) NOT NULL DEFAULT  '1',
+ADD  `pictures_name` CHAR( 255 ) NULL DEFAULT NULL ,
+ADD  `show_files` TINYINT( 4 ) NOT NULL DEFAULT  '1',
+ADD  `files_name` CHAR( 255 ) NULL DEFAULT NULL;
 
 
 

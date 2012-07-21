@@ -90,7 +90,9 @@
 						 	}?>
 						 </ul>
 					</div>
-					<h3><a href="#"><?php echo __('location');?></a></h3>
+					<?php if($form->show_location == '1') {?>
+					
+					<h3><a href="#"><?php echo strlen($form->location_name) > 0 ? $form->location_name : __('location');?></a></h3>
 					<div id="map_tab"  style="padding-top:0px;padding-bottom:0px;">
 						<?php
 						echo form::checkbox('use_location',
@@ -111,7 +113,9 @@
 							 <input type="hidden" name="location_id" id="location_id" value="<?php echo isset($location) ? $location->id : 0; ?>"/>
 						 </div>
 					</div>
-					<h3><a href="#"><?php echo __('pictures');?></a></h3>
+					<?php }?>
+					<?php if($form->show_pictures == '1') {?>
+					<h3><a href="#"><?php echo strlen($form->pictures_name) > 0 ? $form->pictures_name : __('pictures');?></a></h3>
 					<div>
 						<div id="images">
 							<?php foreach($pictures as $pic) { ?>
@@ -136,7 +140,9 @@
 							</noscript>         
 						</div>
 					</div>
-					<h3><a href="#"><?php echo __('files');?></a></h3>
+					<?php }?>
+					<?php if($form->show_files == '1') {?>
+					<h3><a href="#"><?php echo strlen($form->files_name) > 0 ? $form->files_name : __('files');?></a></h3>
 					<div>
 						<ul id="files">
 							<?php foreach($files as $file) { ?>
@@ -155,6 +161,7 @@
 							</noscript>         
 						</div>
 					</div>
+					<?php }?>
 				</div>
 			<td>
 		</tr>

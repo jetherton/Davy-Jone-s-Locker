@@ -204,6 +204,14 @@ return array
 	'primary field description'=>'Primary field description',
 	'show in block'=>'Show in block',
 	'more than one'=>'Can the user create more than one of these forms',
+	'description reader' => 'Description for the reader',
+	'description writer'=>'Description for the writer',
+	'show location'=>'Show location in sidebar',
+	'show pictures'=>'Show pictures in sidebar',
+	'show files'=>'Show files in sidebar',
+	'location name'=>'Name of "location" in sidebar',
+	'files name'=>'Name of "files" in sidebar',
+	'pictures name'=>'Name of "pictures" in sidebar',
 	
 	//form fields
 	'text input'=>'Text Box',

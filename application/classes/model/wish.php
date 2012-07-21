@@ -8,7 +8,7 @@
 class Model_Wish extends ORM {
 
 	public static $timing_types = array(1=>'After I pass',
-			2=>'After a set time',
+			//2=>'After a set time',
 			3=>'Now');
 	
 	//belongs to a user

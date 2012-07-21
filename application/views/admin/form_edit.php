@@ -61,9 +61,13 @@
 	echo '</td><td>';
 	echo Form::input('title', $data['title'], array('id'=>'title', 'style'=>'width:300px;'));
 	echo '</td></tr><tr><td>';
-	echo Form::label('description', __('description').": ");
+	echo Form::label('description', __('description writer').": ");
 	echo '</td><td>';
 	echo Form::textarea('description', $data['description'], array('id'=>'description', 'style'=>'width:600px;'));
+	echo '</td></tr><tr><td>';
+	echo Form::label('description_reader', __('description reader').": ");
+	echo '</td><td>';
+	echo Form::textarea('description_reader', $data['description_reader'], array('id'=>'description_reader', 'style'=>'width:600px;'));	
 	echo '</td></tr><tr><td>';
 	echo Form::label('category_id', __('category').": ");
 	echo '</td><td>';
@@ -77,6 +81,38 @@
 	echo Form::label('more_than_one', __('more than one').": ");
 	echo '</td><td>';
 	echo Form::checkbox('more_than_one', 'more_than_one' , $data['more_than_one'] == '1', array('id'=>'more_than_one'));
+	
+	echo '</td></tr><tr><td>';
+	echo Form::label('show_location', __('show location').": ");
+	echo '</td><td>';
+	echo Form::checkbox('show_location', 'show_location' , $data['show_location'] == '1', array('id'=>'show_location'));
+	
+	echo '</td></tr><tr><td>';
+	echo Form::label('location_name', __('location name').": ");
+	echo '</td><td>';
+	echo Form::input('location_name', $data['location_name'], array('id'=>'location_name', 'style'=>'width:300px;'));
+	
+	echo '</td></tr><tr><td>';
+	echo Form::label('show_pictures', __('show pictures').": ");
+	echo '</td><td>';
+	echo Form::checkbox('show_pictures', 'show_pictures' , $data['show_pictures'] == '1', array('id'=>'show_pictures'));
+	
+	echo '</td></tr><tr><td>';
+	echo Form::label('pictures_name', __('pictures name').": ");
+	echo '</td><td>';
+	echo Form::input('pictures_name', $data['pictures_name'], array('id'=>'pictures_name', 'style'=>'width:300px;'));
+	
+	echo '</td></tr><tr><td>';
+	echo Form::label('show_files', __('show files').": ");
+	echo '</td><td>';
+	echo Form::checkbox('show_files', 'show_files' , $data['show_files'] == '1', array('id'=>'show_files'));
+	
+	echo '</td></tr><tr><td>';
+	echo Form::label('files_name', __('files name').": ");
+	echo '</td><td>';
+	echo Form::input('files_name', $data['files_name'], array('id'=>'files_name', 'style'=>'width:300px;'));
+	
+	
 	echo '</td></tr><tr><td>';
 	echo Form::submit('edit', __('add edit'), array('id'=>'edit_button'));
 	echo '</td><td></td></tr></table>';

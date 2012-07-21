@@ -26,11 +26,27 @@ class Model_Form extends ORM {
 				array('not_empty'),
 				array('max_length', array(':value', 254)),
 				array('min_length', array(':value', 1))
-				),		
+				),
+			'location_name' => array(
+					array('max_length', array(':value', 254)),
+					array('min_length', array(':value', 1))
+			),
+			'pictures_name' => array(
+					array('max_length', array(':value', 254)),
+					array('min_length', array(':value', 1))
+			),
+			'files_name' => array(
+					array('max_length', array(':value', 254)),
+					array('min_length', array(':value', 1))
+			),
 	
 			'description' => array(
 				array('max_length', array(':value', 65533)),
 				array('min_length', array(':value', 1))
+				),
+			'description_reader' => array(
+						array('max_length', array(':value', 65533)),
+						array('min_length', array(':value', 1))
 				),
 			);		
 	}//end function
@@ -50,7 +66,10 @@ class Model_Form extends ORM {
 	public function update_form($values)
 	{
 
-		$expected = array('title', 'description', 'order', 'category_id', 'primary_field_title', 'primary_field_description', 'more_than_one');	
+		$expected = array('title', 'description', 'description_reader', 'order', 'category_id', 
+				'primary_field_title', 'primary_field_description', 'more_than_one',
+				'location_name', 'pictures_name','files_name',
+				'show_location', 'show_pictures','show_files');	
 
 		//update the order, first decrease everything above the cats current position
 		//but only if the order is already known for this cat
@@ -98,6 +117,34 @@ class Model_Form extends ORM {
 		{
 			$values['more_than_one'] = 0;
 		}
+		//show_location
+		if(isset($values['show_location']))
+		{
+			$values['show_location'] = 1;
+		}
+		else
+		{
+			$values['show_location'] = 0;
+		}
+		//show pictures
+		if(isset($values['show_pictures']))
+		{
+			$values['show_pictures'] = 1;
+		}
+		else
+		{
+			$values['show_pictures'] = 0;
+		}
+		//show files
+		if(isset($values['show_files']))
+		{
+			$values['show_files'] = 1;
+		}
+		else
+		{
+			$values['show_files'] = 0;
+		}
+		
 		
 		$this->values($values, $expected);
 		$this->check();

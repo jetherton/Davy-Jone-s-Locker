@@ -87,8 +87,15 @@ class Controller_Admin_Forms extends Controller_Admin {
 			'id'=>'0',
 			'title'=>'',
 			'description'=>'',
+			'description_reader'=>'',
 			'category_id'=>null,
 			'order'=>null,
+			'show_location'=>'1',
+			'location_name'=>'',
+			'show_pictures'=>'1',			
+			'pictures_name'=>'',
+			'show_files'=>'1',
+			'files_name'=>'',
 			'more_than_one'=>1);
 			
 		
@@ -118,9 +125,16 @@ class Controller_Admin_Forms extends Controller_Admin {
 			$data['id'] = $form->id;
 			$data['title'] = $form->title;
 			$data['description'] = $form->description;
+			$data['description_reader'] = $form->description_reader;
 			$data['category_id'] = $form->category_id;
 			$data['order'] = $form->order;
 			$data['more_than_one'] = $form->more_than_one;
+			$data['show_location']=$form->show_location;
+			$data['location_name']=$form->location_name;
+			$data['show_pictures']=$form->show_pictures;
+			$data['pictures_name']=$form->pictures_name;
+			$data['show_files']=$form->show_files;
+			$data['files_name']=$form->files_name;
 		}
 		
 		/***Now that we have the form, lets initialize the UI***/
