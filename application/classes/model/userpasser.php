@@ -12,14 +12,20 @@ class Model_Userpasser extends ORM {
 		return $user->passers->find_all();
 	}
 	
+	/**
+	 * Gets a passer for a user
+	 * @param obj $user the user who we're seeing if we can find one of their passers
+	 * @param unknown_type $passer_id the ID of a potential passer
+	 * @return Ambigous <ORM, Database_Result, Kohana_ORM, object, mixed, number, Database_Result_Cached, multitype:>
+	 */
 	public static function get_one_passer($user, $passer_id)
 	{
 		return ORM::factory('user')
 			->join('userpassers', 'left')
 			->on('user.id', '=', 'userpassers.user_id')
 			->where('userpassers.passer_id', '=', $passer_id)
+			->where('userpassers.user_id', '=', $user->id)
 			->find();
-		//return $user->passers->where('passer_id', '=', $passer_id)->find();
 	}
 	
 	/**

@@ -811,14 +811,14 @@ class Controller_Home_Wish extends Controller_Home {
 		//make sure the wish id is valid
 		if(!isset($_GET['wish_id']) OR intval($_GET['wish_id'] == 0))
 		{
-			echo htmlspecialchars(json_encode(array('error'=>'invalid wish ID')), ENT_NOQUOTES);
+			echo htmlspecialchars(json_encode(array('error'=>'invalid wish ID. Wish ID malformed')), ENT_NOQUOTES);
 			return;
 		}
 		//make sure this user can mess with this wish
-		$wish = Model_Wish::validate_id_user($_GET['wish_id'], $this->user);
+		$wish = Model_Wish::validate_id_user($_GET['wish_id'], $this->user, true);
 		if(!$wish)
 		{
-			echo htmlspecialchars(json_encode(array('error'=>'invalid wish ID')), ENT_NOQUOTES);
+			echo htmlspecialchars(json_encode(array('error'=>'invalid wish ID, not found in database')), ENT_NOQUOTES);
 			return;
 		}
 		

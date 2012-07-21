@@ -301,12 +301,13 @@ class Model_Wish extends ORM {
 		//if id is properly formated
 		if($id < 1)
 		{
+
 			return false;
 		}
 		
 		$wish = ORM::factory('wish', $id);
 		//if the wish is the product of an add
-		if($is_add == 1)
+		if($is_add == true)
 		{
 			if($wish->loaded())
 			{
@@ -495,18 +496,19 @@ class Model_Wish extends ORM {
 			$wishes = self::get_my_wishes_for_cat($kid_cat->id, $user_id);
 			foreach($wishes as $wish)
 			{
-				$ret_val[$kid_cat->id][$wish->id] = $wish;
-				$kid_kid_wishes = self::find_your_wishes_for_all_sub_cats_flat($kid_cat->id, $user_id);
-				//put those into this array to make things flat
-				foreach($kid_kid_wishes as $kk_cat_id=>$kk_wishes)
-				{
-					foreach($kk_wishes as $kk_wish_id=>$kk_wish)
-					{
-						$ret_val[$kid_cat->id][$kk_wish_id] = $kk_wish;
-					}					
-				}
-				unset($kid_kid_wishes);
+				$ret_val[$kid_cat->id][$wish->id] = $wish;				
 			}
+			
+			$kid_kid_wishes = self::find_your_wishes_for_all_sub_cats_flat($kid_cat->id, $user_id);
+			//put those into this array to make things flat
+			foreach($kid_kid_wishes as $kk_cat_id=>$kk_wishes)
+			{
+				foreach($kk_wishes as $kk_wish_id=>$kk_wish)
+				{
+					$ret_val[$kid_cat->id][$kk_wish_id] = $kk_wish;
+				}
+			}
+			unset($kid_kid_wishes);
 		}
 	
 		return $ret_val;

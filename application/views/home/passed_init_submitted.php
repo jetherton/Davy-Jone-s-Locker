@@ -44,4 +44,5 @@
 <?php 
 }
 ?>
+<p><?php echo __("we have notified others to confirm the passing of :passed", array(':passed'=>$passed->first_name));?></p>
 

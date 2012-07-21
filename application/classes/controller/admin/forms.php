@@ -65,8 +65,7 @@ class Controller_Admin_Forms extends Controller_Admin {
 		
 		//get the forms that belong to this user
 		$forms = ORM::factory("form")
-			->order_by('category_id', 'ASC')
-			->order_by('order', 'ASC')
+			->order_by('title', 'ASC')
 			->find_all();
 		
 		$this->template->content->forms = $forms;

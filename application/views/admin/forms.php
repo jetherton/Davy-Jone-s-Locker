@@ -52,7 +52,7 @@
 <p>
 <a class="button" id="add_form_button" href="<?php echo url::base(); ?>admin/forms/edit"><?php echo __('add form');?></a>
 </p>
-<table class="list_table">
+<table class="list_table" >
 	<thead>
 		<tr class="header">
 			<th style="width:200px;">
@@ -69,7 +69,7 @@
 			</th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody style="height:700px;">
 	<?php
 		if(count($forms) == 0)
 		{
@@ -81,12 +81,12 @@
 			$odd_row = ($i % 2) == 0 ? 'class="odd_row"' : '';
 		?>
 
-	<tr <?php echo $odd_row; ?>>
+	<tr <?php echo $odd_row; ?> style="height:50px;">
 		<td style="width:200px;">
-			<?php echo $form->title;?>
+			<?php echo substr($form->title, 0, 40); echo strlen($form->title) > 40 ? '...' : ''; ?>
 		</td>
 		<td style="width:400px;">
-			<?php echo $form->description; ?>
+			<?php echo substr($form->description, 0, 50); echo strlen($form->description) > 50 ? '...' : ''; ?>
 		</td>
 		<td style="width:200px;">
 			<?php echo ORM::factory('category',$form->category_id)->title; ?>

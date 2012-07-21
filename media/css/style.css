@@ -687,3 +687,18 @@ div.wish_timing{
 	margin:10px;
 	padding:10px;
 }
+
+div.passed_info{
+	margin-top:30px;
+	padding:20px;
+	border-top: solid 1px #333;
+}
+
+div.passing_note{
+	padding:20px;
+	margin-top:10px;
+	background-color: #444;
+	-webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+}

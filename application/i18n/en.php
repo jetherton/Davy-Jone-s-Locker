@@ -268,6 +268,18 @@ return array
 	'submit'=>'Submit',
 	'submitted'=>'Submitted',
 	'sorry for your loss'=>'We are deeply sorry for your loss',
+	'we have notified others to confirm the passing of :passed'=>'We have notified others to confirm the passing of :passed.',
+	'passed away'=>'Passed Away',
+	':name passed away on :date'=>':name passed away on :date',
+	'below is our record of :name\'s passing :passed_id'=>'Below is our record of <a href="'.url::base().'home/friends/view?id=:passed_id">:name\'s</a> passing:',
+	':passer first marked passing of :passed on :date at :time saying :note :passed_id'=>':passer first marked the passing of <a href="'.url::base().'home/friends/view?id=:passed_id">:passed</a> on :date at :time saying <div class="passing_note">:note</div>',
+	':passer confirmed this on :date at :time saying :note'=>':passer first marked the passing of :passed on :date at :time saying: <div class="passing_note">:note</div>',
+	'We are deeply sorry for your loss'=>'We are deeply sorry for your loss.',
+	'i am not dead'=>'I am not dead',
+	'not passed away'=>'I have not passed away',
+	'account restored'=>'Account Restored',
+	'account restored detail'=>'We are very sorry that your account was incorrectly marked as being that of someone who had passed away. We have corrected this in our system.',
+	'Your account has been restored. You are no longer considered passed'=>'Your account has been restored. You are no longer considered passed.'	
 		
 );
 
