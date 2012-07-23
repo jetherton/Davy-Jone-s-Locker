@@ -86,7 +86,7 @@ class Controller_Admin_Categories extends Controller_Admin {
 		
 		//get the categories so far
 		$categories = ORM::factory("category")
-			->order_by('order', 'ASC')
+			->order_by('title', 'ASC')
 			->find_all();
 		
 		

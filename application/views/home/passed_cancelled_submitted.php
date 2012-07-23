@@ -1,6 +1,13 @@
 
+<?php if($passed->id != $user->id) {?>
 <h2><?php echo __("thank you for your submission on the passing of :passed", array(':passed'=>$passed->full_name()));?></h2>
 <p><?php echo __("The request to recognize :passed as passed away has been cancelled", array(':passed'=>$passed->full_name(), ':passed_id'=>$passed->id));?></p>
+<?php } else {?>
+
+<h2><?php echo __("thank you for your submission on your status");?></h2>
+<p><?php echo __("The request to recognize you as passed away has been cancelled");?></p>
+
+<?php }?>
 
 
 

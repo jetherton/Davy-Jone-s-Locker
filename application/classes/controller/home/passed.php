@@ -41,6 +41,31 @@ class Controller_Home_Passed extends Controller_Home {
 			$this->request->redirect('home');
 		}
 		
+		//check if someone else has already started this
+		$current_requests = Model_Userpassed::get_current_passed_requests($passed_id);
+		$has_been_cancelled = false;
+		$already_been_started = false;
+		foreach($current_requests as $request)
+		{
+			$already_been_started = true;
+			
+			if(intval($request->confirm)==0)
+			{
+				$has_been_cancelled = true;
+				break;
+			}
+			
+			
+		}
+		//if someone has already cancelled this go straight there
+		if($has_been_cancelled)
+		{
+			$this->request->redirect('home/passed/cancelled?id='.$passed_id);
+		}
+		if($already_been_started)
+		{
+			$this->request->redirect('home/passed/pending?id='.$passed_id);
+		}
 		//turn on messages
 		$this->template->html_head->script_views[] = view::factory('js/messages');
 		
@@ -301,8 +326,11 @@ class Controller_Home_Passed extends Controller_Home {
 		//check if i've already made a request and if this has been cancelled
 		$already_requested = false;
 		$has_been_cancelled = false;
+		$has_been_initiated = false;
 		foreach($pass_requests as $request)
 		{
+			$has_been_initiated = true;
+			
 			if($request->passer_id == $this->user->id)
 			{
 				$already_requested = true;
@@ -311,6 +339,12 @@ class Controller_Home_Passed extends Controller_Home {
 			{
 				$has_been_cancelled = true;
 			}
+		}
+		
+		//if this hasn't been initiated then go home
+		if(!$has_been_initiated)
+		{
+			$this->request->redirect('home');
 		}
 		
 		//if this has been cancelled, go there:
@@ -475,12 +509,21 @@ class Controller_Home_Passed extends Controller_Home {
 	
 		//check if i've already made a request and if this has been cancelled
 		$has_been_cancelled = false;
+		$has_been_initiated = false;
 		foreach($pass_requests as $request)
 		{
+			$has_been_initiated = true;
+			
 			if(intval($request->confirm) == 0)
 			{
 				$has_been_cancelled = true;
 			}
+		}
+		
+		//if this hasn't been initiated then go home
+		if(!$has_been_initiated)
+		{
+			$this->request->redirect('home');
 		}
 	
 		//if this has been cancelled, go there:

@@ -86,14 +86,29 @@ foreach($passed_requests as $passed_request) {
 		
 		if($passed_request->confirm == '0')
 		{
-			echo __(':passer denied this on :date at :time saying :note', array(
-					':passer'=>$passer->full_name(),
-					':passed'=>$passed->full_name(),
-					':passed_id'=>$passed->id,
-					':date'=>date('l F jS Y',strtotime($passed_request->time)),
-					':time'=>date('g:ia',strtotime($passed_request->time)),
-					':note'=>$passed_request->note
-			));
+			if($passed_request->passed_id != $passed_request->passer_id)
+			{
+				echo __(':passer denied this on :date at :time saying :note', array(
+						':passer'=>$passer->full_name(),
+						':passed'=>$passed->full_name(),
+						':passed_id'=>$passed->id,
+						':date'=>date('l F jS Y',strtotime($passed_request->time)),
+						':time'=>date('g:ia',strtotime($passed_request->time)),
+						':note'=>$passed_request->note
+				));
+			}
+			else
+			{
+				echo __(':passer denied :gender passing on :date at :time saying :note', array(
+						':gender'=>$passer->get_gender_possessive(),
+						':passer'=>$passer->full_name(),
+						':passed'=>$passed->full_name(),
+						':passed_id'=>$passed->id,
+						':date'=>date('l F jS Y',strtotime($passed_request->time)),
+						':time'=>date('g:ia',strtotime($passed_request->time)),
+						':note'=>$passed_request->note
+				));
+			}
 		}
 		
 	}

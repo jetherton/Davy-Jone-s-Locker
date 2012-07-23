@@ -50,9 +50,9 @@ class Model_Userpassed extends ORM {
 			return self::$PASSED;
 		}
 		
-		//first make sure you have the right to say they've passed
+		//first make sure you have the right to say they've passed, or that you are the passed themselves
 		$passer = Model_Userpasser::get_one_passer($passed, $user->id);
-		if(!$passer->loaded())
+		if(!$passer->loaded() AND intval($user->id) != intval($values['passed_id']))
 		{
 			return self::$NOT_ALLOWED;
 		}
@@ -146,7 +146,7 @@ class Model_Userpassed extends ORM {
 				}
 			
 				//make an update
-				$message = __(':passed has :passed_id passed away', array(':passed_id'=>$passed->id,':passed'=>$passed->full_name()));
+				$message = __(':passed has :passed_id passed away', array(':passed'=>$passed->full_name(), ':passed_id'=>$passed->id));
 				ORM::factory('update')->create_update($message, $p->id);
 			
 				/////////////////////////////////////////////////////////////////////////////////////////////
@@ -192,6 +192,13 @@ class Model_Userpassed extends ORM {
 				/////////////////////////////////////////////////////////////////////////////////////////////
 				//SEND EMAIL
 				////////////////////////////////////////////////////////////////////////////////////////////
+				
+				
+				//notify people that passed shared stuff with
+				//get all the friends_wishes
+				//$friends_wishes = ORM::factory('friendswishes') finish this
+				//finish this!!!
+				 
 			}
 			return self::$INITIATED;
 		}//end if the person is still not quite passed

@@ -31,7 +31,7 @@
 	<div  <?php echo $timing_data->timing_type == '3' ? 'style="display:none;"' : ''; ?>  id="timing_user_can_know_<?php echo$friend->id;?>">
 		<br/>
 		<?php print form::label('user_can_know_'.$friend->id, __('check if :firstname can know', array(':firstname'=>$friend->first_name)));?>:
-		<?php print form::checkbox('user_can_know_'.$friend->id, 'user_can_know', $timing_data->user_can_know == '1', array('id'=>'user_can_know_'.$friend->id));?>
+		<?php print form::checkbox('user_can_know_'.$friend->id, 'user_can_know', !isset($timing_data->user_can_know) OR $timing_data->user_can_know == '1', array('id'=>'user_can_know_'.$friend->id));?>
 	</div>
 	<input type="BUTTON" name="wish_form" value="<?php echo __('save');?>" onclick="setTiming(<?php echo$friend->id;?>); return false;"/>
 	<div id="timing_spinner_<?php echo$friend->id;?>"></div>

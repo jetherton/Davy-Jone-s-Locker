@@ -262,7 +262,7 @@ return array
 		
 	//passed pages and related
 	':user has marked your passing :passed_id :user_id'=>'<a href="'.url::base().'home/friends/view?id=:user_id">:user</a> has marked you as passed. If this is incorrect click <a href="'.url::base().'home/passed/pending?id=:passed_id">here</a> to change this.',
-	':user has marked the passing of :passed :passed_id :user_id'=>'<a href="'.url::base().'home/friends/view?id=:user_id">:user</a> has marked the passing of <a href="'.url::base().'/home/friends/view?id=:passed_id">:passed</a>. Click <a href="'.url::base().'home/passed/pending?id=:passed_id">here</a> to view the details.',		
+	':user has marked the passing of :passed :passed_id :user_id'=>'<a href="'.url::base().'home/friends/view?id=:user_id">:user</a> has marked the passing of <a href="'.url::base().'home/friends/view?id=:passed_id">:passed</a>. Click <a href="'.url::base().'home/passed/pending?id=:passed_id">here</a> to view the details.',		
 	'init passed'=>'Mark as Passed',
 	'note'=>'Note',
 	'marking the passing of :passed'=>'Marking the passing of :passed',
@@ -299,9 +299,9 @@ return array
 	':user :user_id cancelled a request to mark :passed as passed away. See the details here :passed_id'=>'<a href="'.url::base().'home/friends/view?id=:user_id">:user</a> cancelled a request to mark <a href="'.url::base().'home/friends/view?id=:passed_id">:passed</a> as passed away. See the details <a href="'.url::base().'home/passed/pending/cancelled?id=:passed_id">here</a>',
 	':passed - request cancelled'=>':passed - Request Cancelled!',
 	'record of cancelled attempt to mark :passed :passed_id as passed away'=>'Record of cancelled attempt to mark <a href="'.url::base().'home/friends/view?id=:passed_id">:passed</a> as passed away:',
-	'the current attempt to mark :passed :passed_id as passed away has been cancelled and can not be restarted until the waiting period set by :passed has expried'=>'the current attempt to mark <a href="'.url::base().'home/friends/view?id=:passed_id">:passed</a> as passed away has been cancelled and can not be restarted until the waiting period set by :passed has expried.',		
-		
-		
+	'the current attempt to mark :passed :passed_id as passed away has been cancelled and can not be restarted until the waiting period set by :passed has expried'=>'the current attempt to mark <a href="'.url::base().'home/friends/view?id=:passed_id">:passed</a> as passed away has been cancelled and can not be restarted until the waiting period set by :passed has expried.',
+	':passed has :passed_id passed away'=>'<a href="'.url::base().'"home/friends/view?id=:passed_id">:passed</a> has passed away.',				
+	':passer denied :gender passing on :date at :time saying :note'=>':passer denied :gender passing on :date at :time saying: <div class="passing_note">:note</div>',	
 );
 
 

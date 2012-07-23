@@ -50,7 +50,7 @@
 }
 ?>
 
-<table class="list_table">
+<table class="list_table" style="width:800px;">
 	<thead>
 		<tr class="header">
 			<th style="width:200px;">
@@ -64,7 +64,7 @@
 			</th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody style="height:500px;">
 	<?php
 		if(count($categories) == 0)
 		{
@@ -78,12 +78,12 @@
 			$cat_description = str_replace("\n", '<br/>',str_replace("\r", '<br/>',str_replace("'", "\\'", $cat->description)));
 		?>
 
-	<tr <?php echo $odd_row; ?>>
+	<tr <?php echo $odd_row; ?> style="height:50px;">
 		<td style="width:200px;">
-			<?php echo $cat->title;?>
+			<?php echo substr($cat->title, 0, 40); echo strlen($cat->title) > 40 ? '...' : ''; ?>
 		</td>
 		<td style="width:400px;">
-			<?php echo $cat->description; ?>
+			<?php echo substr($cat->description, 0, 50); echo strlen($cat->description) > 50 ? '...' : ''; ?>
 		</td>
 		<td style="width:200px;">
 			<a href="#" onclick="editCat(<?php echo $cat->id?>,<?php echo $cat->order;?>,'<?php echo $cat->title;?>','<?php echo $cat_description;?>'); return false;"> <?php echo __('edit');?></a>
