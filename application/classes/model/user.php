@@ -29,4 +29,13 @@ class Model_User extends Model_Auth_User {
 		return $this->first_name . ' ' . $this->last_name;
 	} 
 	
+	public function get_gender_possessive()
+	{
+		if($this->gender == '1')
+		{
+			return __('his');
+		}
+		return __('hers');
+	}
+	
 } // End User Model

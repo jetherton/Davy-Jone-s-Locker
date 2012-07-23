@@ -7,9 +7,44 @@
 		{
 			echo form::input('delete_friend', __('remove your friend'), array('type'=>'BUTTON', 'id'=>'delete_friend', 'onclick'=>'deleteYourFriend(); return false;'));
 		}		
-		if(isset($passer))
+		if(isset($passer) AND $friend->date_passed == null) //i'm a passer and the guy is still alive
+		{	
+			//check if you've already marked his passing
+			$current_requests = Model_Userpassed::get_current_passed_requests($friend->id);
+			$already_requested = false;
+			$has_been_cancelled = false;
+			foreach($current_requests as $request)
+			{
+				if($request->passer_id == $user->id)
+				{
+					$already_requested = true;
+				}
+				if(intval($request->confirm) == 0)
+				{
+					$has_been_cancelled = true;
+				}
+			}				
+			if($already_requested)
+			{
+				//has the request been cancelled?
+				if($has_been_cancelled)
+				{
+					echo '<a href="'.url::base().'home/passed/cancelled?id='.$friend->id.'">'.__('current passed request cancelled').'</a>';
+				}
+				else
+				{
+					echo '<a href="'.url::base().'home/passed/pending?id='.$friend->id.'">'.__('view current passing status').'</a>';
+				}
+			}	
+			else
+			{
+				echo form::input('mark_passing', __('mark the passing passing of :friend', array(':friend'=>$friend->first_name)), array('type'=>'BUTTON', 'id'=>'mark_passing', 'onclick'=>'markPassing(); return false;'));
+			}
+			
+		}
+		if($friend->date_passed != null)
 		{
-			echo form::input('mark_passing', __('mark the passing passing of :friend', array(':friend'=>$friend->first_name)), array('type'=>'BUTTON', 'id'=>'mark_passing', 'onclick'=>'markPassing(); return false;'));
+			echo '<div class="passed_notification">'.__('passed away on').' '. date('l, F jS, Y',strtotime($friend->date_passed)). '</div>';
 		}
 		echo form::hidden('action', '', array('id'=>'action'));
 		echo form::close();

@@ -1,6 +1,7 @@
 
 <h2><?php echo __("marking the passing of :passed", array(':passed'=>$passed->full_name())). ' - '. __('submitted');?></h2>
 <p><?php echo __("sorry for your loss");?></p>
+<p><?php echo __("you can view the status of :passed :passed_id at", array(':passed'=>$passed->full_name(), ':passed_id'=>$passed->id));?></p>
 
 
 

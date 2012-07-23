@@ -8,6 +8,8 @@ return array
 	'no' => 'No',
 	'n/a' => 'Not Applicable',
 	'n/a explain' => 'Does not appy, and thus intentionally left blank',
+	'his'=>'his',
+	'her'=>'her',
 
 	//Header
 	'site name'=>'Ekphora',
@@ -259,8 +261,8 @@ return array
 	'no friends to pass' => 'You do not have any friends left.',
 		
 	//passed pages and related
-	':user has marked your passing :passed_id :user_id'=>'<a href="'.url::base().'home/friends/view?id=:user_id">:user</a> has marked you as passed. If this is incorrect click <a href="'.url::base().'home/passed/detail?id=:passed_id">here</a> to change this.',
-	':user has marked the passing of :passed :passed_id :user_id'=>'<a href="'.url::base().'home/friends/view?id=:user_id">:user</a> has marked the passing of <a href="'.url::base().'/home/friends/view?id=:passed_id">:passed</a>. Click <a href="'.url::base().'home/passed/detail?id=:passed_id">here</a> to view the details.',		
+	':user has marked your passing :passed_id :user_id'=>'<a href="'.url::base().'home/friends/view?id=:user_id">:user</a> has marked you as passed. If this is incorrect click <a href="'.url::base().'home/passed/pending?id=:passed_id">here</a> to change this.',
+	':user has marked the passing of :passed :passed_id :user_id'=>'<a href="'.url::base().'home/friends/view?id=:user_id">:user</a> has marked the passing of <a href="'.url::base().'/home/friends/view?id=:passed_id">:passed</a>. Click <a href="'.url::base().'home/passed/pending?id=:passed_id">here</a> to view the details.',		
 	'init passed'=>'Mark as Passed',
 	'note'=>'Note',
 	'marking the passing of :passed'=>'Marking the passing of :passed',
@@ -272,14 +274,33 @@ return array
 	'passed away'=>'Passed Away',
 	':name passed away on :date'=>':name passed away on :date',
 	'below is our record of :name\'s passing :passed_id'=>'Below is our record of <a href="'.url::base().'home/friends/view?id=:passed_id">:name\'s</a> passing:',
-	':passer first marked passing of :passed on :date at :time saying :note :passed_id'=>':passer first marked the passing of <a href="'.url::base().'home/friends/view?id=:passed_id">:passed</a> on :date at :time saying <div class="passing_note">:note</div>',
-	':passer confirmed this on :date at :time saying :note'=>':passer first marked the passing of :passed on :date at :time saying: <div class="passing_note">:note</div>',
+	':passer first marked passing of :passed on :date at :time saying :note :passed_id'=>':passer first marked the passing of <a href="'.url::base().'home/friends/view?id=:passed_id">:passed</a> on :date at :time saying: <div class="passing_note">:note</div>',
+	':passer confirmed this on :date at :time saying :note'=>':passer confirmed the passing of <a href="'.url::base().'home/friends/view?id=:passed_id">:passed</a> on :date at :time saying: <div class="passing_note">:note</div>',
+	':passer denied this on :date at :time saying :note'=>':passer denied the passing of <a href="'.url::base().'home/friends/view?id=:passed_id">:passed</a> on :date at :time saying: <div class="passing_note">:note</div>',
 	'We are deeply sorry for your loss'=>'We are deeply sorry for your loss.',
 	'i am not dead'=>'I am not dead',
 	'not passed away'=>'I have not passed away',
 	'account restored'=>'Account Restored',
 	'account restored detail'=>'We are very sorry that your account was incorrectly marked as being that of someone who had passed away. We have corrected this in our system.',
-	'Your account has been restored. You are no longer considered passed'=>'Your account has been restored. You are no longer considered passed.'	
+	'Your account has been restored. You are no longer considered passed'=>'Your account has been restored. You are no longer considered passed.',
+	'you can view the status of :passed :passed_id at'=>'You can view the status of this reqest <a href="'.url::base().'home/passed/pending?id=:passed_id">here</a>',
+	'pending request'=>'Pending Request',
+	'do you confirm that :passed has passed'=>'Do you confirm that :passed has passed away?',
+	'do you confirm that you have passed'=>'Do you confirm that you have passed away?',	
+	'passed confirm explanation :passed'=>':passed has specified you as someone who should confirm or deny :possessive passing. Please fill out this form confirming or denying :possessive passing and fill out the note with your explanation and thoughts. This will serve as a record and be sent to the other people who can confirm or deny :possessive passing. Thank you.',
+	'confirming the passing of :passed'=>'Confirming the passing of :passed',
+	'If you have acutally passed away please confirm this. If not then please deny and write a note for our records'=>'If you have acutally passed away please confirm this. If not then please deny and write a note for our records',
+	'passed away on'=>'Passed away on',
+	'view current passing status'=>'View status of passed away request',
+	'current passed request cancelled'=>'Current passing request cancelled',
+	'thank you for your submission on the passing of :passed'=>'Thank you for your submission on the passing of :passed.',
+	'The request to recognize :passed as passed away has been cancelled'=>'The request to recognize <a href="'.url::base().'home/friends/view?id=:passed_id">:passed</a> as passed away has been cancelled.',
+	':user :user_id cancelled a request to mark you as passed away. See the details here :passed_id'=>'<a href="'.url::base().'home/friends/view?id=:user_id">:user</a> cancelled a request to mark you as passed away. See the details <a href="'.url::base().'home/passed/pending/cancelled?id=:passed_id">here</a>',
+	':user :user_id cancelled a request to mark :passed as passed away. See the details here :passed_id'=>'<a href="'.url::base().'home/friends/view?id=:user_id">:user</a> cancelled a request to mark <a href="'.url::base().'home/friends/view?id=:passed_id">:passed</a> as passed away. See the details <a href="'.url::base().'home/passed/pending/cancelled?id=:passed_id">here</a>',
+	':passed - request cancelled'=>':passed - Request Cancelled!',
+	'record of cancelled attempt to mark :passed :passed_id as passed away'=>'Record of cancelled attempt to mark <a href="'.url::base().'home/friends/view?id=:passed_id">:passed</a> as passed away:',
+	'the current attempt to mark :passed :passed_id as passed away has been cancelled and can not be restarted until the waiting period set by :passed has expried'=>'the current attempt to mark <a href="'.url::base().'home/friends/view?id=:passed_id">:passed</a> as passed away has been cancelled and can not be restarted until the waiting period set by :passed has expried.',		
+		
 		
 );
 

@@ -6,6 +6,7 @@ class Model_Userpassed extends ORM {
 	public static $PASSED = 'PASSED';
 	public static $INITIATED = 'INITIATED';
 	public static $NOT_ALLOWED = 'NOT_ALLOWED';
+	public static $CANCELLED = 'CANCELLED';
 	
 	/**
 	 * Rules function
@@ -81,6 +82,46 @@ class Model_Userpassed extends ORM {
 		$user_passed->values($values, $expected);
 		$user_passed->check();
 		$user_passed->save();
+		
+		//did they cancel it?
+		if(intval($values['confirm']) == 0)
+		{
+			//notify the recenlty passed
+			//make an update
+			$message = __(':user :user_id cancelled a request to mark you as passed away. See the details here :passed_id',
+					array(':user'=>$user->first_name,
+							':user_id'=>$user->id,
+							':passed_id'=>$values['passed_id']));
+			ORM::factory('update')->create_update($message, $passed->id);
+			////////////////////////////////////////////////////////////////////////////////////////////
+			//SEND EMAIL
+			/////////////////////////////////////////////////////////////////////////////////////////////
+			//find the other passers and notify them
+			$passers = Model_Userpasser::get_passer($passed);
+			//loop over them all
+			foreach($passers as $p)
+			{
+				//skip ourselves
+				if($p->id == $user->id)
+				{
+					continue;
+				}
+					
+				//make an update
+				$message = __(':user :user_id cancelled a request to mark :passed as passed away. See the details here :passed_id',
+						array(':user'=>$user->first_name,
+								':user_id'=>$user->id,
+								':passed_id'=>$values['passed_id'],
+								':passed'=>$passed->full_name()));
+				ORM::factory('update')->create_update($message, $p->id);
+					
+				/////////////////////////////////////////////////////////////////////////////////////////////
+				//SEND EMAIL
+				////////////////////////////////////////////////////////////////////////////////////////////
+			}
+			
+			return self::$CANCELLED;
+		}
 		
 		
 		//check if the passed is now officially gone.
@@ -173,7 +214,7 @@ class Model_Userpassed extends ORM {
 		$timeframe = $passing_settings->timeframe;
 		
 		//figure out now - minues timeframe
-		$end_of_time_frame = time(); - ($timeframe * 60 * 60);
+		$end_of_time_frame = time() - (intval($timeframe) * 60 * 60);
 		
 		$initiator = ORM::factory('user')
 			->join('userpassed', 'left')
@@ -202,7 +243,7 @@ class Model_Userpassed extends ORM {
 		$timeframe = $passing_settings->timeframe;
 		
 		//figure out now - minues timeframe
-		$end_of_time_frame = time(); - ($timeframe * 60 * 60);
+		$end_of_time_frame = time() - (intval($timeframe) * 60 * 60);
 		
 		$initiator_request = ORM::factory('userpassed')		
 		->where('initiator', '=', '1')
@@ -212,7 +253,7 @@ class Model_Userpassed extends ORM {
 		
 		$cancelled_request = ORM::factory('userpassed')
 		->where('confirm', '=', '0')
-		->where('time', '>=', date('Y-m-d H:i:s', $initiator_request->time))
+		->where('time', '>=', date('Y-m-d H:i:s', strtotime($initiator_request->time)))
 		->where('passed_id', '=', $passed_id)
 		->order_by('time', 'DESC')
 		->find();
@@ -239,11 +280,11 @@ class Model_Userpassed extends ORM {
 		$timeframe = $passing_settings->timeframe;
 		
 		//figure out now - minues timeframe
-		$end_of_time_frame = time(); - ($timeframe * 60 * 60);
+		$end_of_time_frame = time() - (intval($timeframe) * 60 * 60);
 		
 		$initiator = ORM::factory('userpassed')
 		->where('initiator', '=', '1')
-		->where('time', '>', date('Y-m-d H:i:s', $end_of_time_frame))
+		->where('time', '>=', date('Y-m-d H:i:s', $end_of_time_frame))
 		->where('passed_id', '=', $passed_id)
 		->order_by('time', 'DESC')
 		->find();
@@ -252,7 +293,7 @@ class Model_Userpassed extends ORM {
 		$passed_requests = ORM::factory('userpassed')
 			->where('passed_id', '=',$passed_id)
 			->where('time', '>=', $initiator->time)
-			->order_by('time', 'DESC')
+			->order_by('time', 'ASC')
 			->find_all();
 		
 		return $passed_requests;
@@ -307,7 +348,7 @@ class Model_Userpassed extends ORM {
 		$timeframe = $passing_settings->timeframe;
 		
 		//figure out now - minues timeframe
-		$end_of_time_frame = time() - ($timeframe * 60 * 60);
+		$end_of_time_frame = time() - (intval($timeframe) * 60 * 60);
 		
 		$userpassed = ORM::factory('userpassed')
 		->where('userpassed.initiator', '=', '1')
@@ -326,13 +367,12 @@ class Model_Userpassed extends ORM {
 		->where('userpassed.passed_id', '=', $passed->id)
 		->find_all();
 		
-		$count= 1;
+		//assumes the current user has already said they've passed or not
+		$count= 0;
 		foreach($passers as $passer)
 		{
 			if($passer->confirm == '0')
 			{
-				echo "3";
-				exit;
 				return false;
 			}
 			$count++;
@@ -346,7 +386,6 @@ class Model_Userpassed extends ORM {
 		//set the user as passed
 		$passed->date_passed = date('c');
 		$passed->save();
-		
 		return true;
 		
 		

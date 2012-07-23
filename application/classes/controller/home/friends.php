@@ -195,6 +195,7 @@ class Controller_Home_Friends extends Controller_Home {
 
 	
 		$this->template->content->friend = $friend;
+		$this->template->content->user = $this->user;
 		$this->template->content->wishes = Model_Wish::get_wishes_between_friends($this->user, $friend);
 		$this->template->content->is_my_friend = $is_my_friend;
 
