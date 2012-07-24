@@ -19,6 +19,7 @@ class Model_Userpassed extends ORM {
 						array('max_length', array(':value', 65000)),
 						array('min_length', array(':value', 1))
 				),
+				'confirm'=>array(array('not_empty')),		
 	
 		);
 	}
@@ -153,6 +154,34 @@ class Model_Userpassed extends ORM {
 				//SEND EMAIL
 				////////////////////////////////////////////////////////////////////////////////////////////
 			}
+			
+			
+			
+			//notify people that passed shared stuff with
+			//get all the friends that the passed share wishes with
+			$friends_wishes = ORM::factory('user')->
+				join('friends_wishes')->
+				on('user.id', '=', 'friends_wishes.friend_id')->				
+				join('wishes')->
+				on('wishes.id', '=', 'friends_wishes.wish_id')->				
+				where('wishes.user_id', '=', $passed->id)->
+				group_by('friends_wishes.friend_id')
+				->find_all();
+			
+			
+			//now loop over these people
+			foreach($friends_wishes as $friend)
+			{
+				//make an update
+				$message = __('We are sorry to announce that :passed :passed_id has passed away. :first_name had shared items with you, and you can now view them', 
+						array(':passed'=>$passed->full_name(), ':passed_id'=>$passed->id, ':first_name'=>$passed->first_name));
+				ORM::factory('update')->create_update($message, $friend->id);
+				
+				/////////////////////////////////////////////////////////////////////////////////////////////
+				//SEND EMAIL
+				////////////////////////////////////////////////////////////////////////////////////////////
+				
+			}
 
 			return self::$PASSED;
 		}//the person has passed.
@@ -192,11 +221,9 @@ class Model_Userpassed extends ORM {
 				/////////////////////////////////////////////////////////////////////////////////////////////
 				//SEND EMAIL
 				////////////////////////////////////////////////////////////////////////////////////////////
-				
-				
-				//notify people that passed shared stuff with
-				//get all the friends_wishes
-				//$friends_wishes = ORM::factory('friendswishes') finish this
+			
+					
+					
 				//finish this!!!
 				 
 			}

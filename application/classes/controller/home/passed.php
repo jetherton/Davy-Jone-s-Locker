@@ -223,9 +223,9 @@ class Controller_Home_Passed extends Controller_Home {
 		$is_dead = $this->user->date_passed != null;
 		
 		//passed process initiated?
-		$process_started = Model_Userpassed::get_initiator($this->user->id)->loaded();
+		$been_cancelled = Model_Userpassed::has_pass_request_been_canceled($this->user->id);
 		
-		if($is_dead OR $process_started)
+		if($is_dead OR !$been_cancelled)
 		{
 			//make you undead
 			$this->user->date_passed = null;
@@ -252,7 +252,7 @@ class Controller_Home_Passed extends Controller_Home {
 			$this->template->content->messages = array();
 			
 			$message = __('Your account has been restored. You are no longer considered passed');
-			ORM::factory('update')->create_update($message, $passed->id);
+			ORM::factory('update')->create_update($message, $this->user->id);
 			
 		}
 		else
