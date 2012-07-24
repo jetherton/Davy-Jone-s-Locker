@@ -302,7 +302,11 @@ return array
 	'the current attempt to mark :passed :passed_id as passed away has been cancelled and can not be restarted until the waiting period set by :passed has expried'=>'the current attempt to mark <a href="'.url::base().'home/friends/view?id=:passed_id">:passed</a> as passed away has been cancelled and can not be restarted until the waiting period set by :passed has expried.',
 	':passed has :passed_id passed away'=>'<a href="'.url::base().'home/friends/view?id=:passed_id">:passed</a> has passed away.',				
 	':passer denied :gender passing on :date at :time saying :note'=>':passer denied :gender passing on :date at :time saying: <div class="passing_note">:note</div>',
-	'We are sorry to announce that :passed :passed_id has passed away. :first_name had shared items with you, and you can now view them'=>'We are sorry to announce that <a href="'.url::base().'home/friends/view?id=:passed_id">:passed</a>  has passed away. :first_name had shared items with you, and you can now view them.',	
+	'We are sorry to announce that :passed :passed_id has passed away. :first_name had shared items with you, and you can now view them'=>'We are sorry to announce that <a href="'.url::base().'home/friends/view?id=:passed_id">:passed</a>  has passed away. :first_name had shared items with you, and you can now view them.',
+
+	//email
+	'Ekphora.com - You have been marked as having passed away'=>'Ekphora.com - You have been marked as having passed away',
+	'we are writing to let you know that '=>'We are writing to let you know that ',
 );
 
 

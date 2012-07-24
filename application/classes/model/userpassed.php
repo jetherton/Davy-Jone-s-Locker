@@ -195,10 +195,19 @@ class Model_Userpassed extends ORM {
 					':user_id'=>$user->id));
 			ORM::factory('update')->create_update($message, $passed->id);
 			
+			//email
+			$message = __('we are writing to let you know that ').__(':user has marked your passing :passed_id :user_id', array(':user'=>$user->full_name(),
+					':passed_id'=>$passed->id,
+					':user_id'=>$user->id));
 			
-			////////////////////////////////////////////////////////////////////////////////////////////
-			//SEND EMAIL
-			/////////////////////////////////////////////////////////////////////////////////////////////
+			$email = Email::factory(__('Ekphora.com - You have been marked as having passed away'), 'blank')
+				->to($passed->email, $passed->full_name())
+				->from('email@ekphora.com', 'Ekphora.com - No Reply')
+				->message($message, 'text/html')
+				->send();
+			
+			
+			
 			
 			//find the other passers and notify them
 			$passers = Model_Userpasser::get_passer($passed);
