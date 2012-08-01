@@ -175,7 +175,9 @@ class Helper_Form
 								$("#ff_'.$form_field->id.'").datepicker({ 
 									showOn: "both", 
 									buttonImage: "'.url::base(). 'media/img/icon-calendar.gif", 
-									buttonImageOnly: true 
+									buttonImageOnly: true,
+									changeMonth: true,
+									changeYear: true
 								});
 							});
 						</script>';
