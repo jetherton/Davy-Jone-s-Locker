@@ -307,6 +307,10 @@ return array
 	//email
 	'Ekphora.com - You have been marked as having passed away'=>'Ekphora.com - You have been marked as having passed away',
 	'we are writing to let you know that '=>'We are writing to let you know that ',
+		
+	//errors
+	"page not found - 404"=>'Page not found - 404',
+	"sorry we can't seem to find what you were looking for"=>'Sorry but we cannot find the page you were looking for.',
 );
 
 
