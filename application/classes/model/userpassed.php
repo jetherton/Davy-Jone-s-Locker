@@ -73,6 +73,17 @@ class Model_Userpassed extends ORM {
 			}
 		}
 		
+		//make sure this person hasn't already marked the user as passed
+		$current_passed_requests = self::get_last_passed_requests($passed->id);
+		foreach($current_passed_requests as $request)
+		{
+			if($request->passer_id == $user->id)
+			{
+				//you can't mark the same person as passed twice in a row
+				return self::$NOT_ALLOWED;
+			}
+		}
+		
 		
 		
 		$expected = array('passer_id', 'passed_id', 'time', 'note', 'confirm', 'initiator');
