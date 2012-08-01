@@ -102,6 +102,8 @@ class Kohana_Kohana_Exception extends Exception {
 			//are we dealing with a 404 error?
 			if($e instanceof HTTP_Exception_404)
 			{
+				
+				
 				// Error sub request
 				echo Request::factory('error/404')
 				->execute()

@@ -310,7 +310,8 @@ return array
 		
 	//errors
 	"page not found - 404"=>'Page not found - 404',
-	"sorry we can't seem to find what you were looking for"=>'Sorry but we cannot find the page you were looking for.',
+	"sorry we can't seem to find what you were looking for"=>'Sorry but we cannot find the page you were looking for:',
+	"back button"=>"Use your browser back button or try going ",
 );
 
 
