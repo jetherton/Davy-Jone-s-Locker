@@ -369,3 +369,6 @@ ADD  `files_name` CHAR( 255 ) NULL DEFAULT NULL;
 
 
 
+/** 2012-08-14 - Lets us keep track of who has verified their email */
+ALTER TABLE  `users` ADD  `email_verified` TINYINT( 4 ) NOT NULL DEFAULT  '0' AFTER  `password`;
+ALTER TABLE  `users` ADD  `email_key` CHAR( 255 ) NULL DEFAULT NULL AFTER  `email_verified`;

@@ -77,7 +77,89 @@ class Controller_Register extends Controller_Main {
 		{	//They're visiting for the first time		
 		
 		}
+	}//end of action_index
+	
+	
+	public function action_verify()
+	{
+		//turn set focus to first UI form element
+		$this->template->html_head->script_views[] = '<script type="text/javascript">$(document).ready(function() {$("input:text:visible:first").focus();});</script>';
+		
+		//turn on jquery UI
+		$this->template->html_head->script_files[] = 'media/js/jquery-ui.min.js';
+		$this->template->html_head->styles['media/css/jquery-ui.css'] = 'screen';
+		
+		//if they're already logged in then take them to their profile
+		$auth = Auth::instance();
+		$user = null;
+		//see if they're logged in
+		if( $auth->logged_in() OR $auth->auto_login() OR isset($_GET['id']))
+		{
+			if($auth->logged_in() OR $auth->auto_login())
+			{
+				//if so get the user info 
+				$user = ORM::factory('user',$auth->get_user());
+				//has this user already verified their email
+				if(intval($user->email_verified) == 1)
+				{
+					$this->request->redirect(Session::instance()->get_once('returnUrl','home'));
+				}
+			}
+			else
+			{
+				$user = ORM::factory('user', $_GET['id']);
+				//has this user already verified their email
+				if(intval($user->email_verified) == 1)
+				{
+					$this->request->redirect(Session::instance()->get_once('returnUrl','home'));
+				}
+			}
+		}
+		else
+		{
+			//if they aren't logged in send them to the landing page
+			$this->request->redirect('');
+		}
+		
+		//Send an email to the user with the email verification key
+		//but only do this if they aren't click on the the verify me link
+		if(!isset($_GET['email_key']))
+		{
+			//send email
+			$token =  md5(uniqid(rand(), TRUE));
+			$user->email_key = $token;
+			$user->save();
+		}
+		
+		$this->template->header->menu_page = "verify email";
+		$this->template->html_head->title = __("verify email");
+		$this->template->content = View::factory('verifyemail');
+		$this->template->content->errors = array();
+		
+		if(!empty($_POST) || isset($_GET['email_key'])) // They've submitted their registration form
+		{
+				$key = null;
+				if(isset($_GET['email_key']))
+				{
+					$key = $_GET['email_key'];
+				}
+				else 
+				{
+					$key = $_POST['email_key'];
+				}
+				
+				//now we need to see if this key matches the key we have on file for the user.
+				if(strcmp($key, $user->email_key))
+				{
+					//we have a match
+					$user->email_verified = 1;
+					$user->save();
+					$this->template->content = View::factory('verifyemailthanks');
+				}
+		}
+		else
+		{	//They're visiting for the first time
+		
+		}
 	}
-	
-	
 } // End Welcome

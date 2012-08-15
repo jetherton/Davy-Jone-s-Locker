@@ -312,6 +312,12 @@ return array
 	"page not found - 404"=>'Page not found - 404',
 	"sorry we can't seem to find what you were looking for"=>'Sorry but we cannot find the page you were looking for:',
 	"back button"=>"Use your browser back button or try going ",
+		
+	//verify email page
+	'verify email'=>'Verify Your Email Address',
+	'verify email explanation'=>'It is important to us to ensure that we have your email address right, so we have sent you an email to confirm that we have the right address down. In the email is a key that we will use to verify your email address. Please copy and paste it into the box provided, or just click on the "verify my email" link in the email itself. Thanks and sorry for any inconvience.',
+	'continue'=>'Continue',
+	'verify email thanks'=>'Thanks for verifying your email adddress. Click continue to use the rest of the site.',
 );
 
 

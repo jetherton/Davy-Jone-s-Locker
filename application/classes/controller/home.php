@@ -20,6 +20,14 @@ class Controller_Home extends Controller_Main {
 		if(($this->auth->logged_in() || $this->auth->auto_login()))
 		{
 			$this->user = ORM::factory('user',$this->auth->get_user());
+			//have we verified this user's email?
+			if(intval($this->user->email_verified) == 0)
+			{
+				//record where the user was trying to go
+				$url = (!empty($_SERVER['HTTPS'])) ? "https://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] : "http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+				Session::instance()->set('returnUrl',$url);
+				$this->request->redirect('register/verify');
+			}
 		}
 		//if not send them to the login page
 		else
