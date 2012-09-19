@@ -123,12 +123,22 @@ class Controller_Register extends Controller_Main {
 		
 		//Send an email to the user with the email verification key
 		//but only do this if they aren't click on the the verify me link
-		if(!isset($_GET['email_key']))
+		if(!isset($_GET['email_key']) AND empty($_POST))
 		{
 			//send email
 			$token =  md5(uniqid(rand(), TRUE));
 			$user->email_key = $token;
 			$user->save();
+			
+			$message = __('Hello :name we are writing to confirm your email address. Please copy and paste the key :key below, or click on this link', 
+					array(':name'=>$user->first_name,
+					':key'=>$token));
+				
+			$email = Email::factory(__('Ekphora.com - Email verification'), 'blank')
+			->to($user->email, $user->full_name())
+			->from('email@ekphora.com', 'Ekphora.com - No Reply')
+			->message($message, 'text/html')
+			->send();
 		}
 		
 		$this->template->header->menu_page = "verify email";
@@ -136,9 +146,9 @@ class Controller_Register extends Controller_Main {
 		$this->template->content = View::factory('verifyemail');
 		$this->template->content->errors = array();
 		
-		if(!empty($_POST) || isset($_GET['email_key'])) // They've submitted their registration form
+		if(!empty($_POST) OR isset($_GET['email_key'])) // They've submitted their registration form
 		{
-				$key = null;
+				$key = '';
 				if(isset($_GET['email_key']))
 				{
 					$key = $_GET['email_key'];
@@ -147,19 +157,24 @@ class Controller_Register extends Controller_Main {
 				{
 					$key = $_POST['email_key'];
 				}
-				
+
 				//now we need to see if this key matches the key we have on file for the user.
-				if(strcmp($key, $user->email_key))
+				if(strcmp($key, $user->email_key) == 0)
 				{
 					//we have a match
 					$user->email_verified = 1;
 					$user->save();
 					$this->template->content = View::factory('verifyemailthanks');
 				}
+				else
+				{
+					//the key did not match
+					$this->request->redirect('/register/verify');
+				}
 		}
 		else
 		{	//They're visiting for the first time
-		
+			
 		}
 	}
 } // End Welcome
