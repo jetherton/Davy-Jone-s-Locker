@@ -372,3 +372,7 @@ ADD  `files_name` CHAR( 255 ) NULL DEFAULT NULL;
 /** 2012-08-14 - Lets us keep track of who has verified their email */
 ALTER TABLE  `users` ADD  `email_verified` TINYINT( 4 ) NOT NULL DEFAULT  '0' AFTER  `password`;
 ALTER TABLE  `users` ADD  `email_key` CHAR( 255 ) NULL DEFAULT NULL AFTER  `email_verified`;
+
+/**2012-09-18 - Lets you store images of the user*/
+ALTER TABLE  `users` ADD  `picture` CHAR( 255 ) NULL DEFAULT NULL AFTER  `citizenship`;
+ALTER TABLE  `users` ADD  `picture_small` CHAR( 255 ) NULL DEFAULT NULL AFTER  `picture`;

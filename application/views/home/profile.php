@@ -422,7 +422,12 @@ $countries_array = array('Afghanistan'=>'Afghanistan',
 			<td>
 				<?php echo Form::label('profile_picture', __("profile picture"));  ?>
 			</td>
-			<td>
+			<td>				
+				<div id="profile_image">
+					<?php if($user->picture != null){?>
+					<img src="<?php echo url::base().'/uploads/'.$user->picture;?>"/>
+					<?php }?>
+				</div>
 				<div id="image_uploader">		
 					<noscript>			
 						<p>Please enable JavaScript to use file uploader.</p>
