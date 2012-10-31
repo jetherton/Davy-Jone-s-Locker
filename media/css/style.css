@@ -1,13 +1,17 @@
 body{
-background: #1f0617;
+background: #ffffff url('../img/banner.png');
+background-repeat:no-repeat;
 }
 
 h2{
-	font-weight:normal;
+	font-size:34px;
+	font-family: 'Reenie Beanie', cursive;
 }
 
 h1{
+	font-size:50px;
 	font-weight:normal;
+	font-family: 'Reenie Beanie', cursive;
 }
 
 th{
@@ -17,14 +21,12 @@ th{
 /************Page **********/
 div#page{
 	width:1000px;
-	margin-left:auto;
-	margin-right:auto;
-	border: solid black 1px;
-	font-family:"Century Gothic", Sans;
+	margin-left:120px;	
+	font-family: 'Quicksand', sans-serif;
 	font-size:14px;
-	font-weight:normal;
-	color:white;
-	background:#202020;
+	font-weight:700;
+	color:#7b5633;
+	background:none;
 }
 
 ul{
@@ -40,26 +42,18 @@ a:visited{
 
 /************ Header **********/
 div#header{
-	border: solid 2px black;
-	padding:10px;
-	background: url('../img/header.png');
-	color: white;
-	height:184px;
-	border-bottom:none;
+	height:90px;
+
 }
 
-div#header h1 a, div#header p a{
-	color:black;
-	text-decoration:none;
-	font-weight: regular;
-	}
+
 
 div#mainMenu{
+	margin-left:280px;
 	padding:0px;
 	color:white;
-	background: #000;
-	height:40px;
-	background: url('../img/menu_background.png');
+	height:52px;
+	background: none;
 }
 
 div#mainMenu ul{
@@ -81,47 +75,52 @@ div#mainMenu ul li.adminmenu
 div#mainMenu ul li a
 {
 	
-	height: 40px;
+	height: 52px;
 	line-height: 40px;
 	float: left;
-	padding:0 10px;
+	padding:0 24px;
 	display: block;
-	border-right: 1px #444 solid;
 	color: white;
 	text-decoration: none;
 	text-align: center;
-	font-size:16px;
+	font-size:20px;
+	font-weight:bolder;
+	text-shadow: 1px 1px 1px #000;
 	
 }
 
 div#mainMenu ul li.selected a
 {
-	color: #666;
+	background: url('../img/triangle.png');
+	background-repeat: no-repeat;	
+	background-position:center bottom; 	
+	color: #fff;
 }
 
 div#mainMenu ul li a:hover
 {
-	background: url('../img/menu_background_hover.png');
-	color: #666;
+	background: url('../img/green_triangle.png');
+	background-repeat: no-repeat;	
+	background-position:center bottom;
+	color: #a2e0ad;
 }
 
 div#login_logout
 {
 	font-size:14px;
-	background: url('../img/transparent_small.png');
+	background: #fff;
 	border: none;
-	width:335px;
+	width:235px;
 	float:right;
-	padding:6px;
-	padding-top:12px;
-	height:22px;
+	color:#7b5633;
+	font-size:16px;
 }
 div#login_logout a{
-	color:white;
+	color:#7dad86;
 	text-decoration:none;
+	font-size:28px;
 }
 div#login_logout a:hover{
-	color:#ccc;
 	text-decoration:underline;
 }
 div#login_logout span.user_action
@@ -184,18 +183,28 @@ div.messages ul li{
 
 /************ Content **********/
 div#content{
-	min-height: 400px;
-	background:#202020;
+	min-height: 3000px;
+	background:none;
 	padding: 15px;
 }
 
+div#tree{
+	background: url('../img/tree.png');
+	height:1540px;
+	width:663px;
+	position:relative;
+	bottom:-50px;
+	left:0px;
+	z-index:-1;
+}
 
 /************ Footer **********/
 div#footer{
-	border: solid 2px black;
 	padding:10px;
-	background: url('../img/footer.png');
+	background: #7b5633;
 	margin-top:50px;
+	color:white;
+	height:50px;
 }
 
 /************ Right Menu **********/
@@ -510,7 +519,7 @@ a.button:hover, a.button:focus{
 
 label{
 	font-weight:bold;
-		color:#555;
+		color:#7b5633;
 	}
 	
 span.radio_wrapper{
@@ -614,7 +623,7 @@ h2.sub_cat_title {
 }
 
 h2.sub_cat_title a{
-	color: white;
+	color: #7b5633;
 	text-decoration:none;		
 }
 

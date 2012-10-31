@@ -341,7 +341,7 @@ CREATE TABLE IF NOT EXISTS `reminders` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` int(11) unsigned NOT NULL,
   `type` char(255) NOT NULL, /*more for the admins to set certain kinds of reminders*/
-  `category_id int(11) unsigned NOT NULL DEFAULT '0', /*Leave to zero if this doesn't correspond to a category*/
+  `category_id` int(11) unsigned NOT NULL DEFAULT '0', /*Leave to zero if this doesn't correspond to a category*/
   PRIMARY KEY (`id`)  
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
 

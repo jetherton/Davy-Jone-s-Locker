@@ -7,9 +7,9 @@
 	<div id="page">
 		<?php echo $header; ?>
 		
-		<div id="content"><?php echo $content; ?></div>
-		
-		<div id="footer"><?php echo $footer; ?></div>
+		<div id="content"><?php echo $content; ?></div>			
 	</div>
+	<div id="tree"></div>
+	<div id="footer"><?php echo $footer; ?></div>
     </body>
 </html>
