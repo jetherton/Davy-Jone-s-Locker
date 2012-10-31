@@ -318,6 +318,9 @@ return array
 	'verify email explanation'=>'It is important to us to ensure that we have your email address right, so we have sent you an email to confirm that we have the right address down. In the email is a key that we will use to verify your email address. Please copy and paste it into the box provided, or just click on the "verify my email" link in the email itself. Thanks and sorry for any inconvience.',
 	'continue'=>'Continue',
 	'verify email thanks'=>'Thanks for verifying your email adddress. Click continue to use the rest of the site.',
+	'Ekphora.com - Email verification'=>'Ekphora.com - Email verification',
+	'Hello :name we are writing to confirm your email address. Please copy and paste the key :key below, or click on this link'=>
+		'Hello :name,<br/><br/>We are writing to confirm your email address. Please use the key below or click on this link: <a href="http://ekphora.com'.url::base().'register/verify?email_key=:key">http://ekphora.com'.url::base().'register/verify?email_key=:key</a><br/><br/><strong>:key</strong><br/><br/>Thanks.',	
 );
 
 
