@@ -24,6 +24,7 @@ class Controller_Home_Wishes extends Controller_Home {
 		$this->template->content = view::factory("home/blocklist");
 		$this->template->content->title = __('your information');
 		$this->template->content->description = '';
+		$this->template->content->empty_string = __('you have no wishes');
 		
 		//turn on bricking
 		$this->template->html_head->script_files[] = 'media/js/jquery.masonry.min.js';

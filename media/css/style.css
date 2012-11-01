@@ -10,7 +10,6 @@ h2{
 
 h1{
 	font-size:50px;
-	font-weight:normal;
 	font-family: 'Reenie Beanie', cursive;
 }
 
@@ -183,7 +182,7 @@ div.messages ul li{
 
 /************ Content **********/
 div#content{
-	min-height: 3000px;
+	min-height: 1400px;
 	background:none;
 	padding: 15px;
 }
@@ -201,7 +200,7 @@ div#tree{
 /************ Footer **********/
 div#footer{
 	padding:10px;
-	background: #7b5633;
+	background: #7b5633 url('../img/footer.jpg');
 	margin-top:50px;
 	color:white;
 	height:50px;
@@ -617,18 +616,22 @@ div.blockOverlay{
 }
 
 h2.sub_cat_title {
-	border-bottom: 1px solid white;	
-	width:900px;
+	font-family: 'Quicksand', sans-serif;
+	width:300px;
 	margin-top: 50px;
+	font-size:24px;
+	background: #7dad86;	
 }
 
 h2.sub_cat_title a{
-	color: #7b5633;
-	text-decoration:none;		
+	color:white;
+	text-decoration:none;
+	padding: 12px;	
+	width:100%;	
 }
 
 h2.sub_cat_title a:hover{
-	color: #aaa;	
+	color: #ccc;	
 }
 
 div.block, div.update_block{
@@ -710,4 +713,8 @@ div.passing_note{
 	-webkit-border-radius: 5px;
      -moz-border-radius: 5px;
           border-radius: 5px;
+}
+
+#wish_container, #friend_container{
+	margin-bottom: 20px;
 }
