@@ -3,6 +3,6 @@
 /************ Content **********/
 div#content{
 	min-height: 700px;
-	background:#202020;
+	background:none;
 	padding: 15px;
 }
