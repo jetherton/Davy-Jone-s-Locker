@@ -6,7 +6,11 @@
 ?>
 <?php if($form->more_than_one == '1'){?>
 <div id="right_menu">
-<a href="<?php echo url::base();?>home/wish/add?form=<?php echo $form->id;?>"><?php echo __('add another :form', array(':form'=>$form->title));?></a>
+<ul>
+<li>
+<a class="button" href="<?php echo url::base();?>home/wish/add?form=<?php echo $form->id;?>"><?php echo __('add another :form', array(':form'=>$form->title));?></a>
+</li>
+</ul>
 </div>
 <?php }?>
 <h2><?php echo $title; ?></h2>

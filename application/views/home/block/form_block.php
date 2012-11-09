@@ -8,5 +8,6 @@
 		$view->content = $content;
 		$view->background_image = url::base().'media/img/addForm.png';
 		$view->color = $color;
+		$view->classes = array('form_block', 'incomplete_block');
 		echo $view;
 ?>

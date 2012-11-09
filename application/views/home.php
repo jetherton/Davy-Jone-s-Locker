@@ -69,6 +69,7 @@
 							$view = new View('home/block');
 							$content = '<a href="'. url::base() . 'home/friends/view?id='.$friend->id.'">'. $friend->first_name . ' ' . $friend->last_name.'</a><br/>'.$relationship_txt;
 							$view->content = $content;
+							$view->classes = array('friend_block');
 							echo $view;
 							
 					 

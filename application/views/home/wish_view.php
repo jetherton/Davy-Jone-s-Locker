@@ -6,13 +6,21 @@
 ?>
 
 
+
+
+<div class="wish_view_frame">
 <?php if($user->id == $wish-> user_id) { ?>
-<p style="margin-top:5px;"><?php echo ' <a href="'.url::base().'home/wish/edit?id='.$wish->id.'">' .__('edit'). '</a>';?></p>
+<div id="right_menu">
+<ul>
+<li>
+<?php echo ' <a class="button" href="'.url::base().'home/wish/edit?id='.$wish->id.'">' .__('edit'). '</a>';?>
+</li>
+</ul>
+</div>
+
 <?php } else {?>
 <p style="margin-top:5px;"><?php echo __('by'). ' <a href="'.url::base().'home/friends/view?id='.$friend->id.'">' . $friend->first_name. ' ' . $friend->last_name. '</a>';?></p>
 <?php }?>
-
-<div class="wish_view_frame">
 <h2 ><?php $wish_title = $wish->get_title(); echo $wish_title; ?></h2>
 <p><?php echo $form->description_reader;?></p>
 <div >

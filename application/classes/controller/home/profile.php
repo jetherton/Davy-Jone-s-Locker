@@ -111,6 +111,7 @@ class Controller_Home_Profile extends Controller_Home {
 			return;
 		}
 	
+		
 	
 		// list of valid extensions, ex. array("jpeg", "xml", "bmp")
 		$allowedExtensions = array('jpg', 'jpeg', 'bmp', 'png', 'gif');
@@ -165,11 +166,8 @@ class Controller_Home_Profile extends Controller_Home {
 		unset($result['extention']);
 	
 	
-		$result['fullsize'] = $picture->full_web_full_size();
-		$result['passport'] = $picture->full_web_passport();
-		$result['thumbnail'] = $picture->full_web_thumbnail();
-		$result['title'] = $title;
-		$result['id'] = $picture->id;
+		$result['picture'] = URL::base().'uploads/'.$user->picture;		
+		$result['id'] = $user->id;
 	
 		// to pass data through iframe you will need to encode all html tags
 		echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);

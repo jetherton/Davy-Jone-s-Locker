@@ -1,8 +1,10 @@
 <div id="header">
-	<div id="login_logout">
+	<?php
+		$auth = Auth::instance();
+		$logged_in = ($auth->logged_in() OR $auth->auto_login());
+	?>
+	<div id="login_logout" <?php echo $logged_in ? 'class="small"':'';?>>
 		<?php
-			$auth = Auth::instance();
-			$logged_in = ($auth->logged_in() OR $auth->auto_login());
 			if($logged_in)
 			{
 				$user = ORM::factory('user',$auth->get_user());

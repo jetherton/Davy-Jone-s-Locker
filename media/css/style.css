@@ -33,10 +33,10 @@ ul{
 	padding-left:0px;
 }
 a{
-	color:#aaaaaa;
+	color:#333;
 }
 a:visited{
-	color:#aaaaaa;
+	color:#333;
 }
 
 /************ Header **********/
@@ -109,15 +109,37 @@ div#login_logout
 	font-size:14px;
 	background: #fff;
 	border: none;
-	
+	padding:5px;
 	float:right;
 	color:#7b5633;
 	font-size:16px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
 }
+
+div#login_logout.small
+{
+	background: #fff;
+	border: none;
+	padding:3px;
+	float:right;
+	color:#7b5633;
+	font-size:12px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
 div#login_logout a{
 	color:#7dad86;
 	text-decoration:none;
 	font-size:28px;
+}
+div#login_logout.small a{
+	color:#7dad86;
+	text-decoration:none;
+	font-size:18px;
 }
 div#login_logout a:hover{
 	text-decoration:underline;
@@ -131,7 +153,10 @@ span.user_info
 {
 	margin-left:10px;
 }
-
+div#login_logout.small span.user_info
+{
+	margin-right:10px;
+}
 /************ Errors **********/
 div.errors{
 	color:black;
@@ -158,12 +183,15 @@ div.errors ul li{
 	
 /************ Messages **********/
 div.messages{
-	border: 1px solid green;
-	background-color:#ccffcc;
+	border: 1px solid #324536;
+	background-color: #A4C6AA;
 	padding: 5px;
 	margin: 20px;	
 	text-transform:uppercase;
 	font-size:20px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
 	}
 div.messages ul{
 	list-style: none;
@@ -172,12 +200,15 @@ div.messages ul{
 	}
 
 div.messages ul li{
-	margin:10px 40px 10px 10px;
-	background-color:#aaffaa;
+	margin: 10px 40px 10px 10px;
+	background-color: #7DAD86;
 	padding: 3px 3px 3px 10px;
-	border: 1px solid green;
+	border: 1px solid #324536;
 	width: auto;
-	color:black;
+	color: #324536;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
 	}			
 
 /************ Content **********/
@@ -209,17 +240,16 @@ div#footer{
 /************ Right Menu **********/
 div#right_menu{
 	float:right;
-	border: 2px solid grey;
-	width: 200px;
-	padding: 10px;
+	border: none;
+
 
 }
 
+
+
 div#right_menu ul{
 	list-style-type: none;
-	margin: 0px;
-	padding: 0px;
-	margin-left:10px;
+
 }
 
 div#right_menu ul.cat_contents{
@@ -232,12 +262,7 @@ div#right_menu ul.cat_contents{
 
 
 div#right_menu li{
-	border: 1px solid black;
-	text-align: left;  
-	margin-top:5px;
-	margin-bottom:5px;
-	padding-left:5px;
-	padding-right:5px;
+	
 }
 
 
@@ -280,7 +305,7 @@ div#right_menu div#search_wait{
 
 /** Wish stuff **/
 div.wish_view_frame {
-	border:solid 3px grey;
+	border:solid 3px #7DAD86;
 	padding:10px;
 	margin-top:10px;
 	margin-bottom:10px;
@@ -501,19 +526,8 @@ div#category_editor{
 	padding:10px;
 }
 
-a.button{
-	border:outset 5px grey;
-	background:#bbb;
-	padding:5px;
-	margin:10px;
-	color:black;
-	text-decoration:none;
-}
 
-a.button:hover, a.button:focus{
-	border:inset 5px grey;
-	background:#999;
-}
+
 
 
 label{
@@ -620,7 +634,13 @@ h2.sub_cat_title {
 	width:300px;
 	margin-top: 50px;
 	font-size:24px;
-	background: #7dad86;	
+	background: #7dad86;
+	padding:4px 10px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;	
+	width: 100%;
+	box-shadow: 5px 5px 10px #324536;
 }
 
 h2.sub_cat_title a{
@@ -635,13 +655,11 @@ h2.sub_cat_title a:hover{
 }
 
 div.block, div.update_block{
-  width: 90px;
+  width: 150px;
   margin: 10px;
   float: left;
-  min-height:90px;
-  max-height:300px;
+  min-height:150px;
   padding:10px;
-  overflow:hidden;
     -webkit-border-radius: 5px;
      -moz-border-radius: 5px;
           border-radius: 5px;
@@ -653,16 +671,16 @@ div.block h3
 }
 
 div.block a{
-  color: white;
+  color: #3E2B1A;
   text-decoration:none;
 }
 
 div.block a:hover{
-  color: #aaa;
+  text-decoration:underline;
 }
 
 div.form_block{
-  width: 90px;
+  width: 150px;
   margin: 10px;
   float: left;
   height:90px;
@@ -683,16 +701,33 @@ div.form_block a:hover{
   color: #aaa;
 }
 
+div.incomplete_block{
+	background-color: #d28307;
+	background-image: url('../img/!.png');
+}
+
+div.incomplete_block a {
+	color:white;
+	}
+	
+div.incomplete_block a:hover {
+	color:#E8C183;
+	text-decoration:none;
+	}
 
 div.update_html {
-	color:#ccc
+	color:#FFF
 }
 
 div.inner_wish_block{
-	width:90px;
+	width:110px;
 	min-height:90px;
-	max-height:200px;
+	
 }
+a div.inner_wish_block{
+	color: #324536;
+}
+
 
 div.wish_timing{
 	border: solid 1px black;
@@ -718,3 +753,55 @@ div.passing_note{
 #wish_container, #friend_container{
 	margin-bottom: 20px;
 }
+
+div.update_block {
+	background: #7B5633;
+}
+
+div.wish_block, div.friend_block{
+	background: #7DAD86;
+}
+
+div.friend_block, div.friend_block a{
+	color:#324536;
+	}
+	
+input.textfield, select{
+	font-family: 'Quicksand', sans-serif;
+	font-weight: bold;
+	color: #7B5633;
+	border:2px solid #7B5633;
+	padding:3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background:white;
+}
+
+input.button, a.button{
+border:1px solid #5e9468;
+-webkit-border-radius: 8px;
+-moz-border-radius: 8px;
+border-radius: 8px;
+font-family:'Quicksand', sans-serif;
+padding: 5px 5px 5px 5px; text-shadow: 1px 1px 0 rgba(18,20,18,1);font-weight:bold; text-align: center;
+font-size:17px;
+color: #FFFFFF; background-color: #7DAD86;
+ background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #7DAD86), color-stop(100%, #B1CEB6));
+ background-image: -webkit-linear-gradient(top, #7DAD86, #B1CEB6);
+ background-image: -moz-linear-gradient(top, #7DAD86, #B1CEB6);
+ background-image: -ms-linear-gradient(top, #7DAD86, #B1CEB6);
+ background-image: -o-linear-gradient(top, #7DAD86, #B1CEB6);
+ background-image: linear-gradient(top, #7DAD86, #B1CEB6);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#7DAD86, endColorstr=#B1CEB6);
+}
+
+input.button:hover, a.button:hover{
+ border:1px solid #4c7854; background-color: #60976a;
+ background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#60976a), color-stop(100%, #92ba99));
+ background-image: -webkit-linear-gradient(top, #60976a, #92ba99);
+ background-image: -moz-linear-gradient(top, #60976a, #92ba99);
+ background-image: -ms-linear-gradient(top, #60976a, #92ba99);
+ background-image: -o-linear-gradient(top, #60976a, #92ba99);
+ background-image: linear-gradient(top, #60976a, #92ba99);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#60976a, endColorstr=#92ba99);
+}
+
