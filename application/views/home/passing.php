@@ -1,6 +1,3 @@
-<div id="right_menu">
-	<a href="<?php echo url::base(). 'home/passing'; ?>"><?php  echo __("passing settings"); ?></a>
-</div>
 
 <h2><?php echo __("passing header"); ?></h2>
 <p><?php echo __("passing explanation");?></p>

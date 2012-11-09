@@ -1,5 +1,9 @@
 <div id="right_menu">
-	<a href="<?php echo url::base(). 'home/passing'; ?>"><?php  echo __("passing settings"); ?></a>
+<ul>
+<li>
+	<a class="button" href="<?php echo url::base(). 'home/passing'; ?>"><?php  echo __("passing settings"); ?></a>
+</li>
+</ul>
 </div>
 
 <h2><?php echo __("profile header"); ?></h2>
