@@ -425,7 +425,7 @@ $countries_array = array('Afghanistan'=>'Afghanistan',
 			<td>				
 				<div id="profile_image">
 					<?php if($user->picture != null){?>
-					<img src="<?php echo url::base().'/uploads/'.$user->picture;?>"/>
+					<img src="<?php echo URL::base().'uploads/'.$user->picture;?>"/>
 					<?php }?>
 				</div>
 				<div id="image_uploader">		
