@@ -95,7 +95,10 @@ class Controller_Admin_Forms extends Controller_Admin {
 			'pictures_name'=>'',
 			'show_files'=>'1',
 			'files_name'=>'',
-			'more_than_one'=>1);
+			'more_than_one'=>1,
+			'default_image'=>null,
+			'allow_user_default_image'=>0
+		);
 			
 		
 		
@@ -134,6 +137,8 @@ class Controller_Admin_Forms extends Controller_Admin {
 			$data['pictures_name']=$form->pictures_name;
 			$data['show_files']=$form->show_files;
 			$data['files_name']=$form->files_name;
+			$data['default_image']=$form->default_image;
+			$data['allow_user_default_image']=$form->allow_user_default_image;
 		}
 		
 		/***Now that we have the form, lets initialize the UI***/
@@ -180,6 +185,15 @@ class Controller_Admin_Forms extends Controller_Admin {
 					}
 					
 					$form->update_form($_POST);
+
+					if (isset($_FILES['default_image']))
+					{
+						$filename = $this->_save_image($_FILES['default_image'], $id);
+						if($filename){
+							$form->default_image = $filename;
+							$form->save();
+						}
+					}
 				}
 				
 				else if($_POST['action'] == 'delete')
@@ -279,6 +293,42 @@ class Controller_Admin_Forms extends Controller_Admin {
 		
 		 
 	 }//end action_edit
+	 
+	 /**
+	  * Used to save an image
+	  * @param unknown $image the details of the file to save
+	  * @param int $form_id The id of the form this image goes with
+	  * @return boolean|string
+	  */
+	 protected function _save_image($image, $form_id)
+	 {
+	 	if (
+	 	! Upload::valid($image) OR
+	 	! Upload::not_empty($image) OR
+	 	! Upload::type($image, array('jpg', 'jpeg', 'png', 'gif')))
+	 	{
+	 		return FALSE;
+	 	}
+	 
+	 	$directory = DOCROOT.'uploads/';
+	 
+	 	if ($file = Upload::save($image, NULL, $directory))
+	 	{
+	 		$filename = 'form_default_'.$form_id.'.jpg';
+	 
+	 		Image::factory($file)
+	 		->resize(190, 190, Image::AUTO)
+	 		->crop(190, 190)
+	 		->save($directory.$filename);
+	 
+	 		// Delete the temporary file
+	 		unlink($file);
+	 
+	 		return $filename;
+	 	}
+	 
+	 	return FALSE;
+	 }
 	
 	
 }//end of class

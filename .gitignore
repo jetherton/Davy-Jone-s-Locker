@@ -1,6 +1,7 @@
 application/config/database.php
 application/cache
 application/logs
+application/bootstrap.php
 .htaccess
 .buildpath
 .project

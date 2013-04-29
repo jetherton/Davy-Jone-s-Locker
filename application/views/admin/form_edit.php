@@ -53,7 +53,7 @@
 
 <div id="category_editor">
 <?php 	
-	echo Form::open(NULL, array('id'=>'edit_form_form')); 
+	echo Form::open(NULL, array('id'=>'edit_form_form','enctype' => 'multipart/form-data')); 
 	echo Form::hidden('action','edit', array('id'=>'action'));
 	echo Form::hidden('form_id','0', array('id'=>'form_id'));
 	echo '<table><tr><td>';
@@ -112,9 +112,22 @@
 	echo '</td><td>';
 	echo Form::input('files_name', $data['files_name'], array('id'=>'files_name', 'style'=>'width:300px;'));
 	
+	echo '</td></tr><tr><td>';
+	echo Form::label('default_image', __('default image').": ");
+	echo '</td><td>';
+	echo Form::file('default_image', array('id'=>'default_image', 'style'=>'width:300px;'));
+	if($data['default_image'] != null){
+		echo "<br/>";
+		echo '<img src="'.URL::base().'uploads/'.$data['default_image'].'"/>';
+	}
 	
 	echo '</td></tr><tr><td>';
-	echo Form::submit('edit', __('add edit'), array('id'=>'edit_button'));
+	echo Form::label('allow_user_default_image', __('allow user default image').": ");
+	echo '</td><td>';
+	echo Form::checkbox('allow_user_default_image', 'allow_user_default_image' , $data['allow_user_default_image'] == '1', array('id'=>'allow_user_default_image'));
+	
+	echo '</td></tr><tr><td>';
+	echo Form::submit('edit', __('add edit'), array('id'=>'edit_button'));	
 	echo '</td><td></td></tr></table>';
 	echo Form::close();
 ?>

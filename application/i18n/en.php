@@ -214,6 +214,8 @@ return array
 	'location name'=>'Name of "location" in sidebar',
 	'files name'=>'Name of "files" in sidebar',
 	'pictures name'=>'Name of "pictures" in sidebar',
+	'default image'=> 'Default Image',
+	'allow user default image'=>'Allow users to upload their own image for this form',
 	
 	//form fields
 	'text input'=>'Text Box',

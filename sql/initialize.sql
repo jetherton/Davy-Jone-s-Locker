@@ -376,3 +376,6 @@ ALTER TABLE  `users` ADD  `email_key` CHAR( 255 ) NULL DEFAULT NULL AFTER  `emai
 /**2012-09-18 - Lets you store images of the user*/
 ALTER TABLE  `users` ADD  `picture` CHAR( 255 ) NULL DEFAULT NULL AFTER  `citizenship`;
 ALTER TABLE  `users` ADD  `picture_small` CHAR( 255 ) NULL DEFAULT NULL AFTER  `picture`;
+
+/**2013-04-29 - Add a field for default image in forms**/
+ALTER TABLE  `forms` ADD  `default_image` CHAR( 255 ) NULL AFTER  `files_name`;

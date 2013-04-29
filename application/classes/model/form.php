@@ -69,7 +69,7 @@ class Model_Form extends ORM {
 		$expected = array('title', 'description', 'description_reader', 'order', 'category_id', 
 				'primary_field_title', 'primary_field_description', 'more_than_one',
 				'location_name', 'pictures_name','files_name',
-				'show_location', 'show_pictures','show_files');	
+				'show_location', 'show_pictures','show_files','allow_user_default_image');	
 
 		//update the order, first decrease everything above the cats current position
 		//but only if the order is already known for this cat
@@ -144,6 +144,16 @@ class Model_Form extends ORM {
 		{
 			$values['show_files'] = 0;
 		}
+		//let users upload their own images for the block
+		if(isset($values['allow_user_default_image']))
+		{
+			$values['allow_user_default_image'] = 1;
+		}
+		else
+		{
+			$values['allow_user_default_image'] = 0;
+		}
+		
 		
 		
 		$this->values($values, $expected);

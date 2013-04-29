@@ -805,3 +805,13 @@ input.button:hover, a.button:hover{
  background-image: linear-gradient(top, #60976a, #92ba99);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#60976a, endColorstr=#92ba99);
 }
 
+div.block a{
+	color:#7B5633;	
+	text-shadow:1px 1px 4px rgb(173, 158, 144);
+}
+
+div.block a:hover{
+	color:#7B5633;	
+	text-shadow:1px 1px 4px rgb(173, 158, 144);
+}
+
