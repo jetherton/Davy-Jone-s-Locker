@@ -317,7 +317,7 @@ class Controller_Admin_Forms extends Controller_Admin {
 	 		$filename = 'form_default_'.$form_id.'.jpg';
 	 
 	 		Image::factory($file)
-	 		->resize(190, 190, Image::AUTO)
+	 		->resize(190, 190, Image::INVERSE)
 	 		->crop(190, 190)
 	 		->save($directory.$filename);
 	 

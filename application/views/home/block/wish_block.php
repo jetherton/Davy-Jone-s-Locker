@@ -25,6 +25,12 @@
 	if($item->user_block_image){
 		$view->background_image = URL::base().'uploads/'.$item->user_block_image;
 	}
+	else{
+		$form = ORM::factory('Form', $item->form_id);
+		if($form->default_image != null){
+			$view->background_image = URL::base().'uploads/'.$form->default_image;
+		}
+	}
 	$view->content = $content;
 	$view->classes = array('wish_block');
 	echo $view;
