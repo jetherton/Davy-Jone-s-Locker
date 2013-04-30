@@ -81,6 +81,7 @@ return array
 	'whats required'=>'Fields with a * are required',
 	
 	//Wish
+	'upload image to represent this wish'=>'upload image to represent this wish',
 	'your information'=>'Your Information',
 	'wish' => 'Wish',
 	'add' => 'Add',

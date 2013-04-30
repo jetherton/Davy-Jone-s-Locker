@@ -56,7 +56,7 @@
 <?php 
 }
 ?>
-<form method="POST" action="<?php echo url::base().'home/wish/edit?id='. $wish->id;?>" id="wish_edit_form" accept-charset="utf-8">
+<form method="POST" enctype="multipart/form-data" action="<?php echo url::base().'home/wish/edit?id='. $wish->id;?>" id="wish_edit_form" accept-charset="utf-8">
 <?php echo Form::hidden('action', 'none', array('id'=>'action'));?>
 <?php echo Form::hidden('is_add', $is_add ? '1' : '0', array('id'=>'is_add'));?>
 	<table class="wish_edit">
@@ -174,6 +174,19 @@
 				<?php echo Helper_Form::get_html_form($form, $wish); ?>
 			</td>
 		</tr>
+		<?php if($form->allow_user_default_image){?>
+			<tr>
+				<td>		
+				<?php echo Form::label(__("user_image"), ''.__("upload image to represent this wish") . ':');  ?>
+				<br/>
+				<?php print Form::file('user_block_image');?>
+				<?php if($wish->user_block_image != null){?>
+				<br/>
+				<img src="<?php echo URL::base().'uploads/'.$wish->user_block_image;?>"/>
+				<?php }?>
+				</td>										
+			</tr>
+		<?php }?>
 		<tr>
 			<td>
 				<br/>

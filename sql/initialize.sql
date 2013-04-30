@@ -379,3 +379,4 @@ ALTER TABLE  `users` ADD  `picture_small` CHAR( 255 ) NULL DEFAULT NULL AFTER  `
 
 /**2013-04-29 - Add a field for default image in forms**/
 ALTER TABLE  `forms` ADD  `default_image` CHAR( 255 ) NULL AFTER  `files_name`;
+ALTER TABLE  `wishes` ADD  `user_block_image` CHAR( 255 ) NULL DEFAULT NULL;

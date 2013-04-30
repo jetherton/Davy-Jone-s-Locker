@@ -302,6 +302,15 @@ class Controller_Home_Wish extends Controller_Home {
 					$this->handle_location($wish);
 					$wish_title = $wish->get_title();
 					$this->template->content->messages[] = __(':title edited successfully', array(':title'=>$wish_title));
+					//handle images for the block
+					if (isset($_FILES['user_block_image']))
+					{
+						$filename = $this->_save_image($_FILES['user_block_image'],$wish->id);
+						if($filename){
+							$wish->user_block_image = $filename;
+							$wish->save();
+						}
+					}
 				}
 
 			}
@@ -353,6 +362,45 @@ class Controller_Home_Wish extends Controller_Home {
 		}
 		
 	}//end function action_edit
+	
+	
+	
+	
+	/**
+	 * Used to save an image
+	 * @param unknown $image the details of the file to save
+	 * @param int $wish_id The id of the wish this image goes with
+	 * @return boolean|string
+	 */
+	protected function _save_image($image, $wish_id)
+	{
+		if (
+		! Upload::valid($image) OR
+		! Upload::not_empty($image) OR
+		! Upload::type($image, array('jpg', 'jpeg', 'png', 'gif')))
+		{
+			return FALSE;
+		}
+	
+		$directory = DOCROOT.'uploads/';
+	
+		if ($file = Upload::save($image, NULL, $directory))
+		{
+			$filename = 'wish_block_'.$wish_id.'.jpg';
+	
+			Image::factory($file)
+			->resize(190, 190, Image::INVERSE)
+			->crop(190, 190)
+			->save($directory.$filename);
+	
+			// Delete the temporary file
+			unlink($file);
+	
+			return $filename;
+		}
+	
+		return FALSE;
+	}
 	
 	
 	

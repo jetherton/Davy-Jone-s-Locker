@@ -22,7 +22,9 @@
 		}
 	}
 	$content .= /*$item->form->title.*/'</div></a>';
-	
+	if($item->user_block_image){
+		$view->background_image = URL::base().'uploads/'.$item->user_block_image;
+	}
 	$view->content = $content;
 	$view->classes = array('wish_block');
 	echo $view;

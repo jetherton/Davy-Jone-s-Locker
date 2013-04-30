@@ -807,11 +807,13 @@ input.button:hover, a.button:hover{
 
 div.block a{
 	color:#7B5633;	
-	text-shadow:1px 1px 4px rgb(173, 158, 144);
+	text-shadow:1px 1px 3px white,-1px -1px 3px white, 1px -1px 3px white,-1px 1px 3px white;
 }
 
 div.block a:hover{
+	text-decoration:none;
 	color:#7B5633;	
-	text-shadow:1px 1px 4px rgb(173, 158, 144);
+	text-shadow:1px 1px 2px rgb(173, 158, 144),-1px -1px 2px rgb(173, 158, 144),
+	 1px -1px 2px rgb(173, 158, 144),-1px 1px 2px rgb(173, 158, 144);
 }
 
